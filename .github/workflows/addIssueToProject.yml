@@ -12,4 +12,4 @@ jobs:
       - uses: actions/add-to-project@v1.0.1
         with:
           project-url: https://github.com/orgs/puzzle/projects/13
-          github-token: ${{ secrets.ADD_ISSUE_TO_PROJECT_CLASSIC }}
+          github-token: ${{ secrets.ADD_ISSUE_TO_PROJECT }}
