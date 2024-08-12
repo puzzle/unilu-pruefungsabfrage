@@ -4,8 +4,11 @@ on: [push]
 jobs:
   validate-formatting:
     runs-on: ubuntu-22.04
-    container:
-      image: maven:3.9.8-amazoncorretto-21
     steps:
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'oracle'
       - name: Validate that the code is formatted correctly
         run: mvn formatter:validate
