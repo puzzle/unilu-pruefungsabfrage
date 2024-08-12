@@ -3,5 +3,7 @@ name: 'Validate Formatting'
 on: [push]
 jobs:
   validate-formatting:
-    runs-on: maven:3.9.8-amazoncorretto-21
-    run: mvn formatter:verify
+    runs-on: maven-3.9.8-amazoncorretto-21
+    steps:
+      - name: Validate that the code is formatted correctly
+        run: mvn formatter:verify
