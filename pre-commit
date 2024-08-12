@@ -1,1 +1,5 @@
+#!/bin/sh
+
+addedFiles=$(git diff --cached --name-only --diff-filter=a)
 mvn formatter:format
+git add $addedFiles
