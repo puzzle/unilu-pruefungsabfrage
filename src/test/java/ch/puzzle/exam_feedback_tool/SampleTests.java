@@ -5,11 +5,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class FailingTest {
+class SampleTests {
 
     @Test
-    void Test() {
+    void piplelineShouldRun() {
         int number = 1;
-        assertEquals(2, number);
+        assertEquals(1, number);
     }
 }
