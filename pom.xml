@@ -74,6 +74,7 @@
 					<compilerCompliance>21</compilerCompliance>
 					<compilerTargetPlatform>21</compilerTargetPlatform>
 					<lineEnding>LF</lineEnding>
+					<configFile>${project.basedir}/src/main/resources/formatting.xml</configFile>
 				</configuration>
 				<executions>
 					<execution>
