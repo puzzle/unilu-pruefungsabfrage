@@ -73,6 +73,7 @@
 					<compilerSource>21</compilerSource>
 					<compilerCompliance>21</compilerCompliance>
 					<compilerTargetPlatform>21</compilerTargetPlatform>
+					<lineEnding>LF</lineEnding>
 				</configuration>
 				<executions>
 					<execution>
