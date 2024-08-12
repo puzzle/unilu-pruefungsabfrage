@@ -8,4 +8,4 @@ jobs:
       image: maven:3.9.8-amazoncorretto-21
     steps:
       - name: Validate that the code is formatted correctly
-        run: mvn formatter:verify
+        run: mvn formatter:validate
