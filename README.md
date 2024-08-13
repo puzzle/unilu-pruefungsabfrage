@@ -1,4 +1,9 @@
 # Uni Luzern Prüfungsabfrage
+## Docker
+### Build Image
+`docker build -f Dockerfile.prod . -t uni-luzern`
+### Run Image
+`docker run --rm  -v /some/file/system:/root/resources/ -p 8080:8888 uni-luzern:latest`
 
 ### Code formatting in pre-commit hook
 To have consistent code formatting in the entire project, the formatter-maven-plugin
