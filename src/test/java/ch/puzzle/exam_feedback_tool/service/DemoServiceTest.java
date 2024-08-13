@@ -8,8 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class DemoServiceTest {
 
+    DemoService demoService;
+
     @Autowired
-    private DemoService demoService;
+    public void setDemoService(DemoService demoService) {
+        this.demoService = demoService;
+    }
 
     @Test
     public void shouldGenerateGreetingWithGivenName() {

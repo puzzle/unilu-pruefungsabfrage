@@ -19,8 +19,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 
 public class DemoControllerTest {
+
+    MockMvc mockMvc;
+
     @Autowired
-    private MockMvc mockMvc;
+    public DemoControllerTest(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
     @MockBean
     private DemoService demoService;
