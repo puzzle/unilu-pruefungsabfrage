@@ -17,21 +17,28 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class CypressE2ETest {
 
-    Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
+    Logger logger = LoggerFactory
+            .getLogger(CypressE2ETest.class);
 
     @LocalServerPort
     private int port;
 
     @Test
     void runCypressE2ETests() {
-        Testcontainers.exposeHostPorts(port);
+        Testcontainers
+                .exposeHostPorts(port);
         try (GenericContainer<?> container = new GenericContainer<>("cypress/included:13.13.2")) {
-            container.withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_WRITE).withWorkingDirectory("/e2e")
+            container
+                    .withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_WRITE)
+                    .withWorkingDirectory("/e2e")
                     .withEnv("CYPRESS_baseUrl", "http://host.testcontainers.internal:" + port)
                     .withLogConsumer(new Slf4jLogConsumer(logger))
                     .withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy())
-                    .withCommand("--browser=chrome").start();
-            assertThat(container.getLogs()).contains("All specs passed!");
+                    .withCommand("--browser=chrome")
+                    .start();
+            assertThat(container
+                    .getLogs())
+                    .contains("All specs passed!");
         }
     }
 }

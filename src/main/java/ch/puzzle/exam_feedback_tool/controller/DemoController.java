@@ -19,13 +19,17 @@ public class DemoController {
 
     @GetMapping("/greeting")
     public ResponseEntity<String> greetPerson(@RequestParam String name) {
-        String greeting = demoService.greetByName(name);
-        return ResponseEntity.ok(greeting);
+        String greeting = demoService
+                .greetByName(name);
+        return ResponseEntity
+                .ok(greeting);
     }
 
     @GetMapping("/multiply")
     public ResponseEntity<Integer> multiply() {
-        int result = demoService.multiply(2,2);
-        return ResponseEntity.ok(result);
+        int result = demoService
+                .multiply(2, 2);
+        return ResponseEntity
+                .ok(result);
     }
 }

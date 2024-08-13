@@ -32,15 +32,28 @@ public class DemoControllerTest {
 
     @Test
     void shouldReceiveGreetingBasedOnName() throws Exception {
-        when(demoService.greetByName("Greetings")).thenCallRealMethod();
-        this.mockMvc.perform(get("/api/v1/greeting").queryParam("name", "Greetings")).andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello Greetings")));
+        when(demoService
+                .greetByName("Greetings"))
+                .thenCallRealMethod();
+        this.mockMvc
+                .perform(get("/api/v1/greeting")
+                        .queryParam("name", "Greetings"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(content()
+                        .string(equalTo("Hello Greetings")));
     }
 
     @Test
     void shouldReturnGeneratedRandomNumber() throws Exception {
-        when(demoService.multiply(2, 2)).thenReturn(4);
-        this.mockMvc.perform(get("/api/v1/multiply")).andExpect(status().isOk())
-                .andExpect(content().string(equalTo("4")));
+        when(demoService
+                .multiply(2, 2))
+                .thenReturn(4);
+        this.mockMvc
+                .perform(get("/api/v1/multiply"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(content()
+                        .string(equalTo("4")));
     }
 }

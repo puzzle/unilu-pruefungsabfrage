@@ -17,13 +17,15 @@ public class DemoServiceTest {
 
     @Test
     public void shouldGenerateGreetingWithGivenName() {
-        String generatedGreeting = demoService.greetByName("Balthasar");
+        String generatedGreeting = demoService
+                .greetByName("Balthasar");
         assertEquals("Hello Balthasar", generatedGreeting);
     }
 
     @Test
     public void shouldReturnCalculatedNumber() {
-        int result = demoService.multiply(2, 2);
+        int result = demoService
+                .multiply(2, 2);
         assertEquals(2 * 2, result);
     }
 }
