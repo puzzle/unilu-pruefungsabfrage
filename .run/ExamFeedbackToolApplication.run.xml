@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ExamFeedbackToolApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="exam-feedback-tool" />
+    <option name="PROGRAM_PARAMETERS" value="just_a_path" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ch.puzzle.exam_feedback_tool.ExamFeedbackToolApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

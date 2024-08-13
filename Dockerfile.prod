@@ -1,3 +1,3 @@
 FROM openjdk:21
-COPY target/exam-feedback-tool-0.0.1-SNAPSHOT.jar exam-feedback-tool-0.0.1-SNAPSHOT.jar
-ENTRYPOINT ["java","-jar","/exam-feedback-tool-0.0.1-SNAPSHOT.jar"]
+COPY --chown=1001 target .
+ENTRYPOINT ["/bin/sh", "-c", "export BACKEND_JAR=$(find . -type f -name 'exam-feedback-tool-*.jar' -printf '%f\n' -quit); java -jar ${BACKEND_JAR}"]
