@@ -7,3 +7,7 @@ running the `setup-pre-commit` shell-script in the root directory. It will copy 
 pre-commit script to the `.git/hooks` directory. Please note that this only works if you
 don't already have such a script. In this case, either delete the old script or merge the contents
 with the new script.
+
+To change formatting preferences, you can export your formatting settings as eclipse
+code formatter profile file, call it formatting(.xml) and replace the old config file in the
+resources directory.
