@@ -11,7 +11,7 @@ public class DemoServiceTest {
     DemoService demoService;
 
     @Autowired
-    public void setDemoService(DemoService demoService) {
+    public DemoServiceTest(DemoService demoService) {
         this.demoService = demoService;
     }
 
