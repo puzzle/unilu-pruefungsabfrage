@@ -1,3 +1,4 @@
 FROM openjdk:21
 COPY target .
-ENTRYPOINT ["/bin/sh", "-c", "export BACKEND_JAR=$(find . -type f -name 'exam-feedback-tool*.jar' -printf '%f\n' -quit); java -jar ${BACKEND_JAR}"]
+ENV RESOURCE_DIR=/resources
+ENTRYPOINT ["/bin/sh", "-c", "export BACKEND_JAR=$(find . -type f -name 'exam-feedback-tool*.jar' -printf '%f\n' -quit);",  "java -jar  ${BACKEND_JAR}"]
