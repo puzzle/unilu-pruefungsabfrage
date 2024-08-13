@@ -1,7 +1,9 @@
 package ch.puzzle.exam_feedback_tool.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +15,18 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/api/v2")
 public class FileDemoController {
-    @Value("${basePath}")
-    private String basePath;
+
+    public FileDemoController(Environment environment) {
+        this.environment = environment;
+    }
+
+    private Environment environment;
 
     @GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
     public ResponseEntity<FileSystemResource> downloadFile(HttpServletResponse response) {
+        String basePath = environment
+                .getProperty("RESOURCE_DIR", "");
 //        System.out.println(Arrays.stream(new File(basePath).listFiles()).map(File::getAbsoluteFile).toList());
         File examFile = new File(basePath + "/11111_11112222.pdf");
         response
