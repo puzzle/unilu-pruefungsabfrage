@@ -23,9 +23,9 @@ public class DemoController {
         return ResponseEntity.ok(greeting);
     }
 
-    @GetMapping("/randint")
-    public ResponseEntity<Integer> getRandomNumber() {
-        int calculatedRandomNumber = demoService.calculateRandomNumber();
-        return ResponseEntity.ok(calculatedRandomNumber);
+    @GetMapping("/multiply")
+    public ResponseEntity<Integer> multiply() {
+        int result = demoService.multiply(2,2);
+        return ResponseEntity.ok(result);
     }
 }

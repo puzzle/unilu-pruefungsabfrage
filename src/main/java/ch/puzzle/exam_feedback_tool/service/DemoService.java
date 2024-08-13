@@ -10,9 +10,8 @@ public class DemoService {
         return "Hello " + name;
     }
 
-    public int calculateRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(1, 100) * random.nextInt(1, 100);
+    public int multiply(int a, int b) {
+        return a * b;
     }
 
 }

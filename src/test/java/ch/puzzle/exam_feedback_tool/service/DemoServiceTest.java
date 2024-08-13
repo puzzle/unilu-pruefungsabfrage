@@ -16,4 +16,10 @@ public class DemoServiceTest {
         assertEquals("Hello Balthasar", generatedGreeting);
     }
 
+    @Test
+    public void shouldReturnCalculatedNumber() {
+        int result = demoService.multiply(2, 2);
+        assertEquals(2 * 2, result);
+    }
+
 }

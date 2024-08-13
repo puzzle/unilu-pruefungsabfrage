@@ -35,9 +35,9 @@ public class DemoControllerTest {
 
     @Test
     void shouldReturnGeneratedRandomNumber() throws Exception {
-        when(demoService.calculateRandomNumber()).thenReturn(100);
-        this.mockMvc.perform(get("/api/v1/randint")).andExpect(status().isOk())
-                .andExpect(content().string(equalTo("100")));
+        when(demoService.multiply(2, 2)).thenReturn(4);
+        this.mockMvc.perform(get("/api/v1/multiply")).andExpect(status().isOk())
+                .andExpect(content().string(equalTo("4")));
     }
 
 }
