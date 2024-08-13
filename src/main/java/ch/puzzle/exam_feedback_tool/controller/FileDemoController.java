@@ -21,7 +21,9 @@ public class FileDemoController {
     public ResponseEntity<FileSystemResource> downloadFile(HttpServletResponse response) {
 //        System.out.println(Arrays.stream(new File(basePath).listFiles()).map(File::getAbsoluteFile).toList());
         File examFile = new File(basePath + "/11111_11112222.pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=" + "test" + ".pdf");
-        return ResponseEntity.ok(new FileSystemResource(examFile));
+        response
+                .setHeader("Content-Disposition", "attachment; filename=" + "test" + ".pdf");
+        return ResponseEntity
+                .ok(new FileSystemResource(examFile));
     }
 }
