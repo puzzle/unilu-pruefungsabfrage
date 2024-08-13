@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(DemoController.class)
 @WithMockUser
@@ -33,15 +32,17 @@ public class DemoControllerTest {
     @Test
     void shouldReceiveGreetingBasedOnName() throws Exception {
         when(demoService
-                .greetByName("Greetings"))
-                .thenCallRealMethod();
+                .greetByName("Harald"))
+                .thenReturn("Hello Harald");
         this.mockMvc
-                .perform(get("/api/v1/greeting")
-                        .queryParam("name", "Greetings"))
+                .perform(get("/greeting")
+                        .queryParam("name", "Harald"))
                 .andExpect(status()
                         .isOk())
-                .andExpect(content()
-                        .string(equalTo("Hello Greetings")));
+                .andExpect(view()
+                        .name("result"))
+                .andExpect(model()
+                        .attribute("result", equalTo("Hello Harald")));
     }
 
     @Test
@@ -50,10 +51,12 @@ public class DemoControllerTest {
                 .multiply(2, 2))
                 .thenReturn(4);
         this.mockMvc
-                .perform(get("/api/v1/multiply"))
+                .perform(get("/"))
                 .andExpect(status()
                         .isOk())
-                .andExpect(content()
-                        .string(equalTo("4")));
+                .andExpect(view()
+                        .name("result"))
+                .andExpect(model()
+                        .attribute("result", 4));
     }
 }
