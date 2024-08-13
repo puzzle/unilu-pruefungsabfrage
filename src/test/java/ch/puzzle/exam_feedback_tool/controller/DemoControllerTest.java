@@ -25,12 +25,11 @@ public class DemoControllerTest {
     @MockBean
     private DemoService demoService;
 
-
     @Test
     void shouldReceiveGreetingBasedOnName() throws Exception {
-        when(demoService.greetByName("Hansjakobli")).thenCallRealMethod();
-        this.mockMvc.perform(get("/api/v1/greeting").queryParam("name", "Hansjakobli")).andExpect(status().isOk())
-                .andExpect(content().string(equalTo("Hello Hansjakobli")));
+        when(demoService.greetByName("Greetings")).thenCallRealMethod();
+        this.mockMvc.perform(get("/api/v1/greeting").queryParam("name", "Greetings")).andExpect(status().isOk())
+                .andExpect(content().string(equalTo("Hello Greetings")));
     }
 
     @Test
@@ -39,5 +38,4 @@ public class DemoControllerTest {
         this.mockMvc.perform(get("/api/v1/multiply")).andExpect(status().isOk())
                 .andExpect(content().string(equalTo("4")));
     }
-
 }

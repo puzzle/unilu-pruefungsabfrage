@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class DemoServiceTest {
+
     @Autowired
     private DemoService demoService;
 
@@ -21,5 +22,4 @@ public class DemoServiceTest {
         int result = demoService.multiply(2, 2);
         assertEquals(2 * 2, result);
     }
-
 }

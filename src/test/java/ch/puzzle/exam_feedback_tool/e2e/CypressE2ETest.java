@@ -16,6 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class CypressE2ETest {
+
     Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
 
     @LocalServerPort
