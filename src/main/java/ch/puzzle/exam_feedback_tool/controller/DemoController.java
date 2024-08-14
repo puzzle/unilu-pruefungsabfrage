@@ -22,8 +22,8 @@ public class DemoController {
         String greeting = demoService
                 .greetByName(name);
         model
-                .addAttribute("result", greeting);
-        return "result";
+                .addAttribute("greeting", greeting);
+        return "greeting";
     }
 
     @GetMapping("/")

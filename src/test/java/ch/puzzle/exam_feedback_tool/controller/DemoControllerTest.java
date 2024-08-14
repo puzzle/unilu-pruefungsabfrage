@@ -40,9 +40,9 @@ public class DemoControllerTest {
                 .andExpect(status()
                         .isOk())
                 .andExpect(view()
-                        .name("result"))
+                        .name("greeting"))
                 .andExpect(model()
-                        .attribute("result", equalTo("Hello Harald")));
+                        .attribute("greeting", equalTo("Hello Harald")));
     }
 
     @Test
