@@ -1,0 +1,29 @@
+name: 'Dependency Track Deployment'
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+jobs:
+  generate-and-push-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate SBOM for maven dependencies
+        run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
+
+      - name: Push SBOM to dependency track
+        env:
+          PROJECT_NAME: unilu-exam-tool
+        run: |
+          curl --verbose -s --location --request POST ${{ secrets.DEPENDENCY_TRACK_URL }} \
+          --header "X-Api-Key: ${{ secrets.SECRET_OWASP_DT_KEY }}" \
+          --header "Content-Type: multipart/form-data" \
+          --form "autoCreate=true" \
+          --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}" \
+          --form "projectVersion=latest" \
+          --form "bom=@sbom.xml"
