@@ -26,6 +26,6 @@ public class DemoServiceTest {
     public void shouldReturnCalculatedNumber() {
         int result = demoService
                 .multiply(2, 2);
-        assertEquals(2 * 2, result);
+        assertEquals(4, result);
     }
 }
