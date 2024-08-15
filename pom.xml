@@ -81,25 +81,6 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>4.0.0.4121</version>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>net.revelc.code.formatter</groupId>-->
-<!--				<artifactId>formatter-maven-plugin</artifactId>-->
-<!--				<version>2.24.1</version>-->
-<!--				<configuration>-->
-<!--					<compilerSource>21</compilerSource>-->
-<!--					<compilerCompliance>21</compilerCompliance>-->
-<!--					<compilerTargetPlatform>21</compilerTargetPlatform>-->
-<!--					<lineEnding>LF</lineEnding>-->
-<!--					<configFile>${project.basedir}/src/main/resources/formatting.xml</configFile>-->
-<!--				</configuration>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<goals>-->
-<!--							<goal>format</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>

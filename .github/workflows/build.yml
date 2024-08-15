@@ -40,4 +40,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: mvn -B -e sonar:sonar -Dsonar.projectKey=unilu-exam-feedback-tool
+        run: mvn clean install -DskipTests sonar:sonar -X -Dsonar.token=$SONAR_TOKEN
