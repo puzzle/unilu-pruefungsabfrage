@@ -19,22 +19,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 21
-      - name: Cache SonarQube packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_LOGIN: ${{ secrets.SONAR_USER_TOKEN }}
         run: mvn clean install -DskipTests sonar:sonar -Dsonar.host.url=https://sonar.puzzle.ch -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.login=${{ secrets.SONAR_USER_TOKEN }} -Dsonar.projectKey=unilu-exam-feedback-tool
