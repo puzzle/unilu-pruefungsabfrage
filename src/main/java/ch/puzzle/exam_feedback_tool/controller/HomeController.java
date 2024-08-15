@@ -13,14 +13,21 @@ import java.util.logging.Logger;
 @Controller
 public class HomeController {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory
+            .getLogger(HomeController.class);
 
 
     @RequestMapping("/")
     public String home(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
-        model.addAttribute("name", principal.getName());
-        model.addAttribute("email", principal.getFirstAttribute("email"));
-        model.addAttribute("userAttributes", principal.getAttributes());
+        model
+                .addAttribute("name", principal
+                        .getName());
+        model
+                .addAttribute("email", principal
+                        .getFirstAttribute("email"));
+        model
+                .addAttribute("userAttributes", principal
+                        .getAttributes());
         return "home";
     }
 
