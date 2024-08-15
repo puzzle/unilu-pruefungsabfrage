@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: exam-feedback-tool
+  security:
+    saml2:
+      relyingparty:
+        registration:
+          okta:
+            assertingparty:
+              metadata-uri: classpath:testxml.xml
+#              metadata-uri: https://dev-15393397.okta.com/app/exkid13t0fswoJ1h75d7/sso/saml/metadata
+#            signing:
+#              credentials:
+#                - private-key-location: classpath:certs/private_key.pem
+#                  certificate-location: classpath:certs/sp.crt
+#            singlelogout:
+#              binding: POST
+#              response-url: http://localhost:8080/logout/saml2/slo
