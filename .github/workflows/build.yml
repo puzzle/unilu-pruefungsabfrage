@@ -20,5 +20,4 @@ jobs:
         with:
           java-version: 21
       - name: Build and analyze
-        env:
         run: mvn clean install -DskipTests sonar:sonar -Dsonar.host.url=https://sonar.puzzle.ch -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.login=${{ secrets.SONAR_USER_TOKEN }} -Dsonar.projectKey=unilu-exam-feedback-tool
