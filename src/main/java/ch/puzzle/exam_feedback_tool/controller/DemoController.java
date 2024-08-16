@@ -17,15 +17,6 @@ public class DemoController {
         this.demoService = demoService;
     }
 
-    @GetMapping("/greeting")
-    public String greetPerson(@RequestParam String name, Model model) {
-        String greeting = demoService
-                .greetByName(name);
-        model
-                .addAttribute("greeting", greeting);
-        return "greeting";
-    }
-
     @GetMapping("/")
     public String multiply(Model model) {
         int result = demoService
@@ -33,5 +24,14 @@ public class DemoController {
         model
                 .addAttribute("result", result);
         return "result";
+    }
+
+    @GetMapping("/greeting")
+    public String greetPerson(@RequestParam String name, Model model) {
+        String greeting = demoService
+                .greetByName(name);
+        model
+                .addAttribute("greeting", greeting);
+        return "greeting";
     }
 }
