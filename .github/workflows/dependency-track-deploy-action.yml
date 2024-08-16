@@ -21,4 +21,4 @@ jobs:
           --form "autoCreate=true" \
           --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}" \
           --form "projectVersion=latest" \
-          --form "bom=@sbom.xml"
+          --form "bom=@bom.xml"
