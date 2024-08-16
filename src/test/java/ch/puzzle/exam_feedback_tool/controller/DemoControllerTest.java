@@ -42,7 +42,7 @@ public class DemoControllerTest {
                 .andExpect(view()
                         .name("greeting"))
                 .andExpect(model()
-                        .attribute("greeting", equalTo("Hello Harald")));
+                        .attribute("greeting", "Hello Harald"));
     }
 
     @Test
