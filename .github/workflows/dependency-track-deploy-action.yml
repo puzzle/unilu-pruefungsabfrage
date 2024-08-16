@@ -13,7 +13,7 @@ jobs:
 
       - name: Push SBOM to dependency track
         env:
-          PROJECT_NAME: unilu-exam-tool
+          PROJECT_NAME: unilu-pruefungsabfrage-private
         run: |
           curl --verbose -s --location --request POST ${{ secrets.DEPENDENCY_TRACK_URL }} \
           --header "X-Api-Key: ${{ secrets.OWASP_DT_KEY }}" \
