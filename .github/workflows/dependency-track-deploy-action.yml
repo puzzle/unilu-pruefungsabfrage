@@ -1,11 +1,6 @@
 name: 'Dependency Track Deployment'
 
-on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - main
+on: [push]
 jobs:
   generate-and-push-sbom:
     runs-on: ubuntu-latest
@@ -21,7 +16,7 @@ jobs:
           PROJECT_NAME: unilu-exam-tool
         run: |
           curl --verbose -s --location --request POST ${{ secrets.DEPENDENCY_TRACK_URL }} \
-          --header "X-Api-Key: ${{ secrets.SECRET_OWASP_DT_KEY }}" \
+          --header "X-Api-Key: ${{ secrets.OWASP_DT_KEY }}" \
           --header "Content-Type: multipart/form-data" \
           --form "autoCreate=true" \
           --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}" \
