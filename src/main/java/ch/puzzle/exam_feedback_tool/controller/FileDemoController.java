@@ -27,9 +27,9 @@ public class FileDemoController {
     public ResponseEntity<FileSystemResource> downloadFile(HttpServletResponse response) {
         String basePath = environment
                 .getProperty("RESOURCE_DIR", "");
-        File examFile = new File(basePath + "/11111_11112222.pdf");
+        File examFile = new File(basePath + "/Handels und Gesellschaftsrecht/11000_11112222.pdf");
         response
-                .setHeader("Content-Disposition", "attachment; filename=" + "test" + ".pdf");
+                .setHeader("Content-Disposition", "attachment; filename=" + "Handels und Gesellschaftsrecht" + ".pdf");
         return ResponseEntity
                 .ok(new FileSystemResource(examFile));
     }
