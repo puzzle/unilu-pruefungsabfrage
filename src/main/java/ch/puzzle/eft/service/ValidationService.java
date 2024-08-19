@@ -9,10 +9,4 @@ public class ValidationService {
         return examNumber
                 .matches(examNumberRegex);
     }
-
-    public boolean validateMatrikelNumber(String matrikelNumber) {
-        String matrikelNumberRegex = "^[0-9]{8}$";
-        return matrikelNumber
-                .matches(matrikelNumberRegex);
-    }
 }
