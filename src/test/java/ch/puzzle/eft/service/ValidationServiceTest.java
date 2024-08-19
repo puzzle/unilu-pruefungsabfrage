@@ -1,12 +1,9 @@
 package ch.puzzle.eft.service;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +32,7 @@ public class ValidationServiceTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"a4040", "3k392", "85c29", "203G3", "3852N", "I am Text", "asdfg", "null", "false", "true", "nil", ""})
+    @ValueSource(strings = {"a4040", "3k392", "85c29", "203G3", "3852N", "I am Text", "asdfg", "null", "false", "true", "nil", "", "^[0-9]{5}$"})
     public void valuesContainingLettersShouldNotBeValid(String examNumber) {
         assertFalse(validationService
                 .validateExamNumber(examNumber));
@@ -44,7 +41,7 @@ public class ValidationServiceTest {
     @ParameterizedTest
     @ValueSource(strings = {"\\", ".", "[", "]", "{", "}", "(", ")", "<", ">", "*", "+", "-", "=", "!", "?", "^", "$", "|", "`", "'", "´", "\"", "~", "%", "&", ",", "_", ";", ":", "°", "@", "#"})
     public void numbersContainingSpecialCharactersShouldNotBeValid(String specialCharacter) {
-        String examNumber = "1100" + specialCharacter;
+        String examNumber = "1103" + specialCharacter;
         assertFalse(validationService
                 .validateExamNumber(examNumber));
     }
