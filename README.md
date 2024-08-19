@@ -1,4 +1,4 @@
-# Uni Luzern Prüfungsabfrage
+# Uni Luzern Prüfungsabfrage / Exam Feedback Tool (EFT)
 ## Docker
 ### Build Image
 `docker build . -t uni-luzern`

@@ -1,4 +1,4 @@
-package ch.puzzle.exam_feedback_tool;
+package ch.puzzle.eft;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

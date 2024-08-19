@@ -1,4 +1,4 @@
-package ch.puzzle.exam_feedback_tool.e2e;
+package ch.puzzle.eft.e2e;
 
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;

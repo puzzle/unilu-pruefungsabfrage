@@ -1,4 +1,4 @@
-package ch.puzzle.exam_feedback_tool;
+package ch.puzzle.eft;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
