@@ -16,11 +16,11 @@ import java.util.Arrays;
 @RequestMapping("/api/v2")
 public class FileDemoController {
 
+    private Environment environment;
+
     public FileDemoController(Environment environment) {
         this.environment = environment;
     }
-
-    private Environment environment;
 
     @GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @ResponseBody
