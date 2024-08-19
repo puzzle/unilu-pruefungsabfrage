@@ -1,4 +1,4 @@
-package ch.puzzle.exam_feedback_tool.controller;
+package ch.puzzle.eft.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

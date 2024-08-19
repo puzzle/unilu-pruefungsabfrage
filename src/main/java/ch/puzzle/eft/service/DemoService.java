@@ -1,4 +1,4 @@
-package ch.puzzle.exam_feedback_tool.service;
+package ch.puzzle.eft.service;
 
 import org.springframework.stereotype.Service;
 

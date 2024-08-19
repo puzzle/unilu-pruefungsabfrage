@@ -1,6 +1,6 @@
-package ch.puzzle.exam_feedback_tool.controller;
+package ch.puzzle.eft.controller;
 
-import ch.puzzle.exam_feedback_tool.service.DemoService;
+import ch.puzzle.eft.service.DemoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
