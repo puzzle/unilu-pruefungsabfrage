@@ -40,7 +40,7 @@ public class ValidationServiceTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"\\", ".", "[", "]", "{", "}", "(", ")", "<", ">", "*", "+", "-", "=", "!", "?", "^", "$", "|", "`", "'", "´", "\"", "~", "%", "&", ",", "_", ";", ":", "°", "@", "#"})
-    public void numbersContainingSpecialCharactersShouldNotBeValid(String specialCharacter) {
+    public void valuesContainingSpecialCharactersShouldNotBeValid(String specialCharacter) {
         String examNumber = "1103" + specialCharacter;
         assertFalse(validationService
                 .validateExamNumber(examNumber));
