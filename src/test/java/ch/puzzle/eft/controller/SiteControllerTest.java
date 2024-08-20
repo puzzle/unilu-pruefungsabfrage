@@ -29,4 +29,14 @@ public class SiteControllerTest {
                 .andExpect(view()
                         .name("index"));
     }
+
+    @Test
+    void searchRouteShouldReturnSearchPage() throws Exception {
+        this.mockMvc
+                .perform(get("/search"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(view()
+                        .name("search"));
+    }
 }

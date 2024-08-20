@@ -1,0 +1,20 @@
+.application-header {
+    width: 100%;
+    height: 4em;
+    background-color: lightgray;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-title {
+    font-size: x-large;
+}
+
+.header-item {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
