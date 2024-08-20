@@ -50,7 +50,7 @@ public class DemoControllerTest {
                 .multiply(2, 2))
                 .thenReturn(4);
         this.mockMvc
-                .perform(get("/"))
+                .perform(get("/multiplication"))
                 .andExpect(status()
                         .isOk())
                 .andExpect(view()
