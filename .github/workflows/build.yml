@@ -20,4 +20,4 @@ jobs:
         with:
           java-version: 21
       - name: Build and analyze
-        run: mvn clean install sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.login=${{ secrets.SONAR_USER_TOKEN }}
+        run: mvn clean install sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
