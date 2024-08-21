@@ -1,5 +1,6 @@
 package ch.puzzle.eft.service;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class ValidationServiceTest {
         String examNumber = "1103" + specialCharacter;
         assertFalse(validationService
                 .validateExamNumber(examNumber));
+    }
+
+    @Test
+    public void nullValueShouldNotBeValid() {
+        assertFalse(validationService
+                .validateExamNumber(null));
     }
 }
