@@ -15,12 +15,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(FileDemoController.class)
 @WithMockUser
-public class FileDemoControllerTest {
+class FileDemoControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void shouldDownloadFileFromEndpoint() throws Exception {
+    void shouldDownloadFileFromEndpoint() throws Exception {
         System
                 .setProperty("RESOURCE_DIR", "static");
         File file = new File("static/Handels und Gesellschaftsrecht/11000_11112222.pdf");
