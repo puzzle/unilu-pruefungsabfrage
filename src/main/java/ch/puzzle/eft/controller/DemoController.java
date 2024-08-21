@@ -17,7 +17,7 @@ public class DemoController {
         this.demoService = demoService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/multiplication")
     public String multiply(Model model) {
         int result = demoService
                 .multiply(2, 2);
