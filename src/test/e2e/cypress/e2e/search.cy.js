@@ -2,7 +2,7 @@ it('should show search page', () => {
     cy.visit("/search");
 
     cy.get('body').then((body) => {
-        expect(body).to.contain("Such nach einer Prüfung...")
+        expect(body).to.contain("Suche nach einer Prüfung...")
     })
 })
 
