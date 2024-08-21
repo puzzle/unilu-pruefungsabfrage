@@ -80,6 +80,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>ch/puzzle/eft/ExamFeedbackToolApplication.class</exclude>
+						<exclude>ch/puzzle/eft/SecurityConfig.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>before-unit-test-execution</id>
@@ -98,7 +104,6 @@
 						</goals>
 						<configuration>
 							<dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-test-coverage-report</outputDirectory>
 						</configuration>
 					</execution>
 
