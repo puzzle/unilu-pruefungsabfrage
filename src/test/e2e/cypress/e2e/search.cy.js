@@ -2,7 +2,7 @@ beforeEach(() => {
     cy.visit("/search");
 })
 
-it('should show search page', () => {
+it('should show info message on search page', () => {
     cy.get('body').then((body) => {
         expect(body).to.contain("Suche nach einer Prüfung...")
     })
