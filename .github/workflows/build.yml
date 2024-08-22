@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
+      - feature/37-sonar-cube-pipeline
 
 jobs:
   build:
@@ -20,4 +19,4 @@ jobs:
         with:
           java-version: 21
       - name: Build and analyze
-        run: mvn clean install sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
