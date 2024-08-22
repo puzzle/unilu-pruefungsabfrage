@@ -2,13 +2,16 @@
 <html lang="en">
 <body>
 <div th:fragment="header">
-    <form>
+    <form th:action="@{/validate}">
         <label>
             <span>Prüfungsnummer eingeben: *</span>
             <input th:required="required"
-                   type="text" pattern="[0-9]{5}" title="Falsches Format" placeholder="20202">
+                   type="text" name="examNumber" pattern="[0-9]{5}" title="Falsches Format" placeholder="20202">
         </label>
         <button type="submit">Suchen</button>
+        <div th:if="${examNumberValidation != null}">
+            <p th:text="${examNumberValidation}"></p>
+        </div>
     </form>
 </div>
 </body>
