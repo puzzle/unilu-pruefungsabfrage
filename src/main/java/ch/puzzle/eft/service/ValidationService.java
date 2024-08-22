@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 @Service
 public class ValidationService {
     private static final Pattern EXAM_NUMBER_PATTERN = Pattern
-            .compile("^[0-9]{5}$");
+            .compile("^\\d{5}$");
 
     public boolean validateExamNumber(String examNumber) {
         if (examNumber == null) {
