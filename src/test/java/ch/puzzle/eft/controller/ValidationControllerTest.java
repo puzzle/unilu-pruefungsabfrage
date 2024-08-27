@@ -27,19 +27,41 @@ public class ValidationControllerTest {
 
     @Test
     void shouldNotAcceptNullAsBody() throws Exception {
-        when(validationService.validateExamNumber(null)).thenReturn(false);
-        this.mockMvc.perform(post("/validate").with(csrf())).andExpect(status().isBadRequest());
+        when(validationService
+                .validateExamNumber(null))
+                .thenReturn(false);
+        this.mockMvc
+                .perform(post("/validate")
+                        .with(csrf()))
+                .andExpect(status()
+                        .isBadRequest());
     }
 
     @Test
     void shouldNotAcceptEmptyBody() throws Exception {
-        when(validationService.validateExamNumber("")).thenReturn(false);
-        this.mockMvc.perform(post("/validate").with(csrf()).contentType(MediaType.APPLICATION_JSON).param("examNumber", "13333")).andExpect(status().isBadRequest());
+        when(validationService
+                .validateExamNumber(""))
+                .thenReturn(false);
+        this.mockMvc
+                .perform(post("/validate")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("examNumber", "13333"))
+                .andExpect(status()
+                        .isBadRequest());
     }
 
     @Test
     void shouldAcceptValidString() throws Exception {
-        when(validationService.validateExamNumber("13333")).thenReturn(true);
-        this.mockMvc.perform(post("/validate").with(csrf()).contentType(MediaType.APPLICATION_JSON).param("examNumber", "13333")).andExpect(status().isOk());
+        when(validationService
+                .validateExamNumber("13333"))
+                .thenReturn(true);
+        this.mockMvc
+                .perform(post("/validate")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("examNumber", "13333"))
+                .andExpect(status()
+                        .isOk());
     }
 }

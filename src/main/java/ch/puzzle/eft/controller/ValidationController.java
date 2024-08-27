@@ -16,11 +16,14 @@ public class ValidationController {
 
     @PostMapping("/validate")
     public ResponseEntity<Boolean> viewValidatePage(@ModelAttribute("examNumber") String examNumber) {
-        System.out.println("examNumber: " + examNumber);
-        boolean isValid = validationService.validateExamNumber(examNumber);
+        boolean isValid = validationService
+                .validateExamNumber(examNumber);
         if (!isValid) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .badRequest()
+                    .build();
         }
-        return ResponseEntity.ok(isValid);
+        return ResponseEntity
+                .ok(isValid);
     }
 }
