@@ -3,11 +3,13 @@
   <head>
       <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
   </head>
-  <header class="application-header">
+  <header class="w-100 d-flex p-2 align-items-center justify-content-between application-header">
     <div class="header-item">
-      <div class="header-title">Uni Luzern Prüfungsabfrage</div>
+      <div class="fs-4">Uni Luzern Prüfungsabfrage</div>
     </div>
-    <div class="header-item"></div>
+    <div class="header-item">
+      <a id="search-routing-link" th:href="@{/search}">Suche nach Prüfungsnumer</a>
+    </div>
     <div class="header-item">
       <div>Sven Studi</div>
     </div>
