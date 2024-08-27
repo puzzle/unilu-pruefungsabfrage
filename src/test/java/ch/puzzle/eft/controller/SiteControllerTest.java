@@ -12,13 +12,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SiteController.class)
 @WithMockUser
-public class SiteControllerTest {
-    MockMvc mockMvc;
+class SiteControllerTest {
 
     @Autowired
-    public SiteControllerTest(MockMvc mockMvc) {
-        this.mockMvc = mockMvc;
-    }
+    private MockMvc mockMvc;
 
     @Test
     void defaultRouteShouldReturnIndexPage() throws Exception {
