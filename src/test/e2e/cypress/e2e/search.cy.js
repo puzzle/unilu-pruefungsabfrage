@@ -13,3 +13,11 @@ it('should display header on search page', () => {
         expect(header).to.contain("Uni Luzern Prüfungsabfrage")
     })
 })
+it('should display label for searchbar', () => {
+    cy.get('body').then((body) => {
+        expect(body).to.contain("Prüfungsnummer eingeben*:")
+    })
+});
+it('should display input for exam number', () => {
+    cy.get('input[type="text"]').should('exist');
+});
