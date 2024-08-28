@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SiteController.class)
 @WithMockUser
 class SiteControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -24,5 +25,15 @@ class SiteControllerTest {
                         .isOk())
                 .andExpect(view()
                         .name("index"));
+    }
+
+    @Test
+    void searchRouteShouldReturnSearchPage() throws Exception {
+        this.mockMvc
+                .perform(get("/search"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(view()
+                        .name("search"));
     }
 }

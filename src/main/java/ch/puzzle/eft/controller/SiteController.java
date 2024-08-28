@@ -10,4 +10,9 @@ public class SiteController {
     public String viewIndexPage(Model model) {
         return "index";
     }
+
+    @GetMapping("/search")
+    public String viewSearchPage(Model model) {
+        return "search";
+    }
 }

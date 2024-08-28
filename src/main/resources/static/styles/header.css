@@ -1,0 +1,9 @@
+.application-header {
+    height: 4em;
+    background-color: lightgray;
+}
+.header-item {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
