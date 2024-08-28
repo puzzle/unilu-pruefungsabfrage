@@ -1,14 +1,15 @@
 name: 'Sonarqube deployment'
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - main
-      - feature/20-sonar-cube # To be removed
 
 jobs:
-  build:
-    name: Build # Comment
+  if_merged:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
