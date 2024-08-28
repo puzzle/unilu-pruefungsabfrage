@@ -1,21 +1,25 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ExamFileService {
     private ValidationService validationService;
 
+    @Autowired
     public ExamFileService(ValidationService validationService) {
         this.validationService = validationService;
     }
 
     public List<File> getAllExamFiles() {
-        File dryPath = new File("./static");
+        File dryPath = new File("static");
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null)
