@@ -84,7 +84,7 @@ public class ExamFileServiceTest {
                         .getFileName());
 
         List<ExamFileModel> result = examFileService
-                .getMatchingExams("11001_22223333");
+                .getMatchingExams("11001", "22223333");
 
         List<String> resultFileNames = result
                 .stream()
@@ -99,7 +99,7 @@ public class ExamFileServiceTest {
     @Test
     void shouldReturnEmptyListWhenUserInputIsInvalid() {
         List<ExamFileModel> result = examFileService
-                .getMatchingExams("53_22223333");
+                .getMatchingExams("53", "44445555");
 
         assertTrue(result
                 .isEmpty());
@@ -108,7 +108,7 @@ public class ExamFileServiceTest {
     @Test
     void shouldReturnEmptyListWhenNoMatchesAreFound() {
         List<ExamFileModel> result = examFileService
-                .getMatchingExams("11003_22223333");
+                .getMatchingExams("11004", "22223333");
 
         assertTrue(result
                 .isEmpty());
