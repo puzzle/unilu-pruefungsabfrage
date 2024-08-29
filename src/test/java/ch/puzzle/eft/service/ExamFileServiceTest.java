@@ -97,6 +97,15 @@ public class ExamFileServiceTest {
     }
 
     @Test
+    void shouldReturnEmptyListWhenUserInputIsInvalid() {
+        List<ExamFileModel> result = examFileService
+                .getMatchingExams("53_22223333");
+
+        assertTrue(result
+                .isEmpty());
+    }
+
+    @Test
     void shouldReturnEmptyListWhenNoMatchesAreFound() {
         List<ExamFileModel> result = examFileService
                 .getMatchingExams("11003_22223333");
