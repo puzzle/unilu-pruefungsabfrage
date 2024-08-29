@@ -5,7 +5,7 @@
 ### Run Image
 `docker run --rm  -v ./static:/resources -p 8080:8080 uni-luzern:latest`
 
-### Code formatting in pre-commit hook
+### Code Formatting in pre-commit hook
 To have consistent code formatting in the entire project, the formatter-maven-plugin
 is used. To ensure proper formatting, there is a pre-commit-hook that can be set up by
 running the `setup-pre-commit` shell-script in the root directory. It will copy the
@@ -16,3 +16,14 @@ with the new script.
 To change formatting preferences, you can export your formatting settings as eclipse
 code formatter profile file, call it formatting(.xml) and replace the old config file in the
 resources directory.
+
+### Code Quality
+
+The code quality is verified by SonarQube which is executed when a feature branch is merge into the main branch.
+The quality gate status can be checked under https://sonar.puzzle.ch/dashboard?id=unilu-exam-feedback-tool .
+
+For local execution you can use the following command:
+
+```
+mvn clean verify sonar:sonar -Dsonar.login=<your-sonar-qube-token>
+```

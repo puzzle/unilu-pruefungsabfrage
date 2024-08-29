@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -78,9 +78,20 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>4.0.0.4121</version>
+			</plugin>
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
+				<configuration>
+					<excludes>
+						<exclude>ch/puzzle/eft/ExamFeedbackToolApplication.class</exclude>
+						<exclude>ch/puzzle/eft/SecurityConfig.class</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>before-unit-test-execution</id>
@@ -99,7 +110,6 @@
 						</goals>
 						<configuration>
 							<dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-test-coverage-report</outputDirectory>
 						</configuration>
 					</execution>
 
@@ -157,6 +167,24 @@
 						<goals>
 							<goal>format</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>clean</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>sonar-project.properties</file>
+							</files>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
