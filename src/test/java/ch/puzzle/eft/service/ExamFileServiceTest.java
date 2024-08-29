@@ -97,7 +97,7 @@ public class ExamFileServiceTest {
     }
 
     @Test
-    void shouldReturnEmptyList() {
+    void shouldReturnEmptyListWhenNoMatchesAreFound() {
         List<ExamFileModel> result = examFileService
                 .getMatchingExams("11003_22223333");
 
