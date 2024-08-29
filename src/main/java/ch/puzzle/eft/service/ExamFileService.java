@@ -8,12 +8,17 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 @Service
 public class ExamFileService {
     private ValidationService validationService;
+    private static final Logger logger = Logger
+            .getLogger(ExamFileService.class
+                    .getName());
 
     @Autowired
     public ExamFileService(ValidationService validationService) {
@@ -37,8 +42,13 @@ public class ExamFileService {
     }
 
     public List<ExamFileModel> getMatchingExams(String searchInput) {
-        validationService
-                .validateExamNumber(searchInput);
+        if (!validationService
+                .validateExamNumber(searchInput)) {
+            logger
+                    .warning("Validation failed for exam number: " + searchInput);
+            return Collections
+                    .emptyList();
+        }
         List<File> matchingFiles = getAllExamFiles()
                 .stream()
                 .filter(file -> file
