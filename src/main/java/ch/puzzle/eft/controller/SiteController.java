@@ -14,13 +14,7 @@ public class SiteController {
 
     @GetMapping("/search")
     public String viewSearchPage(Model model) {
-        model
-                .addAttribute("examNumberForm", new ExamNumberForm(null));
+        model.addAttribute("examNumberForm", new ExamNumberForm(null));
         return "search";
-    }
-
-    @GetMapping("/result")
-    public String viewResultPage(Model model) {
-        return "result";
     }
 }

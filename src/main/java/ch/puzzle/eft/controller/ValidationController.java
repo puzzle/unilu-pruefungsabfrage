@@ -12,10 +12,6 @@ public class ValidationController {
 
     @PostMapping("/validate")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult) {
-        if (bindingResult
-                .hasErrors()) {
-            return "search";
-        }
-        return "result";
+        return "search";
     }
 }
