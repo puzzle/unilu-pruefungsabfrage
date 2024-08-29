@@ -2,7 +2,9 @@ package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.util.Arrays;
@@ -22,9 +24,9 @@ public class ExamFileService {
         File dryPath = new File("static");
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
-        if (subjectDirectories == null)
-            return List
-                    .of();
+        if (subjectDirectories == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Please contact your local admin");
+        }
         return Arrays
                 .stream(subjectDirectories)
                 .map(e -> e
