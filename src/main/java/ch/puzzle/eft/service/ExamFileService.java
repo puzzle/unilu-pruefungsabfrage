@@ -43,7 +43,7 @@ public class ExamFileService {
                 .toList();
     }
 
-    public List<ExamFileModel> getMatchingExams(String searchInput, String registrationNumber) {
+    public List<ExamFileModel> getMatchingExams(String searchInput, String matriculationNumber) {
         if (!validationService
                 .validateExamNumber(searchInput)) {
             logger
@@ -55,12 +55,12 @@ public class ExamFileService {
                 .stream()
                 .filter(file -> file
                         .getName()
-                        .equals(searchInput + "_" + registrationNumber + ".pdf"))
+                        .equals(searchInput + "_" + matriculationNumber + ".pdf"))
                 .toList();
         if (matchingFiles
                 .isEmpty()) {
             logger
-                    .info("No matching files found under registration number for exam number: " + searchInput);
+                    .info("No matching files found under matriculation number for exam number: " + searchInput);
         }
         return matchingFiles
                 .stream()
