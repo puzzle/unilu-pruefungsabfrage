@@ -5,7 +5,7 @@
     <form action="#" th:action="@{/validate}" th:object="${examNumberForm}" method="post">
         <label for="examNumber">Prüfungsnummer eingeben*:</label>
         <input type="text" name="examNumber" id="examNumber" pattern="[0-9]{5}"
-               placeholder="20202" required>
+               placeholder="20202" th:value="*{examNumber}" required>
         <button type="submit" id="submitButton">Suchen</button>
         <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
     </form>
