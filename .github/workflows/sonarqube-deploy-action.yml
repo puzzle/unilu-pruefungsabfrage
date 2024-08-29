@@ -18,4 +18,4 @@ jobs:
         with:
           java-version: 21
       - name: Build and analyze
-        run: mvn clean verify sonar:sonar -e -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
