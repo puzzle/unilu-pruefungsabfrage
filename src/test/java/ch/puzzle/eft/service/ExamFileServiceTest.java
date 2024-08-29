@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ExamFileServiceTest {
@@ -54,19 +54,54 @@ public class ExamFileServiceTest {
     }
 
     @Test
-    void shouldReturnMatchingExams() {
+    void shouldReturnMatchingExamNamesAndAmount() {
+
+        File file1 = Paths
+                .get("static", "Handels und Gesellschaftsrecht", "11001_22223333.pdf")
+                .toFile();
+        File file2 = Paths
+                .get("static", "Privatrecht", "11001_22223333.pdf")
+                .toFile();
+        File file3 = Paths
+                .get("static", "Strafrecht", "11001_22223333.pdf")
+                .toFile();
+        File file4 = Paths
+                .get("static", "Öffentliches Recht", "11001_22223333.pdf")
+                .toFile();
+
+        List<String> expectedFileNames = new ArrayList<>();
+        expectedFileNames
+                .add(new ExamFileModel(file1)
+                        .getFileName());
+        expectedFileNames
+                .add(new ExamFileModel(file2)
+                        .getFileName());
+        expectedFileNames
+                .add(new ExamFileModel(file3)
+                        .getFileName());
+        expectedFileNames
+                .add(new ExamFileModel(file4)
+                        .getFileName());
 
         List<ExamFileModel> result = examFileService
                 .getMatchingExams("11001_22223333");
 
-        assertEquals(4, result
+        List<String> resultFileNames = result
+                .stream()
+                .map(ExamFileModel::getFileName)
+                .toList();
+
+        assertEquals(4, resultFileNames
                 .size());
+        assertIterableEquals(expectedFileNames, resultFileNames, "The lists of exam file names should match");
+    }
 
+    @Test
+    void shouldReturnEmptyList() {
+        List<ExamFileModel> result = examFileService
+                .getMatchingExams("11003_22223333");
 
-//        for (ExamFileModel examFile : result) {
-//            String fileName = examFile
-//                    .getFileName();
-//            assertEquals("11001_22223333", fileName);
-//        }
+        assertTrue(result
+                .isEmpty());
     }
 }
