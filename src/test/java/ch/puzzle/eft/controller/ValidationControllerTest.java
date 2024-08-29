@@ -9,7 +9,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ValidationController.class)
 @WithMockUser
@@ -28,8 +29,9 @@ public class ValidationControllerTest {
                         .param("examNumber", ""))
                 .andExpect(status()
                         .isOk())
-                .andExpect(view()
-                        .name("search"));
+                .andExpect(model()
+                        .hasErrors());
+
     }
 
     @Test
@@ -42,8 +44,9 @@ public class ValidationControllerTest {
                         .param("examNumber", "1231313"))
                 .andExpect(status()
                         .isOk())
-                .andExpect(view()
-                        .name("search"));
+                .andExpect(model()
+                        .hasErrors());
+
     }
 
     @Test
@@ -56,7 +59,7 @@ public class ValidationControllerTest {
                         .param("examNumber", "20202"))
                 .andExpect(status()
                         .isOk())
-                .andExpect(view()
-                        .name("result"));
+                .andExpect(model()
+                        .hasNoErrors());
     }
 }
