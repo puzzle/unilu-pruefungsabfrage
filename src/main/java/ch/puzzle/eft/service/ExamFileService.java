@@ -8,10 +8,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 @Service
 public class ExamFileService {
@@ -38,17 +36,16 @@ public class ExamFileService {
                 .toList();
     }
 
-    public List<ExamFileModel> getMatchingExams(String searchInput, String matriculationNumber) {
+    public List<ExamFileModel> getMatchingExams(String examNumber, String matriculationNumber) {
         if (!validationService
-                .validateExamNumber(searchInput)) {
-            return Collections
-                    .emptyList();
+                .validateExamNumber(examNumber)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid exam number");
         }
         List<File> matchingFiles = getAllExamFiles()
                 .stream()
                 .filter(file -> file
                         .getName()
-                        .equals(searchInput + "_" + matriculationNumber + ".pdf"))
+                        .equals(examNumber + "_" + matriculationNumber + ".pdf"))
                 .toList();
         return matchingFiles
                 .stream()

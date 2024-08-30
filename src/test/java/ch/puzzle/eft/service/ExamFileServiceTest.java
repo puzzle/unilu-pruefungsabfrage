@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,60 +29,44 @@ public class ExamFileServiceTest {
         List<File> result = examFileService
                 .getAllExamFiles();
 
-        File file1 = Paths
-                .get("static", "Handels und Gesellschaftsrecht", "11000_11112222.pdf")
-                .toFile();
-        File file2 = Paths
-                .get("static", "Privatrecht", "11000_11112222.pdf")
-                .toFile();
-        File file3 = Paths
-                .get("static", "Strafrecht", "11000_11112222.pdf")
-                .toFile();
-        File file4 = Paths
-                .get("static", "Öffentliches Recht", "11000_11112222.pdf")
-                .toFile();
+        List<File> filesToCheck = List
+                .of(
+                    Paths
+                            .get("static", "Handels und Gesellschaftsrecht", "11000_11112222.pdf")
+                            .toFile(), Paths
+                                    .get("static", "Privatrecht", "11000_11112222.pdf")
+                                    .toFile(), Paths
+                                            .get("static", "Strafrecht", "11000_11112222.pdf")
+                                            .toFile(), Paths
+                                                    .get("static", "Öffentliches Recht", "11000_11112222.pdf")
+                                                    .toFile()
+                );
+
 
         assertEquals(22, result
                 .size());
-        assertTrue(result
-                .contains(file1));
-        assertTrue(result
-                .contains(file2));
-        assertTrue(result
-                .contains(file3));
-        assertTrue(result
-                .contains(file4));
+        for (File fileToCheck : filesToCheck) {
+            assertTrue(result
+                    .contains(fileToCheck));
+        }
     }
 
     @Test
     void shouldReturnMatchingExamNamesAndAmount() {
 
-        File file1 = Paths
-                .get("static", "Handels und Gesellschaftsrecht", "11001_22223333.pdf")
-                .toFile();
-        File file2 = Paths
-                .get("static", "Privatrecht", "11001_22223333.pdf")
-                .toFile();
-        File file3 = Paths
-                .get("static", "Strafrecht", "11001_22223333.pdf")
-                .toFile();
-        File file4 = Paths
-                .get("static", "Öffentliches Recht", "11001_22223333.pdf")
-                .toFile();
+        List<String> filesToCheck = List
+                .of(
+                    "static/Handels und Gesellschaftsrecht/11001_22223333.pdf", "static/Privatrecht/11001_22223333.pdf", "static/Strafrecht/11001_22223333.pdf", "static/Öffentliches Recht/11001_22223333.pdf"
+                );
 
-        List<String> expectedFileNames = new ArrayList<>();
-        expectedFileNames
-                .add(new ExamFileModel(file1)
-                        .getFileName());
-        expectedFileNames
-                .add(new ExamFileModel(file2)
-                        .getFileName());
-        expectedFileNames
-                .add(new ExamFileModel(file3)
-                        .getFileName());
-        expectedFileNames
-                .add(new ExamFileModel(file4)
-                        .getFileName());
+        List<String> expectedFileNames = filesToCheck
+                .stream()
+                .map(p -> Paths
+                        .get(p)
+                        .toFile())
+                .map(ExamFileModel::new)
+                .map(ExamFileModel::getFileName)
+                .toList();
 
         List<ExamFileModel> result = examFileService
                 .getMatchingExams("11001", "22223333");
