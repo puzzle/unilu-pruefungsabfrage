@@ -31,7 +31,7 @@ public class ExamFileService {
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null) {
             logger
-                    .info("Keine unterordner im Pfad '{}' gefunden", dryPath);
+                    .info("Keine Unterordner im Pfad '{}' gefunden", dryPath);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Keine Prüfungsordner gefunden");
         }
         return Arrays
