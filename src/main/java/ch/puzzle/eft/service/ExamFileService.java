@@ -1,6 +1,8 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.util.Objects;
 public class ExamFileService {
     private ValidationService validationService;
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(ExamFileService.class);
+
     @Autowired
     public ExamFileService(ValidationService validationService) {
         this.validationService = validationService;
@@ -25,7 +30,9 @@ public class ExamFileService {
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please contact your local admin");
+            logger
+                    .info("Keine unterordner im Pfad '{}' gefunden", dryPath);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Keine Prüfungsordner gefunden");
         }
         return Arrays
                 .stream(subjectDirectories)
@@ -39,14 +46,25 @@ public class ExamFileService {
     public List<ExamFileModel> getMatchingExams(String examNumber, String matriculationNumber) {
         if (!validationService
                 .validateExamNumber(examNumber)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid exam number");
+            logger
+                    .info("Ungültige Prüfunslaufnummer: {}", examNumber);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String
+                    .format("Ungültige Prüfungslaufnummer: %s", examNumber));
         }
         List<File> matchingFiles = getAllExamFiles()
                 .stream()
                 .filter(file -> file
                         .getName()
-                        .equals(examNumber + "_" + matriculationNumber + ".pdf"))
+                        .equals(String
+                                .format("%s_%s.pdf", examNumber, matriculationNumber)))
                 .toList();
+        if (matchingFiles
+                .isEmpty()) {
+            logger
+                    .info("Keine Prüfungen für die Prüfungslaufnummer {} gefunden", examNumber);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
+                    .format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden", examNumber));
+        }
         return matchingFiles
                 .stream()
                 .map(ExamFileModel::new)
