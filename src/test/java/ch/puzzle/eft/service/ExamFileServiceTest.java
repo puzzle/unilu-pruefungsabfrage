@@ -2,8 +2,10 @@ package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -17,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ExamFileServiceTest {
 
     ExamFileService examFileService;
+
+    @Mock
+    ValidationService validationService;
 
     @Autowired
     public ExamFileServiceTest(ExamFileService examFileService) {
@@ -82,20 +87,19 @@ public class ExamFileServiceTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenUserInputIsInvalid() {
-        List<ExamFileModel> result = examFileService
-                .getMatchingExams("53", "44445555");
-
-        assertTrue(result
-                .isEmpty());
+    void shouldThrow400BadRequestWhenUserInputIsInvalid() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getMatchingExams("53", "44445555"));
+        assertEquals("400 BAD_REQUEST \"Ungültige Prüfungslaufnummer: 53\"", responseStatusException
+                .getMessage());
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoMatchesAreFound() {
-        List<ExamFileModel> result = examFileService
-                .getMatchingExams("11004", "22223333");
+    void shouldThrow404NotFoundWhenNoMatchesAreFound() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getMatchingExams("11004", "22223333"));
 
-        assertTrue(result
-                .isEmpty());
+        assertEquals("404 NOT_FOUND \"Keine Prüfungen für die Prüfungslaufnummer 11004 gefunden\"", responseStatusException
+                .getMessage());
     }
 }
