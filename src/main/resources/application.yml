@@ -7,12 +7,15 @@ spring:
         registration:
           okta:
             assertingparty:
-              metadata-uri: classpath:testxml.xml
-#              metadata-uri: https://dev-15393397.okta.com/app/exkid13t0fswoJ1h75d7/sso/saml/metadata
-#            signing:
-#              credentials:
-#                - private-key-location: classpath:certs/private_key.pem
-#                  certificate-location: classpath:certs/sp.crt
+              # metadata-uri: classpath:testxml.xml
+              # metadata-uri: classpath:metadata.aaitest+idp.xml
+              metadata-uri: classpath:metadata.switchaai+idp.xml
+              # metadata-uri: https://dev-15393397.okta.com/app/exkid13t0fswoJ1h75d7/sso/saml/metadata
+              # metadata-uri: https://eft-dev.puzzle.ch:8443/
+            signing:
+              credentials:
+                - private-key-location: classpath:certs/unilu-pk.pem
+                  certificate-location: classpath:certs/unilu.crt
 #            singlelogout:
 #              binding: POST
 #              response-url: http://localhost:8080/logout/saml2/slo
