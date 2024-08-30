@@ -16,9 +16,6 @@ import java.util.logging.Logger;
 @Service
 public class ExamFileService {
     private ValidationService validationService;
-    private static final Logger logger = Logger
-            .getLogger(ExamFileService.class
-                    .getName());
 
     @Autowired
     public ExamFileService(ValidationService validationService) {
@@ -30,8 +27,6 @@ public class ExamFileService {
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null) {
-            logger
-                    .info("No exam files found in " + dryPath);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please contact your local admin");
         }
         return Arrays
@@ -46,8 +41,6 @@ public class ExamFileService {
     public List<ExamFileModel> getMatchingExams(String searchInput, String matriculationNumber) {
         if (!validationService
                 .validateExamNumber(searchInput)) {
-            logger
-                    .info("Validation failed for exam number: " + searchInput);
             return Collections
                     .emptyList();
         }
@@ -57,11 +50,6 @@ public class ExamFileService {
                         .getName()
                         .equals(searchInput + "_" + matriculationNumber + ".pdf"))
                 .toList();
-        if (matchingFiles
-                .isEmpty()) {
-            logger
-                    .info("No matching files found under matriculation number for exam number: " + searchInput);
-        }
         return matchingFiles
                 .stream()
                 .map(ExamFileModel::new)
