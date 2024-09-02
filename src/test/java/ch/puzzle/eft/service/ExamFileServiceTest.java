@@ -134,30 +134,53 @@ public class ExamFileServiceTest {
         ExamFileModel fileModel1 = mock(ExamFileModel.class);
         ExamFileModel fileModel2 = mock(ExamFileModel.class);
 
-        File tempFile1 = File.createTempFile("testFile1", ".pdf");
-        Files.write(tempFile1.toPath(), "Test Content 1".getBytes());
+        File tempFile1 = File
+                .createTempFile("testFile1", ".pdf");
+        Files
+                .write(tempFile1
+                        .toPath(), "Test Content 1"
+                                .getBytes());
 
-        File tempFile2 = File.createTempFile("testFile2", ".pdf");
-        Files.write(tempFile2.toPath(), "Test Content 2".getBytes());
+        File tempFile2 = File
+                .createTempFile("testFile2", ".pdf");
+        Files
+                .write(tempFile2
+                        .toPath(), "Test Content 2"
+                                .getBytes());
 
-        when(fileModel1.getSubjectName()).thenReturn("Privatrecht");
-        when(fileModel1.getFileName()).thenReturn("Exam1.pdf");
-        when(fileModel1.getFile()).thenReturn(tempFile1);
+        when(fileModel1
+                .getSubjectName())
+                .thenReturn("Privatrecht");
+        when(fileModel1
+                .getFileName())
+                .thenReturn("Exam1.pdf");
+        when(fileModel1
+                .getFile())
+                .thenReturn(tempFile1);
 
-        when(fileModel2.getSubjectName()).thenReturn("Strafrecht");
-        when(fileModel2.getFileName()).thenReturn("Exam2.pdf");
-        when(fileModel2.getFile()).thenReturn(tempFile2);
+        when(fileModel2
+                .getSubjectName())
+                .thenReturn("Strafrecht");
+        when(fileModel2
+                .getFileName())
+                .thenReturn("Exam2.pdf");
+        when(fileModel2
+                .getFile())
+                .thenReturn(tempFile2);
 
-        List<ExamFileModel> examFileList = Arrays.asList(fileModel1, fileModel2);
+        List<ExamFileModel> examFileList = Arrays
+                .asList(fileModel1, fileModel2);
 
         // Mock ServletOutputStream
         MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
         // Execute the service method
-        examFileService.convertFilesToZip(examFileList, mockOutputStream);
+        examFileService
+                .convertFilesToZip(examFileList, mockOutputStream);
 
         // Verify output
-        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream.getContentAsByteArray());
+        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream
+                .getContentAsByteArray());
         ZipInputStream zis = new ZipInputStream(bis);
         ZipEntry entry;
 
@@ -168,11 +191,14 @@ public class ExamFileServiceTest {
         String expectedContent2 = "Test Content 2";
 
         int i = 0;
-        while ((entry = zis.getNextEntry()) != null) {
-            actualEntries[i] = entry.getName();
+        while ((entry = zis
+                .getNextEntry()) != null) {
+            actualEntries[i] = entry
+                    .getName();
 
             // Read the content of the file inside the ZIP
-            byte[] fileContent = zis.readAllBytes();
+            byte[] fileContent = zis
+                    .readAllBytes();
             String actualContent = new String(fileContent);
 
             // Verify the content of each file
