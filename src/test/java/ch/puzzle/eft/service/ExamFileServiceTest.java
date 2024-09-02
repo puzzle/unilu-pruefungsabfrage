@@ -9,11 +9,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -120,5 +127,65 @@ public class ExamFileServiceTest {
     void shouldReturnFileToDownload() {
         File result = examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf");
         assertEquals(new File("static/Privatrecht/11001_22223333.pdf"), result);
+    }
+
+    @Test
+    void shouldConvertFilesToZip() throws IOException {
+        ExamFileModel fileModel1 = mock(ExamFileModel.class);
+        ExamFileModel fileModel2 = mock(ExamFileModel.class);
+
+        File tempFile1 = File.createTempFile("testFile1", ".pdf");
+        Files.write(tempFile1.toPath(), "Test Content 1".getBytes());
+
+        File tempFile2 = File.createTempFile("testFile2", ".pdf");
+        Files.write(tempFile2.toPath(), "Test Content 2".getBytes());
+
+        when(fileModel1.getSubjectName()).thenReturn("Privatrecht");
+        when(fileModel1.getFileName()).thenReturn("Exam1.pdf");
+        when(fileModel1.getFile()).thenReturn(tempFile1);
+
+        when(fileModel2.getSubjectName()).thenReturn("Strafrecht");
+        when(fileModel2.getFileName()).thenReturn("Exam2.pdf");
+        when(fileModel2.getFile()).thenReturn(tempFile2);
+
+        List<ExamFileModel> examFileList = Arrays.asList(fileModel1, fileModel2);
+
+        // Mock ServletOutputStream
+        MockServletOutputStream mockOutputStream = new MockServletOutputStream();
+
+        // Execute the service method
+        examFileService.convertFilesToZip(examFileList, mockOutputStream);
+
+        // Verify output
+        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream.getContentAsByteArray());
+        ZipInputStream zis = new ZipInputStream(bis);
+        ZipEntry entry;
+
+        String[] expectedEntries = {"Privatrecht_Exam1.pdf", "Strafrecht_Exam2.pdf"};
+        String[] actualEntries = new String[2];
+
+        String expectedContent1 = "Test Content 1";
+        String expectedContent2 = "Test Content 2";
+
+        int i = 0;
+        while ((entry = zis.getNextEntry()) != null) {
+            actualEntries[i] = entry.getName();
+
+            // Read the content of the file inside the ZIP
+            byte[] fileContent = zis.readAllBytes();
+            String actualContent = new String(fileContent);
+
+            // Verify the content of each file
+            if (i == 0) {
+                assertEquals(expectedContent1, actualContent);
+            } else {
+                assertEquals(expectedContent2, actualContent);
+            }
+
+            i++;
+        }
+
+        // Verify that the correct entries were added to the ZIP file
+        assertArrayEquals(expectedEntries, actualEntries);
     }
 }
