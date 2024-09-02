@@ -4,6 +4,7 @@ import ch.puzzle.eft.model.ExamFileModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,18 +16,21 @@ import java.util.Objects;
 
 @Service
 public class ExamFileService {
-    private ValidationService validationService;
+    private final ValidationService validationService;
+
+    private final String rootDirectoryName;
 
     private static final Logger logger = LoggerFactory
             .getLogger(ExamFileService.class);
 
     @Autowired
-    public ExamFileService(ValidationService validationService) {
+    public ExamFileService(ValidationService validationService, @Value("${eft.root-directory.name}") String rootDirectoryName) {
         this.validationService = validationService;
+        this.rootDirectoryName = rootDirectoryName;
     }
 
     public List<File> getAllExamFiles() {
-        File dryPath = new File("static");
+        File dryPath = new File(getRootDirectoryName());
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null) {
@@ -69,5 +73,9 @@ public class ExamFileService {
                 .stream()
                 .map(ExamFileModel::new)
                 .toList();
+    }
+
+    public String getRootDirectoryName() {
+        return rootDirectoryName;
     }
 }
