@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 <div th:fragment="header">
-    <form action="#" th:action="@{/validate}" th:object="${examNumberForm}" method="post">
+    <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post">
         <label for="examNumber">Prüfungsnummer eingeben*:</label>
         <input type="text" name="examNumber" id="examNumber" pattern="[0-9]{5}"
                placeholder="20202" th:value="*{examNumber}" required>
