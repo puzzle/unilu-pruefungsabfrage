@@ -19,6 +19,7 @@ class CypressE2ETest {
     private static final Logger logger = LoggerFactory
             .getLogger(CypressE2ETest.class);
 
+
     @LocalServerPort
     private int port;
 
@@ -33,7 +34,7 @@ class CypressE2ETest {
                     .withEnv("CYPRESS_baseUrl", "http://host.testcontainers.internal:" + port)
                     .withLogConsumer(new Slf4jLogConsumer(logger))
                     .withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy())
-                    .withCommand("--browser=chrome")
+                    .withCommand("--browser=chrome --headed")
                     .start();
             assertThat(container
                     .getLogs())

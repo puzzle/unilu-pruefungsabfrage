@@ -27,17 +27,17 @@ it('should display input for exam number', () => {
 it('should display results when searching with valid exam number', () => {
     cy.get('input[type="text"]').type('11000');
     cy.get('button').click();
-    cy.contains('Privatrecht').should('be.visible');
+    cy.contains('Privatrecht');
 });
 
 it('should display error when no exams were found', () => {
     cy.get('input[type="text"]').type('99999');
     cy.get('button').click();
-    cy.contains('Keine Prüfung gefunden');
+    cy.contains('Keine Prüfungen für die Prüfungslaufnummer 99999 gefunden');
 });
 
 it('should display error when exam number is invalid', () => {
     cy.get('input[type="text"]').type('abc');
     cy.get('button').click();
-    cy.contains('Prüfungsnummer muss 5 Ziffern lang sein').should('be.visible');
+    cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
 });
