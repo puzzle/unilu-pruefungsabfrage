@@ -31,30 +31,69 @@ class SiteControllerTest {
 
     @Test
     void defaultRouteShouldReturnIndexPage() throws Exception {
-        this.mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"));
+        this.mockMvc
+                .perform(get("/"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(view()
+                        .name("index"));
     }
 
     @Test
     void searchRouteShouldReturnSearchPage() throws Exception {
-        this.mockMvc.perform(get("/search")).andExpect(status().isOk()).andExpect(view().name("search"));
+        this.mockMvc
+                .perform(get("/search"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(view()
+                        .name("search"));
     }
 
     @Test
     void shouldNotAcceptEmptyBody() throws Exception {
-        this.mockMvc.perform(post("/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).param("examNumber", "")).andExpect(status().isOk()).andExpect(model().hasErrors());
+        this.mockMvc
+                .perform(post("/search")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("examNumber", ""))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(model()
+                        .hasErrors());
 
     }
 
     @Test
     void shouldNotAcceptMoreThan5Digits() throws Exception {
-        this.mockMvc.perform(post("/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).param("examNumber", "1231313")).andExpect(status().isOk()).andExpect(model().hasErrors());
+        this.mockMvc
+                .perform(post("/search")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("examNumber", "1231313"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(model()
+                        .hasErrors());
 
     }
 
     @Test
     void shouldAcceptValidString() throws Exception {
-        when(examFileService.getMatchingExams("11000", "11112222")).thenReturn(List.of(new ExamFileModel(new File("11000_11112222.pdf"))));
-        this.mockMvc.perform(post("/search").with(csrf()).contentType(MediaType.APPLICATION_JSON).param("examNumber", "11000"))
-                .andExpect(status().isOk()).andExpect(model().hasNoErrors()).andExpect(model().attributeExists("examFiles"));
+        when(examFileService
+                .getMatchingExams("11000", "11112222"))
+                .thenReturn(List
+                        .of(new ExamFileModel(new File("11000_11112222.pdf"))));
+        this.mockMvc
+                .perform(post("/search")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("examNumber", "11000"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(model()
+                        .hasNoErrors())
+                .andExpect(model()
+                        .attributeExists("examFiles"));
     }
+
 }
