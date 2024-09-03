@@ -78,7 +78,7 @@ public class ExamFileService {
 
     protected String getBasePath() {
         return environment
-                .getProperty("RESOURCE_DIR", "");
+                .getProperty("RESOURCE_DIR");
     }
 
     protected File[] getSubjectDirectories() {
