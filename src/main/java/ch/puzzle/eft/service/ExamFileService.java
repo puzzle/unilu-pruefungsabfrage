@@ -2,6 +2,8 @@ package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,18 +17,23 @@ import java.util.logging.Logger;
 
 @Service
 public class ExamFileService {
-    private ValidationService validationService;
+    private final Environment environment;
+    private final ValidationService validationService;
     private static final Logger logger = Logger
             .getLogger(ExamFileService.class
                     .getName());
 
     @Autowired
-    public ExamFileService(ValidationService validationService) {
+    public ExamFileService(Environment environment, ValidationService validationService) {
+        this.environment = environment;
         this.validationService = validationService;
     }
 
+
     public List<File> getAllExamFiles() {
-        File dryPath = new File("static");
+        String basePath = environment
+                .getProperty("RESOURCE_DIR", "");
+        File dryPath = new File(basePath);
         File[] subjectDirectories = dryPath
                 .listFiles(File::isDirectory);
         if (subjectDirectories == null) {
