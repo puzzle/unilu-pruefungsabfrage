@@ -59,7 +59,9 @@ class SiteControllerTest {
                 .andExpect(status()
                         .isOk())
                 .andExpect(model()
-                        .hasErrors()).andExpect(model().attributeDoesNotExist("examFiles"));
+                        .hasErrors())
+                .andExpect(model()
+                        .attributeDoesNotExist("examFiles"));
 
     }
 
@@ -73,7 +75,9 @@ class SiteControllerTest {
                 .andExpect(status()
                         .isOk())
                 .andExpect(model()
-                        .hasErrors()).andExpect(model().attributeDoesNotExist("examFiles"));
+                        .hasErrors())
+                .andExpect(model()
+                        .attributeDoesNotExist("examFiles"));
 
     }
 
@@ -98,16 +102,22 @@ class SiteControllerTest {
 
     @Test
     void shouldNotAcceptExamNumberWithNoMatchingFiles() throws Exception {
-        when(examFileService.getMatchingExams("11000", "11112222"))
-                .thenReturn(List.of());
+        when(examFileService
+                .getMatchingExams("11000", "11112222"))
+                .thenReturn(List
+                        .of());
 
-        this.mockMvc.perform(post("/search")
+        this.mockMvc
+                .perform(post("/search")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .param("examNumber", "11000"))
-                .andExpect(status().isOk())
-                .andExpect(model().hasErrors())
-                .andExpect(model().attributeDoesNotExist("examFiles"));
+                .andExpect(status()
+                        .isOk())
+                .andExpect(model()
+                        .hasErrors())
+                .andExpect(model()
+                        .attributeDoesNotExist("examFiles"));
     }
 
 }

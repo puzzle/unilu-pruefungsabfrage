@@ -1,17 +1,14 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.model.ExamFileModel;
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamFileService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class SiteController {
@@ -42,17 +39,16 @@ public class SiteController {
                 .hasErrors()) {
             return "search";
         }
-        List<ExamFileModel> matchingExams = examFileService
-                .getMatchingExams(examNumberForm
-                        .getExamNumber(), "11112222");
-        if (matchingExams
-                .isEmpty()) {
+        try {
+            model
+                    .addAttribute("examFiles", examFileService
+                            .getMatchingExams(examNumberForm
+                                    .getExamNumber(), "11112222"));
+        } catch (ResponseStatusException e) {
             bindingResult
-                    .rejectValue("examNumber", "error.examNumberForm", "Keine Prüfung gefunden");
-            return "search";
+                    .rejectValue("examNumber", "error.examNumberForm", e
+                            .getReason());
         }
-        model
-                .addAttribute("examFiles", matchingExams);
         return "search";
     }
 }
