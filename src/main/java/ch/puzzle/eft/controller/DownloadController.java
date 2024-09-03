@@ -5,21 +5,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-@RestController
-public class ExamFileController {
+@Controller
+public class DownloadController {
 
     @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(@RequestParam String filename) throws IOException {
-        Path filePath = Paths.get("static/Handels und Gesellschaftsrecht/" + filename);
+    public ResponseEntity<Resource> downloadFile(@RequestParam String filename) {
+        Path filePath = Path.of("static/" + filename);
         File file = filePath.toFile();
 
         if (!file.exists()) {
