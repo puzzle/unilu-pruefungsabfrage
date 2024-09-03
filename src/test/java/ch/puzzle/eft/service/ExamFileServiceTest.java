@@ -3,20 +3,18 @@ package ch.puzzle.eft.service;
 import ch.puzzle.eft.model.ExamFileModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ExamFileServiceTest {
@@ -55,7 +53,6 @@ public class ExamFileServiceTest {
                                                     .toFile()
                 );
 
-
         assertEquals(22, result
                 .size());
         for (File fileToCheck : filesToCheck) {
@@ -88,8 +85,6 @@ public class ExamFileServiceTest {
 
     @Test
     void shouldReturnMatchingExamNamesAndAmount() {
-
-
         List<String> filesToCheck = List
                 .of(
                     "static/Handels und Gesellschaftsrecht/11001_22223333.pdf", "static/Privatrecht/11001_22223333.pdf", "static/Strafrecht/11001_22223333.pdf", "static/Öffentliches Recht/11001_22223333.pdf"
@@ -112,8 +107,7 @@ public class ExamFileServiceTest {
                 .map(ExamFileModel::getFileName)
                 .toList();
 
-        assertEquals(4, resultFileNames
-                .size());
+        assertEquals(resultFileNames, expectedFileNames);
         assertIterableEquals(expectedFileNames, resultFileNames, "The lists of exam file names should match");
     }
 
@@ -132,6 +126,4 @@ public class ExamFileServiceTest {
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException
                 .getStatusCode());
     }
-
-
 }
