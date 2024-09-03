@@ -3,26 +3,33 @@ package ch.puzzle.eft.service;
 import ch.puzzle.eft.model.ExamFileModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class ExamFileServiceTest {
 
+    @Spy
     ExamFileService examFileService;
 
     @BeforeEach
     void setUp() {
-        System
-                .setProperty("RESOURCE_DIR", "static");
+        when(examFileService
+                .getBasePath())
+                .thenReturn("static");
     }
-
 
     @Autowired
     public ExamFileServiceTest(ExamFileService examFileService) {
@@ -58,6 +65,28 @@ public class ExamFileServiceTest {
                 .contains(file3));
         assertTrue(result
                 .contains(file4));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDirectoryIsEmpty() {
+        when(examFileService
+                .getSubjectDirectories())
+                .thenReturn(new File[0]);
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getAllExamFiles());
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException
+                .getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDirectoryIsNonExistent() {
+        when(examFileService
+                .getBasePath())
+                .thenReturn("nonExistentDirectory");
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getAllExamFiles());
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException
+                .getStatusCode());
     }
 
     @Test
@@ -104,20 +133,20 @@ public class ExamFileServiceTest {
     }
 
     @Test
-    void shouldReturnEmptyListWhenUserInputIsInvalid() {
-        List<ExamFileModel> result = examFileService
-                .getMatchingExams("53", "44445555");
-
-        assertTrue(result
-                .isEmpty());
+    void shouldThrowExceptionWhenExamNumberInputIsInvalid() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getMatchingExams("53", "44445555"));
+        assertEquals(HttpStatus.BAD_REQUEST, responseStatusException
+                .getStatusCode());
     }
 
     @Test
-    void shouldReturnEmptyListWhenNoMatchesAreFound() {
-        List<ExamFileModel> result = examFileService
-                .getMatchingExams("11004", "22223333");
-
-        assertTrue(result
-                .isEmpty());
+    void shouldThrowExceptionWhenNoMatchingExamsAreFound() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class, () -> examFileService
+                .getMatchingExams("11004", "22223333"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException
+                .getStatusCode());
     }
+
+
 }

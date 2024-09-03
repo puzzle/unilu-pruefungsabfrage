@@ -1,6 +1,8 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -10,18 +12,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 @Service
 public class ExamFileService {
     private final Environment environment;
     private final ValidationService validationService;
-    private static final Logger logger = Logger
-            .getLogger(ExamFileService.class
-                    .getName());
+    private static final Logger logger = LoggerFactory
+            .getLogger(ExamFileService.class);
 
     @Autowired
     public ExamFileService(Environment environment, ValidationService validationService) {
@@ -31,15 +31,12 @@ public class ExamFileService {
 
 
     public List<File> getAllExamFiles() {
-        String basePath = environment
-                .getProperty("RESOURCE_DIR", "");
-        File dryPath = new File(basePath);
-        File[] subjectDirectories = dryPath
-                .listFiles(File::isDirectory);
-        if (subjectDirectories == null) {
+        File[] subjectDirectories = getSubjectDirectories();
+        if (subjectDirectories == null || subjectDirectories.length == 0) {
             logger
-                    .info("No exam files found in " + dryPath);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Please contact your local admin");
+                    .info("No Subdirectories in path {} found", getBasePath());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
+                    .format("Keine Unterordner im Pfad %s gefunden", getBasePath()));
         }
         return Arrays
                 .stream(subjectDirectories)
@@ -50,28 +47,43 @@ public class ExamFileService {
                 .toList();
     }
 
-    public List<ExamFileModel> getMatchingExams(String searchInput, String matriculationNumber) {
+    public List<ExamFileModel> getMatchingExams(String examNumber, String matriculationNumber) {
         if (!validationService
-                .validateExamNumber(searchInput)) {
+                .validateExamNumber(examNumber)) {
             logger
-                    .info("Validation failed for exam number: " + searchInput);
-            return Collections
-                    .emptyList();
+
+                    .info("Invalid Exam Number: {}", examNumber);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String
+                    .format("Ungültige Prüfunslaufnummer: %s", examNumber));
         }
         List<File> matchingFiles = getAllExamFiles()
                 .stream()
                 .filter(file -> file
                         .getName()
-                        .equals(searchInput + "_" + matriculationNumber + ".pdf"))
+                        .equals(String
+                                .format("%s_%s.pdf", examNumber, matriculationNumber)))
                 .toList();
         if (matchingFiles
                 .isEmpty()) {
             logger
-                    .info("No matching files found under matriculation number for exam number: " + searchInput);
+                    .info("No exam with the number {} found", examNumber);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
+                    .format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden", examNumber));
         }
         return matchingFiles
                 .stream()
                 .map(ExamFileModel::new)
                 .toList();
+    }
+
+    protected String getBasePath() {
+        return environment
+                .getProperty("RESOURCE_DIR", "");
+    }
+
+    protected File[] getSubjectDirectories() {
+        File baseDir = new File(getBasePath());
+        return baseDir
+                .listFiles(File::isDirectory);
     }
 }
