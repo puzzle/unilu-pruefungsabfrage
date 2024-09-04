@@ -1,8 +1,12 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,23 +24,24 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class ExamFileServiceTest {
+class ExamFileServiceTest {
 
     @Spy
     ExamFileService examFileService;
 
-    @BeforeEach
-    void setUp() {
-        when(examFileService.getBasePath()).thenReturn("static");
-    }
+    MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
     @Autowired
     public ExamFileServiceTest(ExamFileService examFileService) {
         this.examFileService = examFileService;
+    }
+
+    @BeforeEach
+    void setUp() {
+        when(examFileService.getBasePath()).thenReturn("static");
     }
 
     @Test
@@ -171,14 +176,9 @@ public class ExamFileServiceTest {
         List<ExamFileModel> examFileList = Arrays
                 .asList(fileModel1, fileModel2);
 
-        // Mock ServletOutputStream
-        MockServletOutputStream mockOutputStream = new MockServletOutputStream();
-
-        // Execute the service method
         examFileService
                 .convertFilesToZip(examFileList, mockOutputStream);
 
-        // Verify output
         ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream
                 .getContentAsByteArray());
         ZipInputStream zis = new ZipInputStream(bis);
@@ -211,7 +211,37 @@ public class ExamFileServiceTest {
             i++;
         }
 
-        // Verify that the correct entries were added to the ZIP file
         assertArrayEquals(expectedEntries, actualEntries);
+    }
+
+    @Test
+    void shouldReturnCorrectFilesAfterZip() throws IOException {
+        MockServletOutputStream mockOutputStream = new MockServletOutputStream();
+
+        examFileService
+                .convertSelectedFilesToZip("11000", mockOutputStream);
+
+        // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
+        byte[] zipContent = mockOutputStream
+                .getContentAsByteArray();
+        ZipInputStream zipInputStream = new ZipInputStream(new java.io.ByteArrayInputStream(zipContent));
+
+        // Verify the contents of the ZIP file
+        ZipEntry entry;
+        List<String> expectedFileNames = List
+                .of("Privatrecht.pdf", "Strafrecht.pdf", "Öffentliches Recht.pdf", "Handels und Gesellschaftsrecht.pdf");
+        int fileCount = 0;
+
+        while ((entry = zipInputStream
+                .getNextEntry()) != null) {
+            assertTrue(expectedFileNames
+                    .contains(entry
+                            .getName()), "Unexpected file in ZIP: " + entry
+                                    .getName());
+            fileCount++;
+        }
+
+        assertEquals(expectedFileNames
+                .size(), fileCount, "Not all files were zipped correctly.");
     }
 }

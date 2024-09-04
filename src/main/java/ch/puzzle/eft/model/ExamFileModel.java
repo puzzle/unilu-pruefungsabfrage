@@ -36,6 +36,20 @@ public class ExamFileModel {
                 .getName();
     }
 
+    public String getFileExtension() {
+        String fileName = this.file
+                .getName();
+        int dotIndex = fileName
+                .lastIndexOf('.');
+        if (dotIndex != -1 && dotIndex < fileName
+                .length() - 1) {
+            return fileName
+                    .substring(dotIndex);  // Includes the dot (e.g., ".pdf")
+        } else {
+            return "";  // No extension found
+        }
+    }
+
     public File getFile() {
         return file;
     }

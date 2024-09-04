@@ -91,8 +91,8 @@ public class ExamFileService {
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
             for (ExamFileModel examFile : examFileList) {
                 String name = examFile
-                        .getSubjectName() + "_" + examFile
-                                .getFileName();
+                        .getSubjectName() + examFile
+                                .getFileExtension();
                 ZipEntry zipEntry = new ZipEntry(name);
                 zos
                         .putNextEntry(zipEntry);
@@ -115,5 +115,10 @@ public class ExamFileService {
             e
                     .printStackTrace();
         }
+    }
+
+    public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
+        List<ExamFileModel> matchingExams = getMatchingExams(examNumber, "11112222");
+        convertFilesToZip(matchingExams, outputStream);
     }
 }
