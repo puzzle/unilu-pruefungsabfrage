@@ -44,9 +44,9 @@ public class ExamFileModel {
         if (dotIndex != -1 && dotIndex < fileName
                 .length() - 1) {
             return fileName
-                    .substring(dotIndex);  // Includes the dot (e.g., ".pdf")
+                    .substring(dotIndex);
         } else {
-            return "";  // No extension found
+            return "";
         }
     }
 

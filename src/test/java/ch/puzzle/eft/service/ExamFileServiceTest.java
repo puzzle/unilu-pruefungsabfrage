@@ -157,8 +157,8 @@ class ExamFileServiceTest {
                 .getSubjectName())
                 .thenReturn("Privatrecht");
         when(fileModel1
-                .getFileName())
-                .thenReturn("Exam1.pdf");
+                .getFileExtension())
+                .thenReturn(".pdf");
         when(fileModel1
                 .getFile())
                 .thenReturn(tempFile1);
@@ -167,8 +167,8 @@ class ExamFileServiceTest {
                 .getSubjectName())
                 .thenReturn("Strafrecht");
         when(fileModel2
-                .getFileName())
-                .thenReturn("Exam2.pdf");
+                .getFileExtension())
+                .thenReturn(".pdf");
         when(fileModel2
                 .getFile())
                 .thenReturn(tempFile2);
@@ -184,7 +184,7 @@ class ExamFileServiceTest {
         ZipInputStream zis = new ZipInputStream(bis);
         ZipEntry entry;
 
-        String[] expectedEntries = {"Privatrecht_Exam1.pdf", "Strafrecht_Exam2.pdf"};
+        String[] expectedEntries = {"Privatrecht.pdf", "Strafrecht.pdf"};
         String[] actualEntries = new String[2];
 
         String expectedContent1 = "Test Content 1";
