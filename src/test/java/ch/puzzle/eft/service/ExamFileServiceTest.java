@@ -155,20 +155,14 @@ class ExamFileServiceTest {
 
         when(fileModel1
                 .getSubjectName())
-                .thenReturn("Privatrecht");
-        when(fileModel1
-                .getFileExtension())
-                .thenReturn(".pdf");
+                .thenReturn("Privatrecht.pdf");
         when(fileModel1
                 .getFile())
                 .thenReturn(tempFile1);
 
         when(fileModel2
                 .getSubjectName())
-                .thenReturn("Strafrecht");
-        when(fileModel2
-                .getFileExtension())
-                .thenReturn(".pdf");
+                .thenReturn("Strafrecht.pdf");
         when(fileModel2
                 .getFile())
                 .thenReturn(tempFile2);
