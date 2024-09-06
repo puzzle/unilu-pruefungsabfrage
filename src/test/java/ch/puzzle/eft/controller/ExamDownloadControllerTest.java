@@ -38,7 +38,7 @@ class ExamDownloadControllerTest {
         String examNumber = "11000";
         doNothing()
                 .when(examFileService)
-                .convertSelectedFilesToZip(eq(examNumber), eq(outputStream));
+                .convertSelectedFilesToZip(examNumber, outputStream);
 
         mockMvc
                 .perform(get("/download-all/{examNumber}", examNumber))
