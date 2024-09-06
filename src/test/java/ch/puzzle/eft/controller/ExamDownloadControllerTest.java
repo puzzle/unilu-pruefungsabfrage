@@ -1,6 +1,8 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.service.MockServletOutputStream;
+import jakarta.servlet.ServletOutputStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,10 +19,9 @@ import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ExamDownloadController.class)
 @WithMockUser
@@ -29,8 +30,28 @@ class ExamDownloadControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    MockServletOutputStream outputStream = new MockServletOutputStream();
+
     @MockBean
     private ExamFileService examFileService;
+
+    @Test
+    void download() throws Exception {
+        String examNumber = "11000";
+        doNothing()
+                .when(examFileService)
+                .convertSelectedFilesToZip(eq(examNumber), eq(outputStream));
+
+        mockMvc
+                .perform(get("/download-all/{examNumber}", examNumber))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(header()
+                        .string("Content-Disposition", "attachment; filename=11000.zip"));
+
+        verify(examFileService)
+                .convertSelectedFilesToZip(eq(examNumber), any(ServletOutputStream.class));
+    }
 
     @Test
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
