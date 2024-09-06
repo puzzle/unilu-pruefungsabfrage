@@ -27,11 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 class ExamDownloadControllerTest {
 
+    MockServletOutputStream outputStream = new MockServletOutputStream();
     @Autowired
     private MockMvc mockMvc;
-
-    MockServletOutputStream outputStream = new MockServletOutputStream();
-
     @MockBean
     private ExamFileService examFileService;
 

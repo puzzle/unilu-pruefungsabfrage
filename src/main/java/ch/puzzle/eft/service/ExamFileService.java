@@ -91,7 +91,7 @@ public class ExamFileService {
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
             for (ExamFileModel examFile : examFileList) {
                 String name = examFile
-                        .getSubjectName();
+                        .getSubjectName() + ".pdf";
                 ZipEntry zipEntry = new ZipEntry(name);
                 zos
                         .putNextEntry(zipEntry);
