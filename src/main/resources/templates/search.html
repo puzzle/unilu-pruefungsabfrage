@@ -12,5 +12,10 @@
 <div th:each="examFile: ${examFiles}">
     <div th:replace="~{fragments/exam-file}"></div>
 </div>
+<div th:if="${examNumberForm.getExamNumber()}">
+    <a th:href="@{'/download-all/' + ${examNumberForm.getExamNumber()}}" class="btn btn-primary">
+        Download all exams as ZIP
+    </a>
+</div>
 </body>
 </html>
