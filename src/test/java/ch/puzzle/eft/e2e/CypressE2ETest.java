@@ -27,6 +27,8 @@ class CypressE2ETest {
     void runCypressE2ETests() {
         Testcontainers
                 .exposeHostPorts(port);
+        System
+                .setProperty("RESOURCE_DIR", "static");
         try (GenericContainer<?> container = new GenericContainer<>("cypress/included:13.13.2")) {
             container
                     .withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_ONLY)
