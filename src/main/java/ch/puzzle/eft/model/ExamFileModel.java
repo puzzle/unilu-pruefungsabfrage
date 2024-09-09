@@ -14,6 +14,12 @@ public class ExamFileModel {
                         .getName();
     }
 
+    public String getUrl() {
+        return this
+                .getSubjectName() + "/" + this
+                        .getFileName();
+    }
+
     public String getFileName() {
         return this.file.getName();
     }

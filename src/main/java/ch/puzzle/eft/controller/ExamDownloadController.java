@@ -28,12 +28,6 @@ public class ExamDownloadController {
                 .setHeader("Content-Disposition", "attachment; filename=" + subject + ".pdf");
         File examFile = examFileService
                 .getFileToDownload(subject, fileName);
-        if (!examFile
-                .exists()) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(null);
-        }
         return ResponseEntity
                 .ok(new FileSystemResource(examFile));
     }

@@ -71,6 +71,14 @@ public class ExamFileService {
     }
 
     public File getFileToDownload(String subjectName, String filename) {
-        return new File(getBasePath() + File.separator + subjectName + File.separator + filename);
+        File examToDownload = new File(getBasePath() + "/" + subjectName + "/" + filename);
+        if (!examToDownload
+                .exists()) {
+            logger
+                    .info("No file found for subject {} and filename {}", subjectName, filename);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
+                    .format("Keine Unterordner im Pfad %s gefunden", subjectName));
+        }
+        return examToDownload;
     }
 }
