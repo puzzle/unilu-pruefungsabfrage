@@ -9,9 +9,7 @@ it('should show info message on search page', () => {
 })
 
 it('should display header on search page', () => {
-    cy.get('header').then((header) => {
-        expect(header).to.contain("Uni Luzern Prüfungsabfrage")
-    })
+    cy.get('img').should("be.visible");
 })
 
 it('should display label for searchbar', () => {

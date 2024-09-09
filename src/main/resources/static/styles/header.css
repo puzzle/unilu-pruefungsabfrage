@@ -4,6 +4,6 @@
 }
 .header-item {
     display: flex;
-    gap: 4px;
+    margin: 15px;
     align-items: center;
 }
