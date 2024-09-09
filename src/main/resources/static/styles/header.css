@@ -4,6 +4,9 @@
 }
 .header-item {
     display: flex;
-    margin: 15px;
+    gap: 4px;
     align-items: center;
+}
+.logo {
+    margin: 15px;
 }
