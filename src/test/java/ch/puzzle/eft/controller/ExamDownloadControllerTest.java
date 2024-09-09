@@ -11,17 +11,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(DownloadController.class)
+@WebMvcTest(ExamDownloadController.class)
 @WithMockUser
-public class DownloadControllerTest {
+public class ExamDownloadControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     void shouldDownloadFileFromEndpoint() throws Exception {
-        mockMvc.perform(get("/download").param("filename", "Handels und Gesellschaftsrecht/11000_11112222.pdf"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE));
+        mockMvc
+                .perform(get("/download")
+                        .param("filename", "Handels und Gesellschaftsrecht/11000_11112222.pdf"))
+                .andExpect(status()
+                        .isOk())
+                .andExpect(content()
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM_VALUE));
     }
 }

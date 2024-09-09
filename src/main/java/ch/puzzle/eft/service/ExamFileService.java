@@ -69,4 +69,8 @@ public class ExamFileService {
         File baseDir = new File(getBasePath());
         return baseDir.listFiles(File::isDirectory);
     }
+
+    public File getFileToDownload(String subjectName, String filename) {
+        return new File(getBasePath() + File.separator + subjectName + File.separator + filename);
+    }
 }
