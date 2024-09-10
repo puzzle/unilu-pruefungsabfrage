@@ -1,5 +1,4 @@
 .application-header {
-    height: 5em;
     background-color: lightgray;
 }
 
@@ -10,20 +9,11 @@
 }
 
 .logo {
-    width: auto;
-    height: 40px;
-}
-
-.profile {
-    margin: 15px;
-}
-
-.navigation-container {
-    width: 250px;
+    height: 70px;
 }
 
 .navigation-item {
-    font-size: 0.75rem;
+    font-size: 1em;
     color: slategray;
     text-decoration: none;
 }
