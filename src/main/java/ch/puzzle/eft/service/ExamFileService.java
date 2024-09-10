@@ -59,7 +59,9 @@ public class ExamFileService {
         return matchingFiles.stream().map(ExamFileModel::new).toList();
     }
 
-    protected String getBasePath() { return environment.getProperty("RESOURCE_DIR"); }
+    protected String getBasePath() {
+        return environment.getProperty("RESOURCE_DIR");
+    }
 
     protected File[] getSubjectDirectories() {
         File baseDir = new File(getBasePath());

@@ -46,7 +46,7 @@
 		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_if_while_statement" value="common_lines"/>
 		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_for_statment" value="separate_lines"/>
 		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_switch_statement" value="common_lines"/>
-		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_try_clause" value="separate_lines"/>
+		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_try_clause" value="common_lines"/>
 		<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_catch_clause" value="common_lines"/>
 		<setting id="org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_type_declaration" value="insert"/>
 		<setting id="org.eclipse.jdt.core.formatter.insert_space_before_opening_brace_in_anonymous_type_declaration" value="insert"/>
@@ -277,14 +277,14 @@
 		<setting id="org.eclipse.jdt.core.formatter.keep_if_then_body_block_on_one_line" value="one_line_never"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_lambda_body_block_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_code_block_on_one_line" value="one_line_never"/>
-		<setting id="org.eclipse.jdt.core.formatter.keep_method_body_on_one_line" value="one_line_preserve"/>
-		<setting id="org.eclipse.jdt.core.formatter.keep_simple_getter_setter_on_one_line" value="true"/>
+		<setting id="org.eclipse.jdt.core.formatter.keep_method_body_on_one_line" value="one_line_never"/>
+		<setting id="org.eclipse.jdt.core.formatter.keep_simple_getter_setter_on_one_line" value="false"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_type_declaration_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_anonymous_type_declaration_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_enum_declaration_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_enum_constant_declaration_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_record_declaration_on_one_line" value="one_line_preserve"/>
-		<setting id="org.eclipse.jdt.core.formatter.keep_record_constructor_on_one_line" value="one_line_preserve"/>
+		<setting id="org.eclipse.jdt.core.formatter.keep_record_constructor_on_one_line" value="one_line_never"/>
 		<setting id="org.eclipse.jdt.core.formatter.keep_annotation_declaration_on_one_line" value="one_line_preserve"/>
 		<setting id="org.eclipse.jdt.core.formatter.lineSplit" value="120"/>
 		<setting id="org.eclipse.jdt.core.formatter.continuation_indentation" value="2"/>
@@ -332,7 +332,7 @@
 		<setting id="org.eclipse.jdt.core.formatter.alignment_for_expressions_in_for_loop_header" value="0"/>
 		<setting id="org.eclipse.jdt.core.formatter.alignment_for_compact_if" value="16"/>
 		<setting id="org.eclipse.jdt.core.formatter.alignment_for_compact_loops" value="16"/>
-		<setting id="org.eclipse.jdt.core.formatter.alignment_for_resources_in_try" value="0"/>
+		<setting id="org.eclipse.jdt.core.formatter.alignment_for_resources_in_try" value="2"/>
 		<setting id="org.eclipse.jdt.core.formatter.alignment_for_union_type_in_multicatch" value="18"/>
 		<setting id="org.eclipse.jdt.core.formatter.wrap_before_or_operator_multicatch" value="false"/>
 		<setting id="org.eclipse.jdt.core.formatter.alignment_for_assertion_message" value="0"/>
