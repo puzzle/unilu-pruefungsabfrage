@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
-  </head>
-  <header class="w-100 d-flex p-2 align-items-center justify-content-between application-header">
+<head>
+    <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
+</head>
+<header class=" d-flex p-2 align-items-center justify-content-between application-header">
     <div class="header-item">
-      <div class="fs-4">Uni Luzern Prüfungsabfrage</div>
+        <img class="m-4" id="logo" th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}" alt="image not found">
     </div>
-    <div class="header-item">
-      <a id="search-routing-link" th:href="@{/search}">Suche nach Prüfungsnumer</a>
+    <div class="header-item justify-content-end flex-column">
+        <p class="me-3 fs-3">Sven Studi</p><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
+        <div class="me-3 d-flex gap-3 flex-row-reverse">
+            <a class="navigation-item">Logout</a> <!--Todo wenn login funktioniert-->
+            <a class="navigation-item">Kontakt</a><!--Todo wenn contact.html existiert-->
+            <a class="navigation-item" id="search-routing-link"
+               th:href="@{/search}">Prüfungslaufnummer</a>
+        </div>
     </div>
-    <div class="header-item">
-      <div>Sven Studi</div>
-    </div>
-  </header>
+</header>
 </html>

@@ -8,8 +8,6 @@ it('should show greeting message on index page', () => {
     })
 })
 
-it('should display header on index page', () => {
-    cy.get('header').then((header) => {
-        expect(header).to.contain("Uni Luzern Prüfungsabfrage")
-    })
+it('should display header on search page', () => {
+    cy.get('#logo').should("be.visible");
 })

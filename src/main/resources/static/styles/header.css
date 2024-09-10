@@ -1,9 +1,24 @@
 .application-header {
-    height: 4em;
     background-color: lightgray;
 }
+
 .header-item {
     display: flex;
-    gap: 4px;
-    align-items: center;
+    align-items: end;
+    width: 50%;
 }
+
+#logo {
+    height: 70px;
+}
+
+.navigation-item {
+    font-size: 1em;
+    color: slategray;
+    text-decoration: none;
+}
+
+.navigation-item:hover {
+    color: black;
+}
+
