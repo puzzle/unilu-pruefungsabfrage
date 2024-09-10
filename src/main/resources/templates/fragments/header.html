@@ -5,13 +5,16 @@
 </head>
 <header class=" d-flex p-2 align-items-center justify-content-between application-header">
     <div class="header-item">
-        <img class="logo" width="auto" height="40px" th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}" alt="image not found">
+        <img class="m-3 logo" th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}" alt="image not found">
     </div>
-    <div class="header-item justify-content-center text-align-center">
-        <a id="search-routing-link" th:href="@{/search}">Suche nach Prüfungsnummer</a>
-    </div>
-    <div class="header-item justify-content-end">
-        <div class="profile">Sven Studi</div><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
+    <div class="header-item justify-content-end flex-column">
+        <p class="mr-3">Sven Studi</p><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
+        <div class="mr-3 d-flex justify-content-between navigation-container flex-row-reverse">
+            <a class="navigation-item">Logout</a> <!--Todo wenn login funktioniert-->
+            <a class="navigation-item">Kontakt</a><!--Todo wenn Kontakt.html existiert-->
+            <a class="navigation-item" id="search-routing-link"
+               th:href="@{/search}">Prüfungslaufnummer</a>
+        </div>
     </div>
 </header>
 </html>

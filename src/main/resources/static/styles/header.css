@@ -5,11 +5,11 @@
 
 .header-item {
     display: flex;
-    align-items: center;
+    align-items: end;
+    width: 50%;
 }
 
 .logo {
-    margin: 15px;
     width: auto;
     height: 40px;
 }
@@ -17,3 +17,18 @@
 .profile {
     margin: 15px;
 }
+
+.navigation-container {
+    width: 250px;
+}
+
+.navigation-item {
+    font-size: 0.75rem;
+    color: slategray;
+    text-decoration: none;
+}
+
+.navigation-item:hover {
+    color: black;
+}
+
