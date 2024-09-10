@@ -31,8 +31,7 @@ public class SiteController {
     }
 
     @PostMapping("/search")
-    public String viewValidatePage(@Valid
-    ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
+    public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
         if (bindingResult.hasErrors()) {
             return "search";
