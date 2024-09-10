@@ -151,14 +151,14 @@ class ExamFileServiceTest {
 
         when(fileModel1
                 .getSubjectName())
-                .thenReturn("Privatrecht.pdf");
+                .thenReturn("Privatrecht");
         when(fileModel1
                 .getFile())
                 .thenReturn(tempFile1);
 
         when(fileModel2
                 .getSubjectName())
-                .thenReturn("Strafrecht.pdf");
+                .thenReturn("Strafrecht");
         when(fileModel2
                 .getFile())
                 .thenReturn(tempFile2);
