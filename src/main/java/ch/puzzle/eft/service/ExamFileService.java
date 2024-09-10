@@ -15,10 +15,9 @@ import java.util.Objects;
 
 @Service
 public class ExamFileService {
+    private static final Logger logger = LoggerFactory.getLogger(ExamFileService.class);
     private final Environment environment;
     private final ValidationService validationService;
-    private static final Logger logger = LoggerFactory
-            .getLogger(ExamFileService.class);
 
     public ExamFileService(Environment environment, ValidationService validationService) {
         this.environment = environment;
@@ -28,56 +27,46 @@ public class ExamFileService {
     public List<File> getAllExamFiles() {
         File[] subjectDirectories = getSubjectDirectories();
         if (subjectDirectories == null || subjectDirectories.length == 0) {
-            logger
-                    .info("No Subdirectories in path {} found", getBasePath());
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
-                    .format("Keine Unterordner im Pfad %s gefunden", getBasePath()));
+            logger.info("No Subdirectories in path {} found", getBasePath());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                              String.format("Keine Unterordner im Pfad %s gefunden", getBasePath()));
         }
-        return Arrays
-                .stream(subjectDirectories)
-                .map(e -> e
-                        .listFiles(File::isFile))
-                .filter(Objects::nonNull)
-                .flatMap(Arrays::stream)
-                .toList();
+        return Arrays.stream(subjectDirectories)
+                     .map(e -> e.listFiles(File::isFile))
+                     .filter(Objects::nonNull)
+                     .flatMap(Arrays::stream)
+                     .toList();
     }
 
     public List<ExamFileModel> getMatchingExams(String examNumber, String matriculationNumber) {
-        if (!validationService
-                .validateExamNumber(examNumber)) {
-            logger
-                    .info("Invalid Exam Number: {}", examNumber);
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String
-                    .format("Ungültige Prüfunslaufnummer: %s", examNumber));
+        if (!validationService.validateExamNumber(examNumber)) {
+            logger.info("Invalid Exam Number: {}", examNumber);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                                              String.format("Ungültige Prüfunslaufnummer: %s", examNumber));
         }
-        List<File> matchingFiles = getAllExamFiles()
-                .stream()
-                .filter(file -> file
-                        .getName()
-                        .equals(String
-                                .format("%s_%s.pdf", examNumber, matriculationNumber)))
-                .toList();
-        if (matchingFiles
-                .isEmpty()) {
-            logger
-                    .info("No exam with the number {} found", examNumber);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
-                    .format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden", examNumber));
+        List<File> matchingFiles = getAllExamFiles().stream()
+                                                    .filter(file -> file.getName()
+                                                                        .equals(String.format("%s_%s.pdf",
+                                                                                              examNumber,
+                                                                                              matriculationNumber)))
+                                                    .toList();
+        if (matchingFiles.isEmpty()) {
+            logger.info("No exam with the number {} found", examNumber);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                              String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
+                                                            examNumber));
         }
-        return matchingFiles
-                .stream()
-                .map(ExamFileModel::new)
-                .toList();
+        return matchingFiles.stream()
+                            .map(ExamFileModel::new)
+                            .toList();
     }
 
     protected String getBasePath() {
-        return environment
-                .getProperty("RESOURCE_DIR");
+        return environment.getProperty("RESOURCE_DIR");
     }
 
     protected File[] getSubjectDirectories() {
         File baseDir = new File(getBasePath());
-        return baseDir
-                .listFiles(File::isDirectory);
+        return baseDir.listFiles(File::isDirectory);
     }
 }

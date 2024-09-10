@@ -10,14 +10,12 @@ public class ExamFileModel {
     }
 
     public String getSubjectName() {
-        return this.file
-                .getParentFile()
-                .getName();
+        return this.file.getParentFile()
+                        .getName();
     }
 
     public String getFileName() {
-        return this.file
-                .getName();
+        return this.file.getName();
     }
 
     public File getFile() {

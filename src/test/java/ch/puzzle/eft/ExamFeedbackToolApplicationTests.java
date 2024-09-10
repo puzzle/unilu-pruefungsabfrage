@@ -13,24 +13,17 @@ class ExamFeedbackToolApplicationTests {
 
     @Test
     void contextLoads(ApplicationContext context) {
-        assertThat(context)
-                .isNotNull();
-        assertThat(context
-                .getId())
-                .isEqualTo("exam-feedback-tool");
+        assertThat(context).isNotNull();
+        assertThat(context.getId()).isEqualTo("exam-feedback-tool");
         checkControllers(context);
         checkServices(context);
     }
 
     void checkControllers(ApplicationContext context) {
-        assertThat(context
-                .getBean(SiteController.class))
-                .isNotNull();
+        assertThat(context.getBean(SiteController.class)).isNotNull();
     }
 
     void checkServices(ApplicationContext context) {
-        assertThat(context
-                .getBean(ValidationService.class))
-                .isNotNull();
+        assertThat(context.getBean(ValidationService.class)).isNotNull();
     }
 }

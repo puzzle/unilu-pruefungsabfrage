@@ -21,35 +21,30 @@ public class ValidationServiceTest {
     @ParameterizedTest
     @ValueSource(strings = {"11000", "12000", "40503", "49291", "56302", "10203", "40302", "30122"})
     public void correctExamNumbersShouldBeValid(String examNumber) {
-        assertTrue(validationService
-                .validateExamNumber(examNumber));
+        assertTrue(validationService.validateExamNumber(examNumber));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"4", "30", "384", "9230", "203030", "3002039", "38282380", "2940119304"})
     public void examNumbersWithMoreOrLessThanFiveDigitsShouldNotBeValid(String examNumber) {
-        assertFalse(validationService
-                .validateExamNumber(examNumber));
+        assertFalse(validationService.validateExamNumber(examNumber));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"a4040", "3k392", "85c29", "203G3", "3852N", "I am Text", "asdfg", "null", "false", "true", "nil", "", "^[0-9]{5}$"})
     public void valuesContainingLettersShouldNotBeValid(String examNumber) {
-        assertFalse(validationService
-                .validateExamNumber(examNumber));
+        assertFalse(validationService.validateExamNumber(examNumber));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"\\", ".", "[", "]", "{", "}", "(", ")", "<", ">", "*", "+", "-", "=", "!", "?", "^", "$", "|", "`", "'", "´", "\"", "~", "%", "&", ",", "_", ";", ":", "°", "@", "#"})
     public void valuesContainingSpecialCharactersShouldNotBeValid(String specialCharacter) {
         String examNumber = "1103" + specialCharacter;
-        assertFalse(validationService
-                .validateExamNumber(examNumber));
+        assertFalse(validationService.validateExamNumber(examNumber));
     }
 
     @Test
     public void nullValueShouldNotBeValid() {
-        assertFalse(validationService
-                .validateExamNumber(null));
+        assertFalse(validationService.validateExamNumber(null));
     }
 }

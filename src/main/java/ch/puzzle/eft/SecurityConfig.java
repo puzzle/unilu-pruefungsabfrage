@@ -13,13 +13,11 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        return http
-                .cors(Customizer
-                        .withDefaults())
-                .authorizeHttpRequests(e -> e
-                        .anyRequest()
-                        .permitAll())
-                .build();
+        return http.cors(Customizer.withDefaults())
+                   .authorizeHttpRequests(e -> e.anyRequest()
+                                                .permitAll())
+                   .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {})
+                   .build();
 
     }
 }
