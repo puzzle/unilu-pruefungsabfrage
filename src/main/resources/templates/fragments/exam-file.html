@@ -2,9 +2,7 @@
 <html lang="en">
 <body>
 <div>
-    <a th:href="@{|/download/${examFile.getUrl}|}">
-        <span th:text="${examFile.getSubjectName()}"></span>
-    </a>
+    <a th:href="@{|/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}"></a>
 </div>
 </body>
 </html>

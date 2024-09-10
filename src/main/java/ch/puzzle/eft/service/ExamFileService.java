@@ -77,7 +77,7 @@ public class ExamFileService {
             logger
                     .info("No file found for subject {} and filename {}", subjectName, filename);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
-                    .format("Keine Unterordner im Pfad %s gefunden", subjectName));
+                    .format("Kein File for subject %s and filename %s", subjectName, filename));
         }
         return examToDownload;
     }

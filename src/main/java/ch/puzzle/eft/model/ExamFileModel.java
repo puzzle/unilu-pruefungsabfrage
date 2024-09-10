@@ -14,7 +14,7 @@ public class ExamFileModel {
                         .getName();
     }
 
-    public String getUrl() {
+    public String getDownloadPath() {
         return this
                 .getSubjectName() + "/" + this
                         .getFileName();

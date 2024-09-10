@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ExamDownloadController.class)
 @WithMockUser
-public class ExamDownloadControllerTest {
+class ExamDownloadControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
