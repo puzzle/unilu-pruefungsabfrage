@@ -56,7 +56,9 @@ public class ExamFileService {
                                               String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
                                                             examNumber));
         }
-        return matchingFiles.stream().map(ExamFileModel::new).toList();
+        return matchingFiles.stream()
+                            .map(ExamFileModel::new)
+                            .toList();
     }
 
     protected String getBasePath() {

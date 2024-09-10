@@ -33,12 +33,16 @@ class SiteControllerTest {
 
     @Test
     void defaultRouteShouldReturnIndexPage() throws Exception {
-        this.mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"));
+        this.mockMvc.perform(get("/"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("index"));
     }
 
     @Test
     void searchRouteShouldReturnSearchPage() throws Exception {
-        this.mockMvc.perform(get("/search")).andExpect(status().isOk()).andExpect(view().name("search"));
+        this.mockMvc.perform(get("/search"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("search"));
     }
 
     @Test
