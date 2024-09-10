@@ -9,5 +9,5 @@ it('should show greeting message on index page', () => {
 })
 
 it('should display header on search page', () => {
-    cy.get('img.logo').should("be.visible");
+    cy.get('#logo').should("be.visible");
 })

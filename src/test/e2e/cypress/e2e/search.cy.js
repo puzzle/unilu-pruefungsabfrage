@@ -9,7 +9,7 @@ it('should show info message on search page', () => {
 })
 
 it('should display header on search page', () => {
-    cy.get('img.logo').should("be.visible");
+    cy.get('#logo').should("be.visible");
 })
 
 it('should display label for searchbar', () => {
