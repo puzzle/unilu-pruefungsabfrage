@@ -22,9 +22,12 @@ class ExamFeedbackToolArchitectureTest {
     void classesInRightPackages(String passedName) {
         JavaClasses importedClasses = new ClassFileImporter().importPackages(ROOT_PACKAGE_NAME);
 
-        ArchRule rule = classes().that().haveSimpleNameEndingWith(StringUtils.capitalize(passedName)).and()
-                                 .areTopLevelClasses().should().resideInAPackage(
-                                                                                 ROOT_PACKAGE_NAME + "." + passedName + "..")
+        ArchRule rule = classes().that()
+                                 .haveSimpleNameEndingWith(StringUtils.capitalize(passedName))
+                                 .and()
+                                 .areTopLevelClasses()
+                                 .should()
+                                 .resideInAPackage(ROOT_PACKAGE_NAME + "." + passedName + "..")
                                  .allowEmptyShould(true);
 
         rule.check(importedClasses);
@@ -34,8 +37,8 @@ class ExamFeedbackToolArchitectureTest {
     void serviceLayerCheck() {
         JavaClasses importedClasses = getMainSourceClasses();
         Architectures.LayeredArchitecture layeredArchitecture = layeredArchitecture().consideringAllDependencies()
-                                                                                     .layer("Controller").definedBy(
-                                                                                                                    "..controller..")
+                                                                                     .layer("Controller")
+                                                                                     .definedBy("..controller..")
                                                                                      .layer("BusinessService")
                                                                                      .definedBy("..service..")
 
@@ -49,7 +52,7 @@ class ExamFeedbackToolArchitectureTest {
     }
 
     private static JavaClasses getMainSourceClasses() {
-        return new ClassFileImporter().withImportOption(new ImportOption.DoNotIncludeTests()).importPackages(
-                                                                                                             ROOT_PACKAGE_NAME);
+        return new ClassFileImporter().withImportOption(new ImportOption.DoNotIncludeTests())
+                                      .importPackages(ROOT_PACKAGE_NAME);
     }
 }

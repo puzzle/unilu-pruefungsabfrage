@@ -38,9 +38,9 @@ public class ExamFileServiceTest {
         List<File> result = examFileService.getAllExamFiles();
 
         List<File> filesToCheck = List.of(Paths.get("static", "Handels und Gesellschaftsrecht", "11000_11112222.pdf")
-                                               .toFile(), Paths.get("static", "Privatrecht", "11000_11112222.pdf")
-                                                               .toFile(), Paths.get("static", "Strafrecht",
-                                                                                    "11000_11112222.pdf").toFile(),
+                                               .toFile(),
+                                          Paths.get("static", "Privatrecht", "11000_11112222.pdf").toFile(),
+                                          Paths.get("static", "Strafrecht", "11000_11112222.pdf").toFile(),
                                           Paths.get("static", "Öffentliches Recht", "11000_11112222.pdf").toFile());
 
         assertEquals(22, result.size());
@@ -74,8 +74,11 @@ public class ExamFileServiceTest {
                                             "static/Strafrecht/11001_22223333.pdf",
                                             "static/Öffentliches Recht/11001_22223333.pdf");
 
-        List<String> expectedFileNames = filesToCheck.stream().map(p -> Paths.get(p).toFile()).map(ExamFileModel::new)
-                                                     .map(ExamFileModel::getFileName).toList();
+        List<String> expectedFileNames = filesToCheck.stream()
+                                                     .map(p -> Paths.get(p).toFile())
+                                                     .map(ExamFileModel::new)
+                                                     .map(ExamFileModel::getFileName)
+                                                     .toList();
 
         List<ExamFileModel> result = examFileService.getMatchingExams("11001", "22223333");
 
