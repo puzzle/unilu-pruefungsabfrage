@@ -2,7 +2,10 @@ beforeEach(() => {
     cy.visit("/");
 })
 
-it('should display the right picture', () => {
+it('should display the right image', () => {
+    cy.get("header").find("#logo")
+        .should('have.attr', 'src')
+        .and('include', 'UNILU_Schriftzug_Standard_schwarz_DE.png');
 
 });
 
