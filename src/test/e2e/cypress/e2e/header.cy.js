@@ -2,6 +2,10 @@ beforeEach(() => {
     cy.visit("/");
 })
 
+it('should display the right picture', () => {
+
+});
+
 it('should navigate to /search when link to the Search Page is clicked', () => {
     cy.get('header').find('#search-routing-link').should('exist');
     cy.get('#search-routing-link').click();

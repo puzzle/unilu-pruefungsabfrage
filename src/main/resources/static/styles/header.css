@@ -1,12 +1,19 @@
 .application-header {
-    height: 4em;
+    height: 5em;
     background-color: lightgray;
 }
+
 .header-item {
     display: flex;
-    gap: 4px;
     align-items: center;
 }
+
 .logo {
+    margin: 15px;
+    width: auto;
+    height: 40px;
+}
+
+.profile {
     margin: 15px;
 }

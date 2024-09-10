@@ -3,15 +3,15 @@
 <head>
     <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
 </head>
-<header class="w-100 d-flex p-2 align-items-center justify-content-between application-header">
+<header class=" d-flex p-2 align-items-center justify-content-between application-header">
     <div class="header-item">
         <img class="logo" width="auto" height="40px" th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}" alt="image not found">
     </div>
-    <div class="header-item">
+    <div class="header-item justify-content-center text-align-center">
         <a id="search-routing-link" th:href="@{/search}">Suche nach Prüfungsnummer</a>
     </div>
-    <div class="header-item">
-        <div>Sven Studi</div><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
+    <div class="header-item justify-content-end">
+        <div class="profile">Sven Studi</div><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
     </div>
 </header>
 </html>
