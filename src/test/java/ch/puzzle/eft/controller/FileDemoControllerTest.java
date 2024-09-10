@@ -21,16 +21,9 @@ class FileDemoControllerTest {
 
     @Test
     void shouldDownloadFileFromEndpoint() throws Exception {
-        System
-                .setProperty("RESOURCE_DIR", "static");
+        System.setProperty("RESOURCE_DIR", "static");
         File file = new File("static/Handels und Gesellschaftsrecht/11000_11112222.pdf");
-        this.mockMvc
-                .perform(get("/api/v2/download"))
-                .andExpect(status()
-                        .isOk())
-                .andExpect(content()
-                        .bytes(Files
-                                .readAllBytes(file
-                                        .toPath())));
+        this.mockMvc.perform(get("/api/v2/download")).andExpect(status().isOk()).andExpect(content().bytes(Files
+                                                                                                                .readAllBytes(file.toPath())));
     }
 }

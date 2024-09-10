@@ -9,20 +9,11 @@ public class ExamFileModel {
         this.file = file;
     }
 
-    public String getSubjectName() {
-        return this.file
-                .getParentFile()
-                .getName();
-    }
+    public String getSubjectName() { return this.file.getParentFile().getName(); }
 
-    public String getFileName() {
-        return this.file
-                .getName();
-    }
+    public String getFileName() { return this.file.getName(); }
 
-    public File getFile() {
-        return file;
-    }
+    public File getFile() { return file; }
 
 }
 

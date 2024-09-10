@@ -26,28 +26,22 @@ public class SiteController {
 
     @GetMapping("/search")
     public String viewSearchPage(Model model) {
-        model
-                .addAttribute("examNumberForm", new ExamNumberForm(null));
+        model.addAttribute("examNumberForm", new ExamNumberForm(null));
         return "search";
     }
 
     @PostMapping("/search")
-    public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
-        model
-                .addAttribute("examNumberForm", examNumberForm);
-        if (bindingResult
-                .hasErrors()) {
+    public String viewValidatePage(@Valid
+    ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
+        model.addAttribute("examNumberForm", examNumberForm);
+        if (bindingResult.hasErrors()) {
             return "search";
         }
         try {
-            model
-                    .addAttribute("examFiles", examFileService
-                            .getMatchingExams(examNumberForm
-                                    .getExamNumber(), "11112222"));
+            model.addAttribute("examFiles", examFileService.getMatchingExams(examNumberForm.getExamNumber(),
+                                                                             "11112222"));
         } catch (ResponseStatusException e) {
-            bindingResult
-                    .rejectValue("examNumber", "error.examNumberForm", e
-                            .getReason());
+            bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getReason());
         }
         return "search";
     }

@@ -12,11 +12,7 @@ public class ExamNumberForm {
         this.examNumber = examNumber;
     }
 
-    public String getExamNumber() {
-        return examNumber;
-    }
+    public String getExamNumber() { return examNumber; }
 
-    public void setExamNumber(String examNumber) {
-        this.examNumber = examNumber;
-    }
+    public void setExamNumber(String examNumber) { this.examNumber = examNumber; }
 }

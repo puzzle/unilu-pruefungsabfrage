@@ -16,8 +16,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class CypressE2ETest {
-    private static final Logger logger = LoggerFactory
-            .getLogger(CypressE2ETest.class);
+    private static final Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
 
 
     @LocalServerPort
@@ -25,22 +24,18 @@ class CypressE2ETest {
 
     @Test
     void runCypressE2ETests() {
-        Testcontainers
-                .exposeHostPorts(port);
-        System
-                .setProperty("RESOURCE_DIR", "static");
-        try (GenericContainer<?> container = new GenericContainer<>("cypress/included:13.13.2")) {
-            container
-                    .withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_ONLY)
-                    .withWorkingDirectory("/e2e")
-                    .withEnv("CYPRESS_baseUrl", "http://host.testcontainers.internal:" + port)
-                    .withLogConsumer(new Slf4jLogConsumer(logger))
-                    .withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy())
-                    .withCommand("--browser=chrome --headed")
-                    .start();
-            assertThat(container
-                    .getLogs())
-                    .contains("All specs passed!");
+        Testcontainers.exposeHostPorts(port);
+        System.setProperty("RESOURCE_DIR", "static");
+        try (
+                GenericContainer<?> container = new GenericContainer<>("cypress/included:13.13.2")
+        ) {
+            container.withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_ONLY).withWorkingDirectory("/e2e")
+                     .withEnv("CYPRESS_baseUrl", "http://host.testcontainers.internal:" + port).withLogConsumer(
+                                                                                                                new Slf4jLogConsumer(logger))
+                     .withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy()).withCommand(
+                                                                                                            "--browser=chrome --headed")
+                     .start();
+            assertThat(container.getLogs()).contains("All specs passed!");
         }
     }
 }
