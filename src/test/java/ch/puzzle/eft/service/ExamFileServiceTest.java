@@ -44,9 +44,7 @@ public class ExamFileServiceTest {
                                           Paths.get("static", "Öffentliches Recht", "11000_11112222.pdf").toFile());
 
         assertEquals(22, result.size());
-        for (
-            File fileToCheck : filesToCheck
-        ) {
+        for (File fileToCheck : filesToCheck) {
             assertTrue(result.contains(fileToCheck));
         }
     }
