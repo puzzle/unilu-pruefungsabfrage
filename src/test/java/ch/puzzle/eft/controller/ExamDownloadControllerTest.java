@@ -35,31 +35,22 @@ class ExamDownloadControllerTest {
     @Test
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
         File file = new File("static/Privatrecht/11001_22223333.pdf");
-        when(examFileService
-                .getFileToDownload("Privatrecht", "11001_22223333.pdf"))
-                .thenReturn(file);
-        this.mockMvc
-                .perform(get("/download/Privatrecht/11001_22223333.pdf"))
-                .andExpect(status()
-                        .isOk())
-                .andExpect(content()
-                        .bytes(Files
-                                .readAllBytes(file
-                                        .toPath())));
+        when(examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf")).thenReturn(file);
+        this.mockMvc.perform(get("/download/Privatrecht/11001_22223333.pdf"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
     }
 
     @Test
     void shouldThrowExceptionIfFileNotFound() throws Exception {
-        when(examFileService
-                .getFileToDownload("Privatrecht", "11000_22223333.pdf"))
-                .thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, String
-                        .format("Keine Unterordner im Pfad %s gefunden", "Privatrecht")));
-        ResultActions notFoundResult = this.mockMvc
-                .perform(get("/download/Privatrecht/11000_22223333.pdf"));
-        assertEquals(HttpStatus.NOT_FOUND
-                .value(), notFoundResult
-                        .andReturn()
-                        .getResponse()
-                        .getStatus());
+        when(examFileService.getFileToDownload("Privatrecht", "11000_22223333.pdf")).thenThrow(
+                                                                                               new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                                                                                                           String.format("Keine Unterordner im Pfad %s gefunden",
+                                                                                                                                         "Privatrecht")));
+        ResultActions notFoundResult = this.mockMvc.perform(get("/download/Privatrecht/11000_22223333.pdf"));
+        assertEquals(HttpStatus.NOT_FOUND.value(),
+                     notFoundResult.andReturn()
+                                   .getResponse()
+                                   .getStatus());
     }
 }

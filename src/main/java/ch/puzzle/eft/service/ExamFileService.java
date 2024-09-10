@@ -72,12 +72,12 @@ public class ExamFileService {
 
     public File getFileToDownload(String subjectName, String filename) {
         File examToDownload = new File(getBasePath() + "/" + subjectName + "/" + filename);
-        if (!examToDownload
-                .exists()) {
-            logger
-                    .info("No file found for subject {} and filename {}", subjectName, filename);
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String
-                    .format("Kein File für fach %s und filename", subjectName, filename));
+        if (!examToDownload.exists()) {
+            logger.info("No file found for subject {} and filename {}", subjectName, filename);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                              String.format("Kein File für fach %s und filename",
+                                                            subjectName,
+                                                            filename));
         }
         return examToDownload;
     }
