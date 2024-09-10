@@ -1,5 +1,5 @@
 FROM openjdk:21
-RUN adduser eft-user
+RUN adduser --no-create-home eft-user
 USER eft-user
 COPY target .
 ENV RESOURCE_DIR="/resources"
