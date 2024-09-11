@@ -16,14 +16,5 @@ jobs:
           java-version: 21
           distribution: 'oracle'
 
-      - name: Setup rootless docker
-        run: |
-          whoami
-          id
-          sudo systemctl disable --now docker.service docker.socket
-          sudo apt-get update
-          sudo apt-get install -y docker-ce-rootless-extras
-          dockerd-rootless-setuptool.sh install
-
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
