@@ -99,3 +99,5 @@ For example: `systemctl --user start docker`.
 $ systemctl --user enable docker
 $ sudo loginctl enable-linger $(whoami)
 ```
+
+You can now use the normal Docker to build and start the image like described at the top of this readme.
