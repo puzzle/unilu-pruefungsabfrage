@@ -19,6 +19,7 @@ jobs:
       - name: Setup rootless docker
         run: |
           sudo systemctl disable --now docker.service docker.socket
+          sudo apt-get install -y docker-ce-rootless-extras
           dockerd-rootless-setuptool.sh install
 
       - name: Use Maven to run unittest, integration tests and check coverage
