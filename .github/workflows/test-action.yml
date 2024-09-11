@@ -31,6 +31,8 @@ jobs:
           
           sudo mv ~/${filename} /etc/apparmor.d/${filename}
           
+          systemctl restart apparmor.service
+          
           sudo systemctl disable --now docker.service docker.socket
           sudo rm /var/run/docker.sock
           curl -fsSL https://get.docker.com/rootless | sh
