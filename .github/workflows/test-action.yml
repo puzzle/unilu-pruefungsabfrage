@@ -33,7 +33,7 @@ jobs:
           sudo mv ~/${filename} /etc/apparmor.d/${filename}
           sudo systemctl restart apparmor.service
 
-      - name: Disable rootfull docker
+      - name: Disable rootful docker
         run: |
           sudo systemctl disable --now docker.service docker.socket
           sudo rm /var/run/docker.sock
