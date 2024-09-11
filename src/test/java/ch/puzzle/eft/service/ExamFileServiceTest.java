@@ -1,6 +1,7 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamFileModel;
+import ch.puzzle.eft.test.MockServletOutputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;

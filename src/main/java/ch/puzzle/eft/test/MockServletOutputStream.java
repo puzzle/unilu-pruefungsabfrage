@@ -1,4 +1,4 @@
-package ch.puzzle.eft.service;
+package ch.puzzle.eft.test;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;

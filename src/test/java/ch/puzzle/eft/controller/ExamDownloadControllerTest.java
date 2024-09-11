@@ -1,7 +1,7 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.service.ExamFileService;
-import ch.puzzle.eft.service.MockServletOutputStream;
+import ch.puzzle.eft.test.MockServletOutputStream;
 import jakarta.servlet.ServletOutputStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
