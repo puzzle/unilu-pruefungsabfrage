@@ -15,19 +15,16 @@ public class MockServletOutputStream extends ServletOutputStream {
 
     @Override
     public void write(int b) {
-        outputStream
-                .write(b);
+        outputStream.write(b);
     }
 
     @Override
     public void write(byte[] b, int off, int len) {
-        outputStream
-                .write(b, off, len);
+        outputStream.write(b, off, len);
     }
 
     public byte[] getContentAsByteArray() {
-        return outputStream
-                .toByteArray();
+        return outputStream.toByteArray();
     }
 
     @Override

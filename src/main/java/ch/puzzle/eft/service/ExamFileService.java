@@ -90,29 +90,22 @@ public class ExamFileService {
     public void convertFilesToZip(List<ExamFileModel> examFileList, ServletOutputStream outputStream) {
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
             for (ExamFileModel examFile : examFileList) {
-                String name = examFile
-                        .getSubjectName() + ".pdf";
+                String name = examFile.getSubjectName() + ".pdf";
                 ZipEntry zipEntry = new ZipEntry(name);
-                zos
-                        .putNextEntry(zipEntry);
+                zos.putNextEntry(zipEntry);
 
-                try (FileInputStream fin = new FileInputStream(examFile
-                        .getFile())) {
+                try (FileInputStream fin = new FileInputStream(examFile.getFile())) {
                     byte[] bytes = new byte[1024];
                     int length;
-                    while ((length = fin
-                            .read(bytes)) >= 0) {
-                        zos
-                                .write(bytes, 0, length);
+                    while ((length = fin.read(bytes)) >= 0) {
+                        zos.write(bytes, 0, length);
                     }
                 }
 
-                zos
-                        .closeEntry();
+                zos.closeEntry();
             }
         } catch (IOException e) {
-            e
-                    .printStackTrace();
+            e.printStackTrace();
         }
     }
 

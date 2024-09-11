@@ -36,19 +36,14 @@ class ExamDownloadControllerTest {
     @Test
     void download() throws Exception {
         String examNumber = "11000";
-        doNothing()
-                .when(examFileService)
-                .convertSelectedFilesToZip(examNumber, outputStream);
+        doNothing().when(examFileService)
+                   .convertSelectedFilesToZip(examNumber, outputStream);
 
-        mockMvc
-                .perform(get("/download-all/{examNumber}", examNumber))
-                .andExpect(status()
-                        .isOk())
-                .andExpect(header()
-                        .string("Content-Disposition", "attachment; filename=11000.zip"));
+        mockMvc.perform(get("/download-all/{examNumber}", examNumber))
+               .andExpect(status().isOk())
+               .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
-        verify(examFileService)
-                .convertSelectedFilesToZip(eq(examNumber), any(ServletOutputStream.class));
+        verify(examFileService).convertSelectedFilesToZip(eq(examNumber), any(ServletOutputStream.class));
     }
 
     @Test

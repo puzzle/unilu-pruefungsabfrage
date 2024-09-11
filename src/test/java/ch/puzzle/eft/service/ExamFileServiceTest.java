@@ -135,42 +135,23 @@ class ExamFileServiceTest {
         ExamFileModel fileModel1 = mock(ExamFileModel.class);
         ExamFileModel fileModel2 = mock(ExamFileModel.class);
 
-        File tempFile1 = File
-                .createTempFile("testFile1", ".pdf");
-        Files
-                .write(tempFile1
-                        .toPath(), "Test Content 1"
-                                .getBytes());
+        File tempFile1 = File.createTempFile("testFile1", ".pdf");
+        Files.write(tempFile1.toPath(), "Test Content 1".getBytes());
 
-        File tempFile2 = File
-                .createTempFile("testFile2", ".pdf");
-        Files
-                .write(tempFile2
-                        .toPath(), "Test Content 2"
-                                .getBytes());
+        File tempFile2 = File.createTempFile("testFile2", ".pdf");
+        Files.write(tempFile2.toPath(), "Test Content 2".getBytes());
 
-        when(fileModel1
-                .getSubjectName())
-                .thenReturn("Privatrecht");
-        when(fileModel1
-                .getFile())
-                .thenReturn(tempFile1);
+        when(fileModel1.getSubjectName()).thenReturn("Privatrecht");
+        when(fileModel1.getFile()).thenReturn(tempFile1);
 
-        when(fileModel2
-                .getSubjectName())
-                .thenReturn("Strafrecht");
-        when(fileModel2
-                .getFile())
-                .thenReturn(tempFile2);
+        when(fileModel2.getSubjectName()).thenReturn("Strafrecht");
+        when(fileModel2.getFile()).thenReturn(tempFile2);
 
-        List<ExamFileModel> examFileList = Arrays
-                .asList(fileModel1, fileModel2);
+        List<ExamFileModel> examFileList = Arrays.asList(fileModel1, fileModel2);
 
-        examFileService
-                .convertFilesToZip(examFileList, mockOutputStream);
+        examFileService.convertFilesToZip(examFileList, mockOutputStream);
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream
-                .getContentAsByteArray());
+        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream.getContentAsByteArray());
         ZipInputStream zis = new ZipInputStream(bis);
         ZipEntry entry;
 
@@ -181,14 +162,11 @@ class ExamFileServiceTest {
         String expectedContent2 = "Test Content 2";
 
         int i = 0;
-        while ((entry = zis
-                .getNextEntry()) != null) {
-            actualEntries[i] = entry
-                    .getName();
+        while ((entry = zis.getNextEntry()) != null) {
+            actualEntries[i] = entry.getName();
 
             // Read the content of the file inside the ZIP
-            byte[] fileContent = zis
-                    .readAllBytes();
+            byte[] fileContent = zis.readAllBytes();
             String actualContent = new String(fileContent);
 
             // Verify the content of each file
@@ -208,30 +186,25 @@ class ExamFileServiceTest {
     void shouldReturnCorrectFilesAfterZip() throws IOException {
         MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
-        examFileService
-                .convertSelectedFilesToZip("11000", mockOutputStream);
+        examFileService.convertSelectedFilesToZip("11000", mockOutputStream);
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
-        byte[] zipContent = mockOutputStream
-                .getContentAsByteArray();
+        byte[] zipContent = mockOutputStream.getContentAsByteArray();
         ZipInputStream zipInputStream = new ZipInputStream(new java.io.ByteArrayInputStream(zipContent));
 
         // Verify the contents of the ZIP file
         ZipEntry entry;
-        List<String> expectedFileNames = List
-                .of("Privatrecht.pdf", "Strafrecht.pdf", "Öffentliches Recht.pdf", "Handels und Gesellschaftsrecht.pdf");
+        List<String> expectedFileNames = List.of("Privatrecht.pdf",
+                                                 "Strafrecht.pdf",
+                                                 "Öffentliches Recht.pdf",
+                                                 "Handels und Gesellschaftsrecht.pdf");
         int fileCount = 0;
 
-        while ((entry = zipInputStream
-                .getNextEntry()) != null) {
-            assertTrue(expectedFileNames
-                    .contains(entry
-                            .getName()), "Unexpected file in ZIP: " + entry
-                                    .getName());
+        while ((entry = zipInputStream.getNextEntry()) != null) {
+            assertTrue(expectedFileNames.contains(entry.getName()), "Unexpected file in ZIP: " + entry.getName());
             fileCount++;
         }
 
-        assertEquals(expectedFileNames
-                .size(), fileCount, "Not all files were zipped correctly.");
+        assertEquals(expectedFileNames.size(), fileCount, "Not all files were zipped correctly.");
     }
 }

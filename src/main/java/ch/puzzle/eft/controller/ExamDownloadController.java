@@ -23,14 +23,10 @@ public class ExamDownloadController {
 
     @GetMapping("/download-all/{examNumber}")
     public ResponseEntity<?> downloadSubject(@PathVariable("examNumber") String examNumber, HttpServletResponse response) throws IOException {
-        response
-                .setHeader("Content-Disposition", "attachment; filename=" + examNumber + ".zip");
-        examFileService
-                .convertSelectedFilesToZip(examNumber, response
-                        .getOutputStream());
-        return ResponseEntity
-                .ok()
-                .build();
+        response.setHeader("Content-Disposition", "attachment; filename=" + examNumber + ".zip");
+        examFileService.convertSelectedFilesToZip(examNumber, response.getOutputStream());
+        return ResponseEntity.ok()
+                             .build();
     }
 
     @GetMapping(value = "/download/{subject}/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)

@@ -32,8 +32,7 @@ public class ExamFileModel {
     }
 
     public String getFileName() {
-        return this.file
-                .getName();
+        return this.file.getName();
     }
 
     public File getFile() {
