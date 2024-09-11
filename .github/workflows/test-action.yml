@@ -43,7 +43,7 @@ jobs:
 
       - name: Assert docker is running rootless
         run: |
-          if [[ "$(docker info --format '{{ .ClientInfo.Context }}')" == 'rootless' ]]
+          if [[ "$(docker info --format '{{ .ClientInfo.Context }}')" != 'rootless' ]]
           then
             echo "Rootless docker isn't in use and probably wasn't set up properly"
             exit 1
