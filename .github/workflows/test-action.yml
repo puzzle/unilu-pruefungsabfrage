@@ -48,5 +48,6 @@ jobs:
             echo "Rootless docker isn't in use and probably wasn't set up properly"
             exit 1
           fi
+
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
