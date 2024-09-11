@@ -19,6 +19,10 @@ jobs:
       - name: Setup rootless docker
         run: |
           systemctl status docker.socket docker.service
+          if test -f /usr/bin/dockerd-rootless-setuptool.sh; then                                                                                                                                                                                      09:17:34
+            echo setup script exists
+          fi
+
 
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
