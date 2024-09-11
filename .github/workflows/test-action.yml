@@ -34,8 +34,6 @@ jobs:
           sudo systemctl disable --now docker.service docker.socket
           sudo rm /var/run/docker.sock
           curl -fsSL https://get.docker.com/rootless | sh
-          docker context use rootless
-          systemctl --user start docker
 
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
