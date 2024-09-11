@@ -18,6 +18,7 @@ jobs:
       - name: Setup rootless docker
         run: |
           sudo systemctl disable --now docker.service docker.socket
+          sudo rm /var/run/docker.sock
           curl -fsSL https://get.docker.com/rootless | sh
           docker context use rootless
           systemctl --user start docker
