@@ -16,5 +16,9 @@ jobs:
           java-version: 21
           distribution: 'oracle'
 
+      - name: Setup rootless docker
+        run: |
+          systemctl status docker.socket docker.service
+
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
