@@ -88,6 +88,8 @@ To use the installation script, simply run the following command as a non-root u
 #### Usage
 > Attention: Rootless docker can't run systemwide
 
+To now make sure Docker uses the rootless daemon, specify the cli context like this: `docker conext use rootless`.
+
 To control the lifecycle of the daemon use `systemctl --user`.
 
 For example: `systemctl --user start docker`.
@@ -97,5 +99,3 @@ For example: `systemctl --user start docker`.
 $ systemctl --user enable docker
 $ sudo loginctl enable-linger $(whoami)
 ```
-
-To now make sure Docker uses the rootless daemon, specify the cli context like this: `docker conext use rootless`.
