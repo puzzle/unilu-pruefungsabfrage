@@ -80,6 +80,7 @@ This approach is helpful if you dont have permission to download packages or sim
 > 
 > $ sudo mv ~/${filename} /etc/apparmor.d/${filename}
 > ```
+> After that you have to restart AppArmor: `systemctl restart apparmor.service`
 
 To use the installation script, simply run the following command as a non-root user:
 
