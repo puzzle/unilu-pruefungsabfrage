@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/exams")
 public class ExamDownloadController {
     ExamFileService examFileService;
 
@@ -21,7 +23,7 @@ public class ExamDownloadController {
         this.examFileService = examFileService;
     }
 
-    @GetMapping("/download-all/{examNumber}")
+    @GetMapping("/download-zip/{examNumber}")
     public ResponseEntity<?> downloadSubject(@PathVariable("examNumber") String examNumber, HttpServletResponse response) throws IOException {
         response.setHeader("Content-Disposition", "attachment; filename=" + examNumber + ".zip");
         examFileService.convertSelectedFilesToZip(examNumber, response.getOutputStream());

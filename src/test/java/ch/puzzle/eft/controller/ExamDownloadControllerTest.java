@@ -39,7 +39,7 @@ class ExamDownloadControllerTest {
         doNothing().when(examFileService)
                    .convertSelectedFilesToZip(examNumber, outputStream);
 
-        mockMvc.perform(get("/download-all/{examNumber}", examNumber))
+        mockMvc.perform(get("/exams/download-zip/{examNumber}", examNumber))
                .andExpect(status().isOk())
                .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
