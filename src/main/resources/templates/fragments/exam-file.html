@@ -2,8 +2,7 @@
 <html lang="en">
 <body>
 <div>
-    <p th:text="${examFile.getSubjectName()}"></p>
-    <p th:text="${examFile.getFileName()}"></p>
+    <a th:href="@{|/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}"></a>
 </div>
 </body>
 </html>

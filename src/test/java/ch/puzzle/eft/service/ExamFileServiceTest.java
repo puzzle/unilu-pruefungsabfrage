@@ -22,14 +22,14 @@ public class ExamFileServiceTest {
     @Spy
     ExamFileService examFileService;
 
-    @Autowired
-    public ExamFileServiceTest(ExamFileService examFileService) {
-        this.examFileService = examFileService;
-    }
-
     @BeforeEach
     void setUp() {
         when(examFileService.getBasePath()).thenReturn("static");
+    }
+
+    @Autowired
+    public ExamFileServiceTest(ExamFileService examFileService) {
+        this.examFileService = examFileService;
     }
 
     @Test
@@ -106,5 +106,19 @@ public class ExamFileServiceTest {
                                                                        () -> examFileService.getMatchingExams("11004",
                                                                                                               "22223333"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenNoExamsIsFound() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               "11000_22223333.pdf"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldReturnFileToDownload() {
+        File result = examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf");
+        assertEquals(new File("static/Privatrecht/11001_22223333.pdf"), result);
     }
 }

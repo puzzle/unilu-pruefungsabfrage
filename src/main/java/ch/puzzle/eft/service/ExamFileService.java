@@ -69,4 +69,16 @@ public class ExamFileService {
         File baseDir = new File(getBasePath());
         return baseDir.listFiles(File::isDirectory);
     }
+
+    public File getFileToDownload(String subjectName, String filename) {
+        File examToDownload = new File(getBasePath() + "/" + subjectName + "/" + filename);
+        if (!examToDownload.exists()) {
+            logger.info("No file found for subject {} and filename {}", subjectName, filename);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                              String.format("Kein File für Fach %s und Filename %s",
+                                                            subjectName,
+                                                            filename));
+        }
+        return examToDownload;
+    }
 }

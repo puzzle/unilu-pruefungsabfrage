@@ -39,3 +39,10 @@ it('should display error when exam number is invalid', () => {
     cy.get('button').click();
     cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
 });
+
+it('should download file when link is clicked', () => {
+    cy.get('input[type="text"]').type('11000');
+    cy.get('button').click();
+    cy.contains('Privatrecht').click();
+    cy.readFile('cypress/downloads/Privatrecht.pdf').should('exist');
+});
