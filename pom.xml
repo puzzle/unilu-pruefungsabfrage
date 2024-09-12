@@ -90,6 +90,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>
+						-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n,address=*:5005
+					</jvmArguments>
+				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.springframework</groupId>

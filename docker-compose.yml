@@ -7,9 +7,9 @@ services:
     working_dir: /app-root/
     ports:
       - "8080:8080"
+      - "5005:5005"
     environment:
       RESOURCE_DIR: ./static
-      JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n"
       SPRING_THYMELEAF_CACHE: false
     volumes:
       - ./:/app-root/
