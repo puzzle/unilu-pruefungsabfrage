@@ -1,9 +1,10 @@
 services:
   spring:
     container_name: spring
-    build:
-        context: .
-        dockerfile: dev.Dockerfile
+    tty: true
+    image: maven:3.9.9-amazoncorretto-21
+    command: mvn spring-boot:run
+    working_dir: /app-root/
     ports:
       - "8080:8080"
     environment:
