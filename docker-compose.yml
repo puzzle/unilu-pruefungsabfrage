@@ -1,0 +1,12 @@
+services:
+  spring:
+    container_name: spring
+    build:
+        context: .
+        dockerfile: dev.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      RESOURCE_DIR: ./static
+    volumes:
+      - ./:/app-root/
