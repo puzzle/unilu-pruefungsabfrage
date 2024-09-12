@@ -17,8 +17,8 @@ public class ExamFileModel {
             return this.file.getParentFile()
                             .getName();
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND ,String.format("No Parent Found for File %s",
-                getFileName()));
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                          String.format("No Parent Found for File %s", getFileName()));
     }
 
     public String getDownloadPath() {
