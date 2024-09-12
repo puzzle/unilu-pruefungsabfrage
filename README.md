@@ -5,6 +5,14 @@
 ### Run Image
 `docker run --rm  -v ./static:/resources -p 8080:8080 uni-luzern:latest`
 
+## Development
+### Hot reload
+To use hot reload start the project with `docker compose up -d`.
+This will start the application. The application will be available at `http://localhost:8080`
+To debug the application you can just use the provided Intelij run config `ExamFeedbackTool Debug`.
+If you use Intelij you have to make the following adjustments:
+- [Enable auto build](https://stackoverflow.com/a/12744431)
+
 ### Code Formatting in pre-commit hook
 To have consistent code formatting in the entire project, the formatter-maven-plugin
 is used. To ensure proper formatting, there is a pre-commit-hook that can be set up by
