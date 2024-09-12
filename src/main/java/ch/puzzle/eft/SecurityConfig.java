@@ -49,28 +49,10 @@ public class SecurityConfig {
                                   .addHeaderWriter((request, response) -> response.setHeader("Server", ""))
 
                                   // Content-Security-Policy: Customize according to your needs (e.g., using Nonces or Hashes)
-                                  .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; " +
-                                                                                     "script-src 'self' 'nonce-${nonce}'; " +
-                                                                                     "style-src 'self' 'nonce-${nonce}'; " +
-                                                                                     "img-src 'self' data:; " +
-                                                                                     "font-src 'self'; " +
-                                                                                     "object-src 'none'; " +
-                                                                                     "base-uri 'self'; " +
-                                                                                     "form-action 'self'; " +
-                                                                                     "frame-ancestors 'none'; " +
-                                                                                     "upgrade-insecure-requests;"))
+                                  .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; " + "script-src 'self'; " + "style-src 'self'" + "img-src 'self' data:; " + "font-src 'self'; " + "object-src 'none'; " + "base-uri 'self'; " + "form-action 'self'; " + "frame-ancestors 'none'; " + "upgrade-insecure-requests;"))
 
                                   // Permissions-Policy: Customize according to your needs
-                                  .permissionsPolicy(pp -> pp.policy("accelerometer=()," + "ambient-light-sensor=()," +
-                                                                     "autoplay=(self <origin>)," + "battery=()," +
-                                                                     "camera=()," + "display-capture=()," +
-                                                                     "document-domain=()," + "encrypted-media=()," +
-                                                                     "fullscreen=()," + "gamepad=()," +
-                                                                     "geolocation=()," + "gyroscope=()," +
-                                                                     "magnetometer=()," + "microphone=()," +
-                                                                     "picture-in-picture=()," +
-                                                                     "speaker-selection=()," + "usb=()," +
-                                                                     "screen-wake-lock=()," + "xr-spatial-tracking=()") // Add your Permissions-Policy here
+                                  .permissionsPolicy(pp -> pp.policy("accelerometer=()," + "ambient-light-sensor=()," + "autoplay=(self <origin>)," + "battery=()," + "camera=()," + "display-capture=()," + "document-domain=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "magnetometer=()," + "microphone=()," + "picture-in-picture=()," + "speaker-selection=()," + "usb=()," + "screen-wake-lock=()," + "xr-spatial-tracking=()") // Add your Permissions-Policy here
                                   ))
                    .build();
     }
