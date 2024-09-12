@@ -75,7 +75,7 @@ public class ExamFileService {
         if (!examToDownload.exists()) {
             logger.info("No file found for subject {} and filename {}", subjectName, filename);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                              String.format("Kein File für fach %s und filename",
+                                              String.format("Kein File für Fach %s und Filename %s",
                                                             subjectName,
                                                             filename));
         }

@@ -10,8 +10,11 @@ public class ExamFileModel {
     }
 
     public String getSubjectName() {
-        return this.file.getParentFile()
-                        .getName();
+        if (this.file.getParentFile() != null) {
+            return this.file.getParentFile()
+                            .getName();
+        }
+        return "Unknown";
     }
 
     public String getDownloadPath() {
