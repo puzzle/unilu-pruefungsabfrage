@@ -22,10 +22,12 @@ class ExamFeedbackToolApplicationTests {
     }
 
     void checkControllers(ApplicationContext context) {
-        assertThat(context.getBean(SiteController.class, ExamDownloadController.class)).isNotNull();
+        assertThat(context.getBean(SiteController.class)).isNotNull();
+        assertThat(context.getBean(ExamDownloadController.class)).isNotNull();
     }
 
     void checkServices(ApplicationContext context) {
-        assertThat(context.getBean(ValidationService.class, ExamFileService.class)).isNotNull();
+        assertThat(context.getBean(ValidationService.class)).isNotNull();
+        assertThat(context.getBean(ExamFileService.class)).isNotNull();
     }
 }
