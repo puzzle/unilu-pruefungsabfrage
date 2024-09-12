@@ -1,5 +1,8 @@
 package ch.puzzle.eft.model;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.io.File;
 
 public class ExamFileModel {
@@ -14,7 +17,8 @@ public class ExamFileModel {
             return this.file.getParentFile()
                             .getName();
         }
-        return "Unknown";
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND ,String.format("No Parent Found for File %s",
+                getFileName()));
     }
 
     public String getDownloadPath() {
