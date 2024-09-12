@@ -9,8 +9,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 
 public class ExamFileModel {
-    private File file;
-    private static final Logger logger = LoggerFactory.getLogger(ExamFileService.class);
+    private final File file;
+    private static final Logger logger = LoggerFactory.getLogger(ExamFileModel.class);
 
 
     public ExamFileModel(File file) {
