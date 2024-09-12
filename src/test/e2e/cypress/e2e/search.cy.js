@@ -40,6 +40,18 @@ it('should display error when exam number is invalid', () => {
     cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
 });
 
+it('should display download as ZIP button when input is valid', () => {
+    cy.get('input[type="text"]').type('11000');
+    cy.get('button').click();
+    cy.contains('Download all exams as ZIP');
+});
+
+it('should not display ZIP download when exam number is invalid', () => {
+    cy.get('input[type="text"]').type('abc');
+    cy.get('button').click();
+    cy.get('Download all exams as ZIP').should('not.exist');
+});
+
 it('should download file when link is clicked', () => {
     cy.get('input[type="text"]').type('11000');
     cy.get('button').click();
