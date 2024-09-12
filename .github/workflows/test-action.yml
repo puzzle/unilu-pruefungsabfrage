@@ -16,5 +16,38 @@ jobs:
           java-version: 21
           distribution: 'oracle'
 
+      - name: Create apparmor profile for rootlesskit
+        run: |
+          echo "This is necessary since ubuntu 24.04 and later dont allow unprivileged processes to create user namespaces. See: https://docs.docker.com/engine/security/rootless/#distribution-specific-hint"
+          
+          filename=$(echo $HOME/bin/rootlesskit | sed -e s@^/@@ -e s@/@.@g)
+          cat <<EOF > ~/${filename}
+          abi <abi/4.0>,
+          include <tunables/global>
+          "$HOME/bin/rootlesskit" flags=(unconfined) {
+            userns,
+            include if exists <local/${filename}>
+          }
+          EOF
+          
+          sudo mv ~/${filename} /etc/apparmor.d/${filename}
+          sudo systemctl restart apparmor.service
+
+      - name: Disable rootful docker
+        run: |
+          sudo systemctl disable --now docker.service docker.socket
+          sudo rm /var/run/docker.sock
+
+      - name: Setup and use rootless docker
+        run: curl -fsSL https://get.docker.com/rootless | sh
+
+      - name: Assert docker is running rootless
+        run: |
+          if [[ "$(docker info --format '{{ .ClientInfo.Context }}')" != 'rootless' ]]
+          then
+            echo "Rootless docker isn't in use and probably wasn't set up properly"
+            exit 1
+          fi
+
       - name: Use Maven to run unittest, integration tests and check coverage
         run: mvn clean verify
