@@ -9,5 +9,7 @@ services:
       - "8080:8080"
     environment:
       RESOURCE_DIR: ./static
+      JAVA_OPTS: "-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n"
+      SPRING_THYMELEAF_CACHE: false
     volumes:
       - ./:/app-root/
