@@ -34,7 +34,7 @@ class ExamDownloadControllerTest {
     private ExamFileService examFileService;
 
     @Test
-    void download() throws Exception {
+    void downloadZipShouldReturnZip() throws Exception {
         String examNumber = "11000";
         doNothing().when(examFileService)
                    .convertSelectedFilesToZip(examNumber, outputStream);

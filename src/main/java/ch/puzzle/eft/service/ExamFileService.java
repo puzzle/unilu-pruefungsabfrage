@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -110,6 +111,7 @@ public class ExamFileService {
     }
 
     public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
+        // TODO: Replace hardcoded marticulationNumber with dynamic number after login is implemented
         List<ExamFileModel> matchingExams = getMatchingExams(examNumber, "11112222");
         convertFilesToZip(matchingExams, outputStream);
     }

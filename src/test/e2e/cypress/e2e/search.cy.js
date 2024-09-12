@@ -43,13 +43,13 @@ it('should display error when exam number is invalid', () => {
 it('should display download as ZIP button when input is valid', () => {
     cy.get('input[type="text"]').type('11000');
     cy.get('button').click();
-    cy.contains('Download all exams as ZIP');
+    cy.contains('Alle als ZIP herunterladen');
 });
 
 it('should not display ZIP download when exam number is invalid', () => {
     cy.get('input[type="text"]').type('abc');
     cy.get('button').click();
-    cy.get('Download all exams as ZIP').should('not.exist');
+    cy.get('Alle als ZIP herunterladen').should('not.exist');
 });
 
 it('should download file when link is clicked', () => {
