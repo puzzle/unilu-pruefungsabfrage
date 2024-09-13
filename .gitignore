@@ -27,6 +27,7 @@ target/
 *.iws
 *.iml
 *.ipr
+src/test/e2e/cypress/downloads
 
 ### VS Code ###
 .vscode/
