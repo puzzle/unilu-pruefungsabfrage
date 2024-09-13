@@ -37,6 +37,7 @@ public class SiteController {
             return "search";
         }
         try {
+            // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
             model.addAttribute("examFiles",
                                examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
         } catch (ResponseStatusException e) {
