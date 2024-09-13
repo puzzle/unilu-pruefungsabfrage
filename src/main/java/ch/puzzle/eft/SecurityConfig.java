@@ -8,52 +8,46 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.ContentTypeOptionsConfig;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.header.writers.CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy;
+import org.springframework.security.web.header.writers.CrossOriginResourcePolicyHeaderWriter;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.header.writers.XXssProtectionHeaderWriter;
+
+import static org.springframework.security.web.header.writers.CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    private static final String CSP_CONFIG = "default-src 'self'; " + "script-src 'self'; " + "style-src 'self'" + "img-src 'self' data:; " + "font-src 'self'; " + "object-src 'none'; " + "base-uri 'self'; " + "form-action 'self'; " + "frame-ancestors 'none'; " + "upgrade-insecure-requests;";
+    private static final String PERMISSION_POLICY = "accelerometer=()," + "ambient-light-sensor=()," + "autoplay=(self <origin>)," + "battery=()," + "camera=()," + "display-capture=()," + "document-domain=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "magnetometer=()," + "microphone=()," + "picture-in-picture=()," + "speaker-selection=()," + "usb=()," + "screen-wake-lock=()," + "xr-spatial-tracking=()";
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         return http.cors(Customizer.withDefaults())
                    .authorizeHttpRequests(e -> e.anyRequest()
                                                 .permitAll())
-                   .headers(h -> h.frameOptions(FrameOptionsConfig::sameOrigin) // or frameOptions.deny()
-
-                                  // X-Content-Type-Options: nosniff
-                                  .contentTypeOptions(ContentTypeOptionsConfig::disable)
-
-                                  // Referrer-Policy: strict-origin-when-cross-origin
+                   .headers(h -> h.frameOptions(FrameOptionsConfig::deny) // or frameOptions.deny()
+                                  .xssProtection(e -> e.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
+                                  .crossOriginEmbedderPolicy(coep -> coep.policy(REQUIRE_CORP))
+                                  //                                  .contentTypeOptions(ContentTypeOptionsConfig::nosniff)
+                                  .crossOriginOpenerPolicy(coopCustomizer -> coopCustomizer.policy(CrossOriginOpenerPolicy.SAME_ORIGIN))
+                                  .crossOriginResourcePolicy(corpCustomizer -> corpCustomizer.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN))
+                                  .addHeaderWriter(new StaticHeadersWriter("X-Permitted-Cross-Domain-Policies", "none"))
                                   .referrerPolicy(referrer -> referrer.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
-
-                                  // Strict-Transport-Security: max-age=31536000; includeSubDomains
                                   .httpStrictTransportSecurity(hsts -> hsts.maxAgeInSeconds(31536000)
                                                                            .includeSubDomains(true))
-
-                                  // Cross-Origin-Embedder-Policy: require-corp
                                   .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Embedder-Policy",
                                                                                              "require-corp"))
-
-                                  // Cross-Origin-Resource-Policy: same-site (or same-origin)
                                   .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Resource-Policy",
                                                                                              "same-site"))
-
-                                  // Cross-Origin-Opener-Policy: same-origin
                                   .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Opener-Policy",
                                                                                              "same-origin"))
-
-                                  // X-Permitted-Cross-Domain-Policies: none
                                   .addHeaderWriter((request, response) -> response.setHeader("X-Permitted-Cross-Domain-Policies",
                                                                                              "none"))
                                   .addHeaderWriter((request, response) -> response.setHeader("Server", ""))
-
-                                  // Content-Security-Policy: Customize according to your needs (e.g., using Nonces or Hashes)
-                                  .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; " + "script-src 'self'; " + "style-src 'self'" + "img-src 'self' data:; " + "font-src 'self'; " + "object-src 'none'; " + "base-uri 'self'; " + "form-action 'self'; " + "frame-ancestors 'none'; " + "upgrade-insecure-requests;"))
-
-                                  // Permissions-Policy: Customize according to your needs
-                                  .permissionsPolicy(pp -> pp.policy("accelerometer=()," + "ambient-light-sensor=()," + "autoplay=(self <origin>)," + "battery=()," + "camera=()," + "display-capture=()," + "document-domain=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "magnetometer=()," + "microphone=()," + "picture-in-picture=()," + "speaker-selection=()," + "usb=()," + "screen-wake-lock=()," + "xr-spatial-tracking=()") // Add your Permissions-Policy here
-                                  ))
+                                  .contentSecurityPolicy(csp -> csp.policyDirectives(CSP_CONFIG))
+                                  .permissionsPolicy(pp -> pp.policy(PERMISSION_POLICY)))
                    .build();
     }
 }
