@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ExamFeedbackToolApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="Poc-Login-(PROD)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <envs>
       <env name="RESOURCE_DIR" value="./static" />
     </envs>
-    <module name="exam-feedback-tool" />
+    <module name="unilu-poc-login" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="ch.puzzle.exam_feedback_tool.ExamFeedbackToolApplication" />
     <method v="2">
       <option name="Make" enabled="true" />

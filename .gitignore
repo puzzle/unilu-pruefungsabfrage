@@ -34,3 +34,6 @@ target/
 ### OS-specific ###
 .DS_Store
 Thumbs.db
+
+### Security ###
+*.p12

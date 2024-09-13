@@ -8,26 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.logging.Logger;
-
 @Controller
 public class HomeController {
 
-    private static final org.slf4j.Logger logger = LoggerFactory
-            .getLogger(HomeController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String home(@AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
-        model
-                .addAttribute("name", principal
-                        .getName());
-        model
-                .addAttribute("email", principal
-                        .getFirstAttribute("email"));
-        model
-                .addAttribute("userAttributes", principal
-                        .getAttributes());
+        if (principal == null) {
+            // return "redirect:/login";
+            return "home";
+        }
+        model.addAttribute("name", principal.getName());
+        model.addAttribute("email", principal.getFirstAttribute("email"));
+        model.addAttribute("userAttributes", principal.getAttributes());
         return "home";
     }
 
