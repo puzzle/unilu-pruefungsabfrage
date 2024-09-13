@@ -10,8 +10,6 @@
 To use hot reload start the project with `docker compose up -d`.
 This will start the application. The application will be available at `http://localhost:8080`
 To debug the application you can just use the provided Intelij run config `ExamFeedbackTool Debug`.
-If you use Intelij you have to make the following adjustments:
-- [Enable auto build](https://stackoverflow.com/a/12744431)
 
 ### Code Formatting in pre-commit hook
 To have consistent code formatting in the entire project, the formatter-maven-plugin
