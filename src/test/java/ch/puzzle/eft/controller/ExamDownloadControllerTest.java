@@ -50,7 +50,7 @@ class ExamDownloadControllerTest {
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
         File file = new File("static/Privatrecht/11001_22223333.pdf");
         when(examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf")).thenReturn(file);
-        this.mockMvc.perform(get("/download/Privatrecht/11001_22223333.pdf"))
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11001_22223333.pdf"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
     }
