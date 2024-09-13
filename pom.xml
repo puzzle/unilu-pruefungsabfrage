@@ -96,12 +96,17 @@
 					<touchFile>target/classes/watcher.txt</touchFile>
 					<watches>
 						<watch>
-							<directory>src/main</directory>
+							<directory>src/main/java</directory>
 						</watch>
 					</watches>
 					<goals>
 						<goal>compile</goal>
 						<goal>process-classes</goal>
+<!--						would be nice to skip those, but not possible with this plugin-->
+<!--						<goal>-Dcyclonedx.skip=true</goal>-->
+<!--						<goal>-Djacoco.skip=true</goal>-->
+<!--						<goal>-Dformatter.skip=true</goal>-->
+<!--						<goal>-Dproperties.skip=true</goal>-->
 					</goals>
 				</configuration>
 			</plugin>
@@ -113,13 +118,6 @@
 						-Xdebug -Xrunjdwp:server=y,transport=dt_socket,suspend=n,address=*:5005
 					</jvmArguments>
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.8.RELEASE</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
