@@ -89,6 +89,23 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>com.fizzed</groupId>
+				<artifactId>fizzed-watcher-maven-plugin</artifactId>
+				<version>1.0.6</version>
+				<configuration>
+					<touchFile>target/classes/watcher.txt</touchFile>
+					<watches>
+						<watch>
+							<directory>src/main</directory>
+						</watch>
+					</watches>
+					<goals>
+						<goal>compile</goal>
+						<goal>process-classes</goal>
+					</goals>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
