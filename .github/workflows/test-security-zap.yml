@@ -6,8 +6,8 @@ permissions:
   contents: read
 
 jobs:
-  test-dast:
-    name: DAST test with ZAP
+  test-security:
+    name: ZAP
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
