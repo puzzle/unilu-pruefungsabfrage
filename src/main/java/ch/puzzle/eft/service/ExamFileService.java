@@ -114,7 +114,7 @@ public class ExamFileService {
     }
 
     public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
-        // TODO: Replace hardcoded marticulationNumber with dynamic number after login is implemented
+        // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
         List<ExamFileModel> matchingExams = getMatchingExams(examNumber, "11112222");
         convertFilesToZip(matchingExams, outputStream);
     }
