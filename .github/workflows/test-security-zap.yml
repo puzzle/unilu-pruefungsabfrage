@@ -19,7 +19,7 @@ jobs:
       - name: Clean install
         run: ./mvnw --no-transfer-progress clean install -DskipTests -Ddependency-check.skip -Dcyclonedx.skip=true -Dexec.skip
       - name: Start application
-        run: ./mvnw spring-boot:run &
+        run: SERVER_SERVLE_SESSION_COOOKIE_DOMAIN=http://localhost:8080 ./mvnw spring-boot:run &
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
