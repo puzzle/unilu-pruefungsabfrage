@@ -159,23 +159,17 @@ class ExamFileServiceTest {
         String[] expectedEntries = {"Privatrecht.pdf", "Strafrecht.pdf"};
         String[] actualEntries = new String[2];
 
-        String expectedContent1 = "Test Content 1";
-        String expectedContent2 = "Test Content 2";
+
+        List<String> expectedEntriesList = List.of("Test Content 1", "Test Content 2");
 
         int i = 0;
         while ((entry = zis.getNextEntry()) != null) {
             actualEntries[i] = entry.getName();
 
-            // Read the content of the file inside the ZIP
             byte[] fileContent = zis.readAllBytes();
             String actualContent = new String(fileContent);
 
-            // Verify the content of each file
-            if (i == 0) {
-                assertEquals(expectedContent1, actualContent);
-            } else {
-                assertEquals(expectedContent2, actualContent);
-            }
+            assertEquals(expectedEntriesList.get(i), actualContent);
 
             i++;
         }
@@ -193,7 +187,6 @@ class ExamFileServiceTest {
         byte[] zipContent = mockOutputStream.getContentAsByteArray();
         ZipInputStream zipInputStream = new ZipInputStream(new java.io.ByteArrayInputStream(zipContent));
 
-        // Verify the contents of the ZIP file
         ZipEntry entry;
         List<String> expectedFileNames = List.of("Privatrecht.pdf",
                                                  "Strafrecht.pdf",

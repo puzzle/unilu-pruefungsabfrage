@@ -81,14 +81,14 @@ public class ExamFileService {
         if (!examToDownload.exists()) {
             logger.info("No file found for subject {} and filename {}", subjectName, filename);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                              String.format("Kein File für Fach %s und Filename %s",
-                                                            subjectName,
-                                                            filename));
+                    String.format("Kein File für Fach %s und Filename %s",
+                            subjectName,
+                            filename));
         }
         return examToDownload;
     }
 
-    public void convertFilesToZip(List<ExamFileModel> examFileList, ServletOutputStream outputStream) {
+    public ResponseEntity<Object> convertFilesToZip(List<ExamFileModel> examFileList, ServletOutputStream outputStream) {
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
             for (ExamFileModel examFile : examFileList) {
                 String name = examFile.getSubjectName() + ".pdf";
@@ -106,8 +106,11 @@ public class ExamFileService {
                 zos.closeEntry();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
+        return null;
     }
 
     public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
