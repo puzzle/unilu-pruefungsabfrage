@@ -2,9 +2,6 @@ name: ZAP
 
 on: [push]
 
-permissions:
-  contents: read
-
 jobs:
   test-security:
     name: ZAP
