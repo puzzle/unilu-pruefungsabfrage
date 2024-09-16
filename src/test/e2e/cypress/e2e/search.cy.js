@@ -1,5 +1,6 @@
 beforeEach(() => {
     cy.visit("/search");
+    cy.task('clearDownloads');
 })
 
 it('should show info message on search page', () => {
@@ -57,4 +58,26 @@ it('should download file when link is clicked', () => {
     cy.get('button').click();
     cy.contains('Privatrecht').click();
     cy.readFile('cypress/downloads/Privatrecht.pdf').should('exist');
+});
+
+it('should show downloadable files with name of subject-folder they are in', () => {
+    cy.get('input[type="text"]').type('11000');
+    cy.get('button').click();
+    cy.contains('Handels und Gesellschaftsrecht');
+    cy.contains('Privatrecht');
+    cy.contains('Strafrecht');
+    cy.contains('Öffentliches Recht')
+});
+
+it('should rename files to subject-folder they are inside of after downloading', () => {
+    cy.get('input[type="text"]').type('11000');
+    cy.get('button').click();
+    const subjects = ['Handels und Gesellschaftsrecht', 'Privatrecht', 'Strafrecht']
+
+    let i
+    for (i = 0; i < subjects.length; i++) {
+        cy.contains(subjects[i]).click();
+        cy.readFile(`cypress/downloads/${subjects[i]}.pdf`).should('exist');
+    }
+    cy.expect(i).to.equal(3)
 });
