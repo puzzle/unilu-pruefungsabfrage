@@ -25,14 +25,7 @@ resources directory.
 
 ## Security headers
 To test the security headers of the application, you can use the following command:
-Initially you have to download the image: `docker pull ghcr.io/zaproxy/zaproxy:stable`
-```
-docker run  -v $(git rev-parse --show-toplevel):/zap/wrk/:rw \
-            -t zaproxy/zap-stable zap-baseline.py \
-            -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):8080 \
-            -c "/zap/wrk/zap/rules.conf" \
-            -z "-configfile /zap/wrk/zap/options.conf"
-```
+`docker compose --profile zap up -d `
 
 ### Code Quality
 
