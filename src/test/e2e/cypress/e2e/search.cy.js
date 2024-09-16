@@ -36,7 +36,7 @@ it('should display error when no exams were found', () => {
 });
 
 it('should display error when exam number is invalid', () => {
-    cy.get('input[type="text"]').type('abc');
+    cy.get('input[type="text"]').type('123');
     cy.get('button').click();
     cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
 });
@@ -80,4 +80,13 @@ it('should rename files to subject-folder they are inside of after downloading',
         cy.readFile(`cypress/downloads/${subjects[i]}.pdf`).should('exist');
     }
     cy.expect(i).to.equal(3)
+});
+
+
+it('should not be able to input more than 5 characters', () => {
+    cy.get('input[type="text"]').type('110000').should('have.value', '11000');
+});
+
+it('should not be able to input other characters', () => {
+    cy.get('input[type="text"]').type('a2c').should('have.value', '2');
 });

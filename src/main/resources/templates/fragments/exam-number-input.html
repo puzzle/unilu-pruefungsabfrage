@@ -4,7 +4,7 @@
 <div>
     <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post">
         <label for="examNumber">Prüfungsnummer eingeben*:</label>
-        <input th:type="text" name="examNumber" id="examNumber" th:onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+        <input th:type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
                placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required>
         <button type="submit" id="submitButton">Suchen</button>
         <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
