@@ -35,3 +35,5 @@ src/test/e2e/cypress/downloads
 ### OS-specific ###
 .DS_Store
 Thumbs.db
+
+zap.yaml

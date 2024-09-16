@@ -36,10 +36,7 @@ services:
     container_name: zap
     tty: true
     image: ghcr.io/zaproxy/zaproxy:stable
-    command: zap-baseline.py
-      -t http://spring:8080 \
-      -c "zap/rule-config.tsv" \
-      -z "-configfile /zap/wrk/zap/options.conf"
+    command: zap-baseline.py -t http://spring:8080 -c "zap/rule-config.tsv" -z "-configfile /zap/wrk/zap/options.conf"
     working_dir: /zap
     profiles:
       - zap
