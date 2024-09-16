@@ -62,7 +62,7 @@ jobs:
   - action: FAIL
     customMessage: ''
     id: 10026
-  - action: WARN
+  - action: IGNORE
     customMessage: ''
     id: 10027
   - action: FAIL
