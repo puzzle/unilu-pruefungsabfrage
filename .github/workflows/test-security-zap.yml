@@ -29,6 +29,7 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           allow_issue_writing: false
           docker_name: "ghcr.io/zaproxy/zaproxy:stable"
           target: "http://localhost:8080"
