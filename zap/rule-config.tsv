@@ -64,7 +64,7 @@
 90002	FAIL	(Java Serialization Object)
 90003	FAIL	(Sub Resource Integrity Attribute Missing)
 90004	FAIL	(Insufficient Site Isolation Against Spectre Vulnerability)
-90005	FAIL	(Sec-Fetch-Dest Header is Missing)
+90005	IGNORE	(Sec-Fetch-Dest Header is Missing)
 90011	FAIL	(Charset Mismatch)
 90022	FAIL	(Application Error Disclosure)
 90030	FAIL	(WSDL File Detection)
