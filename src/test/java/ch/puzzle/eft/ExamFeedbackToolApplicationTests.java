@@ -1,6 +1,6 @@
 package ch.puzzle.eft;
 
-import ch.puzzle.eft.controller.ExamDownloadController;
+import ch.puzzle.eft.controller.ExamFileController;
 import ch.puzzle.eft.controller.SiteController;
 import ch.puzzle.eft.service.ExamFileService;
 import ch.puzzle.eft.service.ValidationService;
@@ -23,7 +23,7 @@ class ExamFeedbackToolApplicationTests {
 
     void checkControllers(ApplicationContext context) {
         assertThat(context.getBean(SiteController.class)).isNotNull();
-        assertThat(context.getBean(ExamDownloadController.class)).isNotNull();
+        assertThat(context.getBean(ExamFileController.class)).isNotNull();
     }
 
     void checkServices(ApplicationContext context) {

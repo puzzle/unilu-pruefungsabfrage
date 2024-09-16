@@ -14,14 +14,14 @@ import java.io.File;
 import java.io.IOException;
 
 @RestController
-public class ExamDownloadController {
+public class ExamFileController {
     ExamFileService examFileService;
 
-    public ExamDownloadController(ExamFileService examFileService) {
+    public ExamFileController(ExamFileService examFileService) {
         this.examFileService = examFileService;
     }
 
-    @GetMapping("/download-zip/{examNumber}")
+    @GetMapping("/exams/download-zip/{examNumber}")
     public ResponseEntity<?> downloadSubject(@PathVariable("examNumber") String examNumber, HttpServletResponse response) throws IOException {
         response.setHeader("Content-Disposition", "attachment; filename=" + examNumber + ".zip");
         examFileService.convertSelectedFilesToZip(examNumber, response.getOutputStream());
@@ -29,7 +29,7 @@ public class ExamDownloadController {
                              .build();
     }
 
-    @GetMapping(value = "/download/{subject}/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/exams/download/{subject}/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseBody
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable("subject") String subject, @PathVariable("fileName") String fileName, HttpServletResponse response) {
         response.setHeader("Content-Disposition", "attachment; filename=" + subject + ".pdf");

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ExamDownloadController.class)
+@WebMvcTest(ExamFileController.class)
 @WithMockUser
 class ExamDownloadControllerTest {
 
@@ -39,7 +38,7 @@ class ExamDownloadControllerTest {
         doNothing().when(examFileService)
                    .convertSelectedFilesToZip(examNumber, outputStream);
 
-        mockMvc.perform(get("/download-zip/{examNumber}", examNumber))
+        mockMvc.perform(get("/exams/download-zip/{examNumber}", examNumber))
                .andExpect(status().isOk())
                .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
@@ -50,7 +49,7 @@ class ExamDownloadControllerTest {
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
         File file = new File("static/Privatrecht/11001_22223333.pdf");
         when(examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf")).thenReturn(file);
-        this.mockMvc.perform(get("/download/Privatrecht/11001_22223333.pdf"))
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11001_22223333.pdf"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
     }
@@ -61,7 +60,7 @@ class ExamDownloadControllerTest {
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));
-        ResultActions notFoundResult = this.mockMvc.perform(get("/download/Privatrecht/11000_22223333.pdf"));
+        ResultActions notFoundResult = this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"));
         assertEquals(HttpStatus.NOT_FOUND.value(),
                      notFoundResult.andReturn()
                                    .getResponse()

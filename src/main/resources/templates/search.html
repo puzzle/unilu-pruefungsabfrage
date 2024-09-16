@@ -13,7 +13,7 @@
     <div th:replace="~{fragments/exam-file}"></div>
 </div>
 <div th:if="${examFiles != null && examFiles.size() >= 2}">
-    <a th:href="@{'/download-zip/' + ${examNumberForm.getExamNumber()}}" class="btn btn-primary">
+    <a th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}" class="btn btn-primary">
         Alle als ZIP herunterladen
     </a>
 </div>
