@@ -1,6 +1,6 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.test.MockServletOutputStream;
 import jakarta.servlet.ServletOutputStream;
 import org.junit.jupiter.api.Test;
@@ -22,15 +22,15 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(ExamFileController.class)
+@WebMvcTest(ExamController.class)
 @WithMockUser
-class ExamDownloadControllerTest {
+class ExamControllerTest {
 
     MockServletOutputStream outputStream = new MockServletOutputStream();
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private ExamFileService examFileService;
+    private ExamService examFileService;
 
     @Test
     void downloadZipShouldReturnZip() throws Exception {

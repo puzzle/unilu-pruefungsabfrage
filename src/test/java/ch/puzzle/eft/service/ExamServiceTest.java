@@ -1,6 +1,6 @@
 package ch.puzzle.eft.service;
 
-import ch.puzzle.eft.model.ExamFileModel;
+import ch.puzzle.eft.model.ExamModel;
 import ch.puzzle.eft.test.MockServletOutputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,15 +24,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class ExamFileServiceTest {
+class ExamServiceTest {
 
     @Spy
-    ExamFileService examFileService;
+    ExamService examFileService;
 
     MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
     @Autowired
-    public ExamFileServiceTest(ExamFileService examFileService) {
+    public ExamServiceTest(ExamService examFileService) {
         this.examFileService = examFileService;
     }
 
@@ -87,14 +87,14 @@ class ExamFileServiceTest {
         List<String> expectedFileNames = filesToCheck.stream()
                                                      .map(p -> Paths.get(p)
                                                                     .toFile())
-                                                     .map(ExamFileModel::new)
-                                                     .map(ExamFileModel::getFileName)
+                                                     .map(ExamModel::new)
+                                                     .map(ExamModel::getFileName)
                                                      .toList();
 
-        List<ExamFileModel> result = examFileService.getMatchingExams("11001", "22223333");
+        List<ExamModel> result = examFileService.getMatchingExams("11001", "22223333");
 
         List<String> resultFileNames = result.stream()
-                                             .map(ExamFileModel::getFileName)
+                                             .map(ExamModel::getFileName)
                                              .toList();
 
         assertEquals(resultFileNames, expectedFileNames);
@@ -133,8 +133,8 @@ class ExamFileServiceTest {
 
     @Test
     void shouldConvertFilesToZip() throws IOException {
-        ExamFileModel fileModel1 = mock(ExamFileModel.class);
-        ExamFileModel fileModel2 = mock(ExamFileModel.class);
+        ExamModel fileModel1 = mock(ExamModel.class);
+        ExamModel fileModel2 = mock(ExamModel.class);
 
         File tempFile1 = File.createTempFile("testFile1", ".pdf");
         Files.write(tempFile1.toPath(), "Test Content 1".getBytes());
@@ -148,7 +148,7 @@ class ExamFileServiceTest {
         when(fileModel2.getSubjectName()).thenReturn("Strafrecht");
         when(fileModel2.getFile()).thenReturn(tempFile2);
 
-        List<ExamFileModel> examFileList = Arrays.asList(fileModel1, fileModel2);
+        List<ExamModel> examFileList = Arrays.asList(fileModel1, fileModel2);
 
         examFileService.convertFilesToZip(examFileList, mockOutputStream);
 

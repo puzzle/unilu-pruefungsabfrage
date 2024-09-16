@@ -1,8 +1,8 @@
 package ch.puzzle.eft;
 
-import ch.puzzle.eft.controller.ExamFileController;
+import ch.puzzle.eft.controller.ExamController;
 import ch.puzzle.eft.controller.SiteController;
-import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.service.ValidationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,11 +23,11 @@ class ExamFeedbackToolApplicationTests {
 
     void checkControllers(ApplicationContext context) {
         assertThat(context.getBean(SiteController.class)).isNotNull();
-        assertThat(context.getBean(ExamFileController.class)).isNotNull();
+        assertThat(context.getBean(ExamController.class)).isNotNull();
     }
 
     void checkServices(ApplicationContext context) {
         assertThat(context.getBean(ValidationService.class)).isNotNull();
-        assertThat(context.getBean(ExamFileService.class)).isNotNull();
+        assertThat(context.getBean(ExamService.class)).isNotNull();
     }
 }

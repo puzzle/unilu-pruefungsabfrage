@@ -1,7 +1,7 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.model.ExamFileModel;
-import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.model.ExamModel;
+import ch.puzzle.eft.service.ExamService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -29,7 +29,7 @@ class SiteControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ExamFileService examFileService;
+    private ExamService examFileService;
 
     @Test
     void defaultRouteShouldReturnIndexPage() throws Exception {
@@ -69,8 +69,8 @@ class SiteControllerTest {
 
     @Test
     void shouldAcceptValidString() throws Exception {
-        when(examFileService.getMatchingExams("11000", "11112222")).thenReturn(List.of(new ExamFileModel(new File(
-                                                                                                                  "./Privatrecht/11000_11112222.pdf"))));
+        when(examFileService.getMatchingExams("11000", "11112222")).thenReturn(List.of(new ExamModel(new File(
+                                                                                                              "./Privatrecht/11000_11112222.pdf"))));
         this.mockMvc.perform(post("/search").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .param("examNumber", "11000"))
