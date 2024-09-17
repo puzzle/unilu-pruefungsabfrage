@@ -45,4 +45,10 @@ public class SiteController {
         }
         return "search";
     }
+
+    @GetMapping("/error")
+    public String viewErrorPage(Model model) {
+        model.addAttribute("error", "Internal Server Error");
+        return "error";
+    }
 }
