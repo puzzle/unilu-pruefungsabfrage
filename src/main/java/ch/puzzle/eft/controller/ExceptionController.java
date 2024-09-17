@@ -18,17 +18,17 @@ public class ExceptionController implements ErrorController {
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNotFound(Model model, Exception exception) {
         model.addAttribute("error", "Not Found");
-        return "error";
+        return "redirect:/error";
     }
 
     @ExceptionHandler(Exception.class)
     public String handleInternalServerError(HttpServletRequest req, Exception ex, Model model) {
-        logger.warn("Request URL: " + req.getRequestURL() + " raised an " + ex.getClass()
+        logger.error("Request URL: " + req.getRequestURL() + " raised an " + ex.getClass()
                                                                               .getSimpleName() + " because " + ex.getMessage() + " at " + ex.getStackTrace()[0]);
         model.addAttribute("errorMessage", ex.getMessage());
         model.addAttribute("error", "Internal Server Error");
 
-        return "error";
+        return "redirect:/error";
     }
 
 }

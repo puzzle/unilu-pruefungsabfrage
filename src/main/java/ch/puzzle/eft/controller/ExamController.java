@@ -30,8 +30,8 @@ public class ExamController {
     @GetMapping(value = "/download/{subject}/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseBody
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable("subject") String subject, @PathVariable("fileName") String fileName, HttpServletResponse response) {
-        response.setHeader("Content-Disposition", "attachment; filename=" + subject + ".pdf");
         File examFile = examFileService.getFileToDownload(subject, fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=" + subject + ".pdf");
         return ResponseEntity.ok(new FileSystemResource(examFile));
     }
 }
