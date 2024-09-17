@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const submitButton = document.getElementById("submitButton");
     function updateButtonState() {
         const examNumber = examNumberInput.value;
-        submitButton.disabled = examNumber === "";
+        submitButton.disabled = examNumber.trim() === "";
     }
     examNumberInput.addEventListener("input", updateButtonState);
     updateButtonState();
