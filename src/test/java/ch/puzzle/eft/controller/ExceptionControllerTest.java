@@ -2,7 +2,6 @@ package ch.puzzle.eft.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.LoggerFactory;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +15,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class ExceptionControllerTest {
 
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(ExceptionControllerTest.class);
     @Mock
     private HttpServletRequest request;
 
