@@ -13,7 +13,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @ControllerAdvice
 public class ExceptionController implements ErrorController {
 
-    Logger logger = LoggerFactory.getLogger(ExceptionController.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNotFound(Model model, Exception exception) {
