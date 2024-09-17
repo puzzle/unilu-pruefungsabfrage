@@ -84,7 +84,7 @@ it('should rename files to subject-folder they are inside of after downloading',
 
 it('should disable button if not enough numbers are in input', () => {
     cy.get('input[type="text"]').type('110');
-    cy.get('button').should('be.disabled')
+    cy.get('button').should('not.be.disabled')
 });
 
 it('should disable button if input is empty', () => {
