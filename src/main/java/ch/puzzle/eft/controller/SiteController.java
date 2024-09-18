@@ -1,7 +1,7 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.model.ExamNumberForm;
-import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.service.ExamService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +13,9 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 public class SiteController {
 
-    ExamFileService examFileService;
+    ExamService examFileService;
 
-    public SiteController(ExamFileService examFileService) {
+    public SiteController(ExamService examFileService) {
         this.examFileService = examFileService;
     }
 

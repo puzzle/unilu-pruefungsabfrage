@@ -1,23 +1,21 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.service.ExamFileService;
+import ch.puzzle.eft.service.ExamService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
 
 @RestController
-public class ExamDownloadController {
-    ExamFileService examFileService;
+@RequestMapping("/exams")
+public class ExamController {
+    ExamService examFileService;
 
-    public ExamDownloadController(ExamFileService examFileService) {
+    public ExamController(ExamService examFileService) {
         this.examFileService = examFileService;
     }
 

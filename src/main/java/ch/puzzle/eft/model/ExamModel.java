@@ -1,6 +1,5 @@
 package ch.puzzle.eft.model;
 
-import ch.puzzle.eft.service.ExamFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -8,12 +7,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 
-public class ExamFileModel {
+public class ExamModel {
     private final File file;
-    private static final Logger logger = LoggerFactory.getLogger(ExamFileModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExamModel.class);
 
 
-    public ExamFileModel(File file) {
+    public ExamModel(File file) {
         this.file = file;
     }
 

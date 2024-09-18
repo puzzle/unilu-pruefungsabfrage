@@ -1,6 +1,6 @@
 package ch.puzzle.eft.service;
 
-import ch.puzzle.eft.model.ExamFileModel;
+import ch.puzzle.eft.model.ExamModel;
 import jakarta.servlet.ServletOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +20,12 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Service
-public class ExamFileService {
-    private static final Logger logger = LoggerFactory.getLogger(ExamFileService.class);
+public class ExamService {
+    private static final Logger logger = LoggerFactory.getLogger(ExamService.class);
     private final Environment environment;
     private final ValidationService validationService;
 
-    public ExamFileService(Environment environment, ValidationService validationService) {
+    public ExamService(Environment environment, ValidationService validationService) {
         this.environment = environment;
         this.validationService = validationService;
     }
@@ -44,7 +44,7 @@ public class ExamFileService {
                      .toList();
     }
 
-    public List<ExamFileModel> getMatchingExams(String examNumber, String matriculationNumber) {
+    public List<ExamModel> getMatchingExams(String examNumber, String matriculationNumber) {
         if (!validationService.validateExamNumber(examNumber)) {
             logger.info("Invalid Exam Number: {}", examNumber);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -63,7 +63,7 @@ public class ExamFileService {
                                                             examNumber));
         }
         return matchingFiles.stream()
-                            .map(ExamFileModel::new)
+                            .map(ExamModel::new)
                             .toList();
     }
 
@@ -88,9 +88,9 @@ public class ExamFileService {
         return examToDownload;
     }
 
-    public ResponseEntity<Object> convertFilesToZip(List<ExamFileModel> examFileList, ServletOutputStream outputStream) {
+    public ResponseEntity<Object> convertFilesToZip(List<ExamModel> examFileList, ServletOutputStream outputStream) {
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
-            for (ExamFileModel examFile : examFileList) {
+            for (ExamModel examFile : examFileList) {
                 String name = examFile.getSubjectName() + ".pdf";
                 ZipEntry zipEntry = new ZipEntry(name);
                 zos.putNextEntry(zipEntry);
@@ -115,7 +115,7 @@ public class ExamFileService {
 
     public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
         // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
-        List<ExamFileModel> matchingExams = getMatchingExams(examNumber, "11112222");
+        List<ExamModel> matchingExams = getMatchingExams(examNumber, "11112222");
         convertFilesToZip(matchingExams, outputStream);
     }
 }
