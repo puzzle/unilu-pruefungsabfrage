@@ -8,6 +8,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
@@ -16,17 +17,24 @@ public class ExceptionController implements ErrorController {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public String handleNotFound(Model model, Exception exception) {
+    public String handleNotFound(Model model, Exception exception, RedirectAttributes redirectAttributes) {
         model.addAttribute("error", "Not Found");
+
+        redirectAttributes.addFlashAttribute("error", "Not Found");
+        redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
+
         return "redirect:/error";
     }
 
     @ExceptionHandler(Exception.class)
-    public String handleInternalServerError(HttpServletRequest req, Exception ex, Model model) {
+    public String handleInternalServerError(HttpServletRequest req, Exception ex, Model model, RedirectAttributes redirectAttributes) {
         logger.error("Request URL: " + req.getRequestURL() + " raised an " + ex.getClass()
-                                                                              .getSimpleName() + " because " + ex.getMessage() + " at " + ex.getStackTrace()[0]);
+                                                                               .getSimpleName() + " because " + ex.getMessage() + " at " + ex.getStackTrace()[0]);
         model.addAttribute("errorMessage", ex.getMessage());
         model.addAttribute("error", "Internal Server Error");
+
+        redirectAttributes.addFlashAttribute("error", "Internal Server Error");
+        redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
 
         return "redirect:/error";
     }

@@ -48,7 +48,7 @@ public class SiteController {
 
     @GetMapping("/error")
     public String viewErrorPage(Model model) {
-//        model.addAttribute("error", "Internal Server Error");
+        //        model.addAttribute("error", "Internal Server Error");
         return "error";
     }
 }
