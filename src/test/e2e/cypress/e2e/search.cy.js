@@ -36,7 +36,7 @@ it('should display error when no exams were found', () => {
 });
 
 it('should display error when exam number is invalid', () => {
-    cy.get('input[type="text"]').type('abcde');
+    cy.get('input[type="text"]').type('123');
     cy.get('button').click();
     cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
 });
@@ -48,7 +48,7 @@ it('should display download as ZIP button when input is valid', () => {
 });
 
 it('should not display ZIP download when exam number is invalid', () => {
-    cy.get('input[type="text"]').type('abcde');
+    cy.get('input[type="text"]').type('123');
     cy.get('button').click();
     cy.get('Alle als ZIP herunterladen').should('not.exist');
 });
