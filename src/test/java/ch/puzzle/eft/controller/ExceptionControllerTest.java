@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,6 +22,9 @@ public class ExceptionControllerTest {
     @Mock
     private Model model;
 
+    @Mock
+    private RedirectAttributes redirectAttributes;
+
     @InjectMocks
     private ExceptionController exceptionHandlingController;
 
@@ -29,23 +33,20 @@ public class ExceptionControllerTest {
         Exception ex = new Exception("Internal error message");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost/test-url"));
 
-        String viewName = exceptionHandlingController.handleInternalServerError(request, ex, model);
+        String viewName = exceptionHandlingController.handleInternalServerError(request, ex, model, redirectAttributes);
 
         verify(model, times(1)).addAttribute("errorMessage", ex.getMessage());
         verify(model, times(1)).addAttribute("error", "Internal Server Error");
 
-        assertEquals("error", viewName);
+        assertEquals("redirect:/error", viewName);
 
     }
 
     @Test
     void testHandleNotFound() {
-        NoResourceFoundException ex = new NoResourceFoundException(HttpMethod.GET, "http://localhost/test-url");
-        when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost/test-url"));
-
-        String viewName = exceptionHandlingController.handleNotFound(model, ex);
+        String viewName = exceptionHandlingController.handleNotFound(model, redirectAttributes);
 
         verify(model, times(1)).addAttribute("error", "Not Found");
-        assertEquals("error", viewName);
+        assertEquals("redirect:/error", viewName);
     }
 }

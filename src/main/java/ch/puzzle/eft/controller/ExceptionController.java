@@ -17,11 +17,10 @@ public class ExceptionController implements ErrorController {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public String handleNotFound(Model model, Exception exception, RedirectAttributes redirectAttributes) {
+    public String handleNotFound(Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("error", "Not Found");
 
         redirectAttributes.addFlashAttribute("error", "Not Found");
-        redirectAttributes.addFlashAttribute("errorMessage", exception.getMessage());
 
         return "redirect:/error";
     }
