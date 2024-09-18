@@ -48,7 +48,7 @@ it('should display download as ZIP button when input is valid', () => {
 });
 
 it('should not display ZIP download when exam number is invalid', () => {
-    cy.get('input[type="text"]').type('abc');
+    cy.get('input[type="text"]').type('123');
     cy.get('button').click();
     cy.get('Alle als ZIP herunterladen').should('not.exist');
 });
@@ -82,6 +82,16 @@ it('should rename files to subject-folder they are inside of after downloading',
     cy.expect(i).to.equal(3)
 });
 
+it('should not be disabled if number is in input', () => {
+    cy.get('input[type="text"]').type('110');
+    cy.get('button').should('not.be.disabled');
+});
+
+it('should disable button if input is empty', () => {
+    cy.get('button').should('be.disabled');
+    cy.get('input[type="text"]').type(' ');
+    cy.get('button').should('be.disabled')
+});
 
 it('should not be able to input more than 5 characters', () => {
     cy.get('input[type="text"]').type('110000').should('have.value', '11000');
