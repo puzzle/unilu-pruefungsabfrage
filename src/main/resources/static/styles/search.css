@@ -1,5 +1,6 @@
 .search-button {
     border: 1px rgb(229, 0, 125) solid;
+    border-radius: 2px;
     color: black;
     background-color: white;
 }
