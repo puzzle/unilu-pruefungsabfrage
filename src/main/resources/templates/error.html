@@ -9,12 +9,8 @@
 </head>
 <body>
 <header th:replace="~{fragments/header}"></header>
-<h1 th:if="${session.get('errorModel').getError() == '500'}">Ein unerwarteter Fehler ist aufgetreten</h1>
-<h1 th:if="${session.get('errorModel').getError() == '404'}">Die gesuchte Seite wurde nicht gefunden</h1>
-<p th:if="${session.get('errorModel').getError() == '500'}"
-   th:text="${session.get('errorModel').getErrorMessage()}"></p>
-<p th:if="${session.get('errorModel').getError() == '500'}">Kontaktieren Sie doch bitte <a
-        href="mailto: helpdesk@unilu.ch">helpdesk@unilu.ch</a></p>
+<div th:replace="~{fragments/internal-server-error}"></div>
+<div th:replace="~{fragments/not-found-error}"></div>
 <a href="/return">Zurück zur Startseite</a>
 </body>
 </html>
