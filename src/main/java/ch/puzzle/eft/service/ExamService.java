@@ -63,6 +63,7 @@ public class ExamService {
                                                             examNumber));
         }
         return matchingFiles.stream()
+                            .sorted()
                             .map(ExamModel::new)
                             .toList();
     }

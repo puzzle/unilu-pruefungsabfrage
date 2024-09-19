@@ -201,4 +201,20 @@ class ExamServiceTest {
 
         assertEquals(expectedFileNames.size(), fileCount, "Not all files were zipped correctly.");
     }
+
+    @Test
+    void shouldSortExamList() {
+        List<ExamModel> result = examFileService.getMatchingExams("11001", "22223333");
+
+        List<String> expectedFileNames = List.of("Handels und Gesellschaftsrecht",
+                                                 "Privatrecht",
+                                                 "Strafrecht",
+                                                 "Öffentliches Recht");
+
+        for (int i = 0; i < expectedFileNames.size(); i++) {
+            assertEquals(expectedFileNames.get(i),
+                         result.get(i)
+                               .getSubjectName());
+        }
+    }
 }
