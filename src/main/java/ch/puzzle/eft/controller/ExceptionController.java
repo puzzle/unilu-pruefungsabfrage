@@ -18,10 +18,7 @@ public class ExceptionController implements ErrorController {
 
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNotFound(Model model, RedirectAttributes redirectAttributes) {
-        model.addAttribute("error", "Not Found");
-
         redirectAttributes.addFlashAttribute("error", "Not Found");
-
         return "redirect:/error";
     }
 
@@ -29,12 +26,8 @@ public class ExceptionController implements ErrorController {
     public String handleInternalServerError(HttpServletRequest req, Exception ex, Model model, RedirectAttributes redirectAttributes) {
         logger.error("Request URL: " + req.getRequestURL() + " raised an " + ex.getClass()
                                                                                .getSimpleName() + " because " + ex.getMessage() + " at " + ex.getStackTrace()[0]);
-        model.addAttribute("errorMessage", ex.getMessage());
-        model.addAttribute("error", "Internal Server Error");
-
         redirectAttributes.addFlashAttribute("error", "Internal Server Error");
         redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
-
         return "redirect:/error";
     }
 

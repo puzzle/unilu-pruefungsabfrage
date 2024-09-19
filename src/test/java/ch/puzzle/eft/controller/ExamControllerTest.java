@@ -58,8 +58,8 @@ class ExamControllerTest {
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));
         this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"))
-                    .andExpect(status().isOk())
-                    .andExpect(view().name("error"))
-                    .andExpect(model().attribute("error", "Internal Server Error"));
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(view().name("redirect:/error"))
+                    .andExpect(flash().attribute("error", "Internal Server Error"));
     }
 }
