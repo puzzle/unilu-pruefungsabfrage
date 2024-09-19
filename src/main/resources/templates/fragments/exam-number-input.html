@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
+<head>
+    <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css">
+</head>
 <div>
     <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post">
         <label for="examNumber">Prüfungsnummer eingeben*:</label>
         <input type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
                placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required>
-        <button type="submit" id="submitButton">Suchen</button>
+        <button type="submit" id="submitButton" class="search-button">Suchen</button>
         <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
     </form>
 </div>

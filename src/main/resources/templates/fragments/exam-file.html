@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css">
+</head>
 <body>
 <div>
-    <a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}"></a>
+    <a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="exam-download"></a>
 </div>
 </body>
 </html>
