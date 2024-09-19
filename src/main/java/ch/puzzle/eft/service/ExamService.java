@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
@@ -63,8 +64,8 @@ public class ExamService {
                                                             examNumber));
         }
         return matchingFiles.stream()
-                            .sorted()
                             .map(ExamModel::new)
+                            .sorted(Comparator.comparing(ExamModel::getSubjectName, String.CASE_INSENSITIVE_ORDER))
                             .toList();
     }
 
