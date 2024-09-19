@@ -4,13 +4,17 @@
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
     <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css">
+    <link href="/images/favicon.png" rel="icon" type="image/png">
+
 </head>
 <body>
 <header th:replace="~{fragments/header}"></header>
-<h1 th:if="${error == 'Internal Server Error'}">Ein unerwarteter Fehler ist aufgetreten</h1>
-<h1 th:if="${error == 'Not Found'}">Die gesuchte Seite wurde nicht gefunden</h1>
-<p th:if="${error == 'Internal Server Error'}" th:text="${errorMessage}"></p>
-<p th:if="${error == 'Internal Server Error'}">Kontaktieren Sie doch bitte <a href="mailto: helpdesk@unilu.ch">helpdesk@unilu.ch</a></p>
-<a href="/">Zurück zur Startseite</a>
+<h1 th:if="${session.get('errorModel').getError() == '500'}">Ein unerwarteter Fehler ist aufgetreten</h1>
+<h1 th:if="${session.get('errorModel').getError() == '404'}">Die gesuchte Seite wurde nicht gefunden</h1>
+<p th:if="${session.get('errorModel').getError() == '500'}"
+   th:text="${session.get('errorModel').getErrorMessage()}"></p>
+<p th:if="${session.get('errorModel').getError() == '500'}">Kontaktieren Sie doch bitte <a
+        href="mailto: helpdesk@unilu.ch">helpdesk@unilu.ch</a></p>
+<a href="/return">Zurück zur Startseite</a>
 </body>
 </html>

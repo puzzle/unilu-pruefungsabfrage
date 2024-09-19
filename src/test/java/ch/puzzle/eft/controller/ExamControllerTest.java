@@ -3,6 +3,7 @@ package ch.puzzle.eft.controller;
 import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.test.MockServletOutputStream;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,6 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 import java.nio.file.Files;
 
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,6 +31,8 @@ class ExamControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private ExamService examFileService;
+    @Autowired
+    private HttpSession httpSession;
 
     @Test
     void downloadZipShouldReturnZip() throws Exception {
@@ -60,6 +65,6 @@ class ExamControllerTest {
         this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"))
-                    .andExpect(flash().attribute("error", "Internal Server Error"));
+                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("500"))));
     }
 }
