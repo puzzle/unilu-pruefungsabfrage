@@ -1,29 +1,45 @@
 # Uni Luzern Prüfungsabfrage - PoC Login
 
-## Setup SSL for EFT application
+## Create & Run Service Provider
 
-1. `cd src/main/resources/certs`
-1. `openssl pkcs12 -export -in unilu-sp.crt -inkey unilu-sp-pk.pem -name unilu-eft -out unilu-eft.p12`
-   (password see application.yml)
-1. Check and/or adapt configuration in `application.yml` or `application-test.yml`
+If not already done, you should set up your local Shibboleth Service Provider (SP). Therefore, clone the repository
+and following the installation and configuration instructions:
 
-       server:
-          address: edview.unilu.ch
-          port: 8443
-          forward-headers-strategy: framework
-          ssl:
+```
+git clone git@ssh.gitlab.puzzle.ch:cga/docker/unilu-docker-shibboleth-sp.git
+```
+
+## Setup SSL for PoC Application
+
+For simplicity, we use the same certificate and key as the Apache httpd server uses. This might be changed when
+implementing the real EFT application.
+
+1. `cd src/main/resources/certs/prod`
+2. Copy the content of httpd certificate and private key to files `resources/prod/httpd.crt.pem` and
+   `resources/prod/httpd.key.pem`.
+3. `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12`
+   (password see application.yml).
+4. Do the similar steps for test environment in `src/main/resources/certs/test` to copy and create the files
+   `httpd.crt`, `httpd.key.pem`, and `http.test.keystore.p12`.
+5. Check and/or adapt configuration in `application.yml` or `application-test.yml`, e.g.
+
+         server:
+           address: edview.unilu.ch
+           port: 8443
+           forward-headers-strategy: framework
+           ssl:
              key-store-type: PKCS12
-             key-store: classpath:certs/unilu-eft.p12
+             key-store: classpath:certs/prod/httpd.keystore.p12
              key-store-password: uni-lu-eft-2024
              key-alias: unilu-eft
 
-1. Start `PoC Login (TEST)` or `PoC Login (PROD)` run configuration to see Tomcat initialization on port 8443 (HTTPS)
-1. Enter [https://edview-test.unilu.ch:8443](https://edview-test.unilu.ch:8443)
+6. Start `PoC Login (TEST)` or `PoC Login (PROD)` run configuration to see Tomcat initialization on port 8443 (HTTPS)
+7. Enter [https://edview-test.unilu.ch:8443](https://edview-test.unilu.ch:8443)
    or [https://edview.unilu.ch:8443](https://edview.unilu.ch:8443) in your web browser to start the web
    application.
 
 The alias `edview.unilu.ch` is used for the application host (localhost). Therefore, you might add the alias to
-`/etc/hosts` if not already done.
+`/etc/hosts` if not already done. The same is true for test environment `edview-test.unilu.ch`.
 
 ## Docker
 

@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="PoC-Login-TEST" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="test" />
+    <envs>
+      <env name="RESOURCE_DIR" value="./static" />
+    </envs>
+    <module name="unilu-poc-login" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ch.puzzle.eft.ExamFeedbackToolApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

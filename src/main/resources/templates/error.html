@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <title>Error Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>Error Page</h1>
+<p>Sorry, an error has occurred.</p>
+<p>Check the log file for further information.</span>.</p>
+<p>Please contact
+    <mailto>helpdesk@unilu.ch</mailto>
+    .
+</p>
+
+<form th:action="@{/logout}" method="post">
+    <button id="logout" type="submit">Logout</button>
+</form>
+
+</body>
+</html>

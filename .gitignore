@@ -37,3 +37,4 @@ Thumbs.db
 
 ### Security ###
 *.p12
+*.pem

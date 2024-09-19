@@ -4,9 +4,10 @@ server:
   forward-headers-strategy: framework
   ssl:
     key-store-type: PKCS12
-    key-store: classpath:certs/unilu-eft.p12
+    key-store: classpath:certs/prod/httpd.keystore.p12
     key-store-password: uni-lu-eft-2024
     key-alias: unilu-eft
+    client-auth: want
 
 spring:
   application:
@@ -15,12 +16,15 @@ spring:
     saml2:
       relyingparty:
         registration:
-          okta:
+          switch-saml2:
             assertingparty:
               entity-id: https://edview.unilu.ch/idp/shibboleth
+              verification:
+                credentials:
+                  - certificate-location:
+                      classpath:certs/prod/httpd.crt.pem
               singlesignon:
                 url: https://edview.unilu.ch/Shibboleth.sso/Login
-                binding: POST
                 sign-request: false
               # metadata-uri: classpath:metadata.aaitest+idp.xml
               # metadata-uri: classpath:testxml.xml
@@ -31,9 +35,10 @@ spring:
             # metadata-uri: https://eft-dev.puzzle.ch/metadata/metadata.aaitest+idp.xml
             singlelogout:
               url: https://edview.unilu.ch/Shibboleth.sso/Logout
-              binding: POST
               response-url: https://edview.unilu.ch/
-#            signing:
-#              credentials:
-#                - private-key-location: classpath:certs/unilu-sp-pk.pem
-#                  certificate-location: classpath:certs/unilu-sp.crt
+
+logging:
+  level:
+    root: info
+    ch.puzzle.eft: info
+    org.springframework.security: info
