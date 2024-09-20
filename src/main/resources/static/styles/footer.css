@@ -6,7 +6,11 @@
     background-color: lightgray;
 }
 
-.link-no-dec {
+.navigation-link {
     color: black;
     text-decoration: none;
+}
+
+.navigation-link:hover {
+    color: rgb(229, 0, 125);
 }
