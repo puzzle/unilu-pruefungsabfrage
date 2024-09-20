@@ -7,3 +7,8 @@
 .search-button:hover {
     border-color: black;
 }
+
+.search-button:disabled {
+    background-color: lightgray;
+    border-color: gray;
+}
