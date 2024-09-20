@@ -30,8 +30,10 @@ public class ExceptionController implements ErrorController {
 
     @ExceptionHandler(Exception.class)
     public String handleInternalServerError(Model model, HttpServletRequest req, Exception ex, HttpSession session) {
-        logger.error("Request URL: " + req.getRequestURL() + " raised an " + ex.getClass()
-                                                                               .getSimpleName());
+        logger.warn("Request URL: {} raised an {}",
+                    req.getRequestURL(),
+                    ex.getClass()
+                      .getSimpleName());
         session.setAttribute("errorModel", new ErrorModel("500", ex.getMessage()));
         return "redirect:/error";
     }
