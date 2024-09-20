@@ -1,6 +1,6 @@
 <div th:if="${session.get('errorModel') != null and session.get('errorModel').getError().equals('unknown')}">
     <h1>Ein unerwarteter Fehler ist aufgetreten</h1>
     <p th:text="${session.get('errorModel').getErrorMessage()}"></p>
-    <p>Kontaktieren Sie doch bitte <a
+    <p>Kontaktieren Sie doch bitte <a class="link"
             href="mailto: helpdesk@unilu.ch">helpdesk@unilu.ch</a></p>
 </div>
