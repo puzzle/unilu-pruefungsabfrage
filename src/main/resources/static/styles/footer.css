@@ -5,3 +5,8 @@
 .footer-background {
     background-color: lightgray;
 }
+
+.link-no-dec {
+    color: black;
+    text-decoration: none;
+}
