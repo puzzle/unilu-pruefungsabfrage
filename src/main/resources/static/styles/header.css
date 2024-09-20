@@ -14,8 +14,12 @@
 
 .navigation-item {
     font-size: 1em;
-    color: slategray;
+    color: black;
     text-decoration: none;
+}
+
+.navigation-item:hover {
+    color: rgb(229, 0, 125) !important;
 }
 
 .navigation-item:hover {
