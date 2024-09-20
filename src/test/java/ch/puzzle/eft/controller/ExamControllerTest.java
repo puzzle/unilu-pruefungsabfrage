@@ -3,6 +3,7 @@ package ch.puzzle.eft.controller;
 import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.test.MockServletOutputStream;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -10,14 +11,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
 import java.nio.file.Files;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -31,6 +31,8 @@ class ExamControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private ExamService examFileService;
+    @Autowired
+    private HttpSession httpSession;
 
     @Test
     void downloadZipShouldReturnZip() throws Exception {
@@ -55,15 +57,14 @@ class ExamControllerTest {
     }
 
     @Test
-    void shouldThrowExceptionIfFileNotFound() throws Exception {
+    void shouldReturnErrorPageIfFileNotFound() throws Exception {
         when(examFileService.getFileToDownload("Privatrecht", "11000_22223333.pdf")).thenThrow(
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));
-        ResultActions notFoundResult = this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"));
-        assertEquals(HttpStatus.NOT_FOUND.value(),
-                     notFoundResult.andReturn()
-                                   .getResponse()
-                                   .getStatus());
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"))
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(view().name("redirect:/error"))
+                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("unknown"))));
     }
 }

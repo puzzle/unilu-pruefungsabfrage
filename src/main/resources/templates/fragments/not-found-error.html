@@ -1,0 +1,4 @@
+<div th:if="${session.get('errorModel') == null or session.get('errorModel').getError() == '404'}">
+    <h1>Die gesuchte Seite wurde nicht gefunden</h1>
+    <p>Versuche eine Prüfung zu <a href="/search" class="link">suchen</a> oder gehe zurück zur Startseite</p>
+</div>
