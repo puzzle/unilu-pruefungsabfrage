@@ -64,7 +64,7 @@ If you have the script you can install rootless docker by running the following 
 ##### Method 2 - Via installation script
 This approach is helpful if you dont have permission to download packages or similar.
 
-> Attention: If you are running on Ubuntu 20.04 or later you need to create an AppArmor profile for rootlesskit.
+> Attention: If you are running on Ubuntu 24.04 or later you need to create an AppArmor profile for rootlesskit.
 > This profile is already included in the deb package but needs to created manually with this method. For more information
 > on why this needs to be done, please refer to the official documentation here:
 > https://docs.docker.com/engine/security/rootless/#distribution-specific-hint.
@@ -107,4 +107,4 @@ $ systemctl --user enable docker
 $ sudo loginctl enable-linger $(whoami)
 ```
 
-You can now use the normal Docker to build and start the image like described at the top of this readme.
+You can now use the normal Docker commands to build and start the image like described at the top of this readme.
