@@ -211,10 +211,8 @@ class ExamServiceTest {
                                                  "Privatrecht",
                                                  "Strafrecht");
 
-        for (int i = 0; i < expectedFileNames.size(); i++) {
-            assertEquals(expectedFileNames.get(i),
-                         result.get(i)
-                               .getSubjectName());
-        }
+        assertEquals(result.stream()
+                           .map(ExamModel::getSubjectName)
+                           .toList(), expectedFileNames);
     }
 }
