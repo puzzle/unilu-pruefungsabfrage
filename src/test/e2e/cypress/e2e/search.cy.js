@@ -96,7 +96,7 @@ it('should show files in alphabetical order', () => {
         cy.get('button').click();
     cy.get('.exam-files').then(files => {
         const fileNames = [...files].map(file => file.innerText);
-        const sortedFileNames = ["Handels und Gesellschaftsrecht", "Privatrecht", "Strafrecht", "Öffentliches Recht"];
+        const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
         expect(fileNames).to.deep.equal(sortedFileNames)
     })
 });

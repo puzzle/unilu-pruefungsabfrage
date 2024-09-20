@@ -207,9 +207,9 @@ class ExamServiceTest {
         List<ExamModel> result = examFileService.getMatchingExams("11001", "22223333");
 
         List<String> expectedFileNames = List.of("Handels und Gesellschaftsrecht",
+                                                 "Öffentliches Recht",
                                                  "Privatrecht",
-                                                 "Strafrecht",
-                                                 "Öffentliches Recht");
+                                                 "Strafrecht");
 
         for (int i = 0; i < expectedFileNames.size(); i++) {
             assertEquals(expectedFileNames.get(i),
