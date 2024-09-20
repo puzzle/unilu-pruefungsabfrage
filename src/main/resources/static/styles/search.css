@@ -1,5 +1,4 @@
 .search-button {
-    border: 1px rgb(229, 0, 125) solid;
     border-radius: 2px;
     color: black;
     background-color: white;
@@ -7,20 +6,4 @@
 
 .search-button:hover {
     border-color: black;
-}
-
-.exam-download {
-    color: rgb(229, 0, 125);
-}
-
-.exam-download:hover {
-    color: black;
-}
-
-.zip-button {
-    border: 1px rgb(229, 0, 125) solid;
-}
-
-.zip-button:hover {
-    border: 1px black solid;
 }

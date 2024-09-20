@@ -8,7 +8,7 @@
         <label for="examNumber">Prüfungsnummer eingeben*:</label>
         <input type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
                placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required>
-        <button type="submit" id="submitButton" class="search-button">Suchen</button>
+        <button type="submit" id="submitButton" class="button search-button">Suchen</button>
         <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
     </form>
 </div>

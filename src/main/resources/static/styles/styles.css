@@ -8,3 +8,19 @@ body {
     margin: 0;
     font-family: OpenSans, sans-serif;
 }
+
+.link {
+    color: rgb(229, 0, 125);
+}
+
+.link:hover {
+    color: black;
+}
+
+.button {
+    border: 1px rgb(229, 0, 125) solid;
+}
+
+.button:hover {
+    border: 1px black solid;
+}
