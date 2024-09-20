@@ -1,5 +1,9 @@
 # Uni Luzern Prüfungsabfrage - PoC Login
 
+## Overview
+
+![SwitchAAI](doc/SwitchAAI.drawio.png)
+
 ## Create & Run Service Provider
 
 If not already done, you should set up your local Shibboleth Service Provider (SP). Therefore, clone the repository

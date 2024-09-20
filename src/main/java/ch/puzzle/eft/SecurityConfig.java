@@ -9,14 +9,12 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.saml2.provider.service.authentication.OpenSaml4AuthenticationProvider;
 import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 import org.springframework.security.saml2.provider.service.authentication.Saml2Authentication;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.header.writers.*;
 
 import java.security.Security;
 import java.util.HashSet;
@@ -24,7 +22,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.security.web.header.writers.CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP;
 
 @Configuration
 @EnableWebSecurity
@@ -40,33 +37,33 @@ public class SecurityConfig {
         OpenSaml4AuthenticationProvider authenticationProvider = new OpenSaml4AuthenticationProvider();
         authenticationProvider.setResponseAuthenticationConverter(groupsConverter());
 
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/home")
+        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/authorized")
                                                          .authenticated()
                                                          .requestMatchers("/**")
                                                          .permitAll())
             .saml2Login(saml2 -> saml2.authenticationManager(new ProviderManager(authenticationProvider)))
             // .saml2Login(withDefaults())
             .saml2Logout(withDefaults())
-            .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::deny) // or frameOptions.deny()
-                           .xssProtection(e -> e.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
-                           .crossOriginEmbedderPolicy(coep -> coep.policy(REQUIRE_CORP))
-                           .crossOriginOpenerPolicy(coopCustomizer -> coopCustomizer.policy(CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy.SAME_ORIGIN))
-                           .crossOriginResourcePolicy(corpCustomizer -> corpCustomizer.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN))
-                           .addHeaderWriter(new StaticHeadersWriter("X-Permitted-Cross-Domain-Policies", "none"))
-                           .referrerPolicy(referrer -> referrer.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
-                           .httpStrictTransportSecurity(hsts -> hsts.maxAgeInSeconds(31536000)
-                                                                    .includeSubDomains(true))
-                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Embedder-Policy",
-                                                                                      "require-corp"))
-                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Resource-Policy",
-                                                                                      "same-site"))
-                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Opener-Policy",
-                                                                                      "same-origin"))
-                           .addHeaderWriter((request, response) -> response.setHeader("X-Permitted-Cross-Domain-Policies",
-                                                                                      "none"))
-                           .addHeaderWriter((request, response) -> response.setHeader("Server", ""))
-                           .contentSecurityPolicy(csp -> csp.policyDirectives(CSP_CONFIG))
-                           .permissionsPolicy(pp -> pp.policy(PERMISSION_POLICY)))
+            //            .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::deny) // or frameOptions.deny()
+            //                           .xssProtection(e -> e.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
+            //                           .crossOriginEmbedderPolicy(coep -> coep.policy(REQUIRE_CORP))
+            //                           .crossOriginOpenerPolicy(coopCustomizer -> coopCustomizer.policy(CrossOriginOpenerPolicyHeaderWriter.CrossOriginOpenerPolicy.SAME_ORIGIN))
+            //                           .crossOriginResourcePolicy(corpCustomizer -> corpCustomizer.policy(CrossOriginResourcePolicyHeaderWriter.CrossOriginResourcePolicy.SAME_ORIGIN))
+            //                           .addHeaderWriter(new StaticHeadersWriter("X-Permitted-Cross-Domain-Policies", "none"))
+            //                           .referrerPolicy(referrer -> referrer.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+            //                           .httpStrictTransportSecurity(hsts -> hsts.maxAgeInSeconds(31536000)
+            //                                                                    .includeSubDomains(true))
+            //                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Embedder-Policy",
+            //                                                                                      "require-corp"))
+            //                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Resource-Policy",
+            //                                                                                      "same-site"))
+            //                           .addHeaderWriter((request, response) -> response.setHeader("Cross-Origin-Opener-Policy",
+            //                                                                                      "same-origin"))
+            //                           .addHeaderWriter((request, response) -> response.setHeader("X-Permitted-Cross-Domain-Policies",
+            //                                                                                      "none"))
+            //                           .addHeaderWriter((request, response) -> response.setHeader("Server", ""))
+            //                           .contentSecurityPolicy(csp -> csp.policyDirectives(CSP_CONFIG))
+            //                           .permissionsPolicy(pp -> pp.policy(PERMISSION_POLICY)))
             .securityContext((securityContext) -> securityContext.requireExplicitSave(true))
             .sessionManagement((sessions) -> sessions.requireExplicitAuthenticationStrategy(true));
 
