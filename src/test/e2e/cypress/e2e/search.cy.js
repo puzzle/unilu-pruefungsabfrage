@@ -90,3 +90,13 @@ it('should not be able to input more than 5 characters', () => {
 it('should not be able to input other characters', () => {
     cy.get('input[type="text"]').type('a2c').should('have.value', '2');
 });
+
+it('should show files in alphabetical order', () => {
+        cy.get('input[type="text"]').type('11000');
+        cy.get('button').click();
+    cy.get('.exam-files').then(files => {
+        const fileNames = [...files].map(file => file.innerText);
+        const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
+        expect(fileNames).to.deep.equal(sortedFileNames)
+    })
+});

@@ -11,7 +11,7 @@
 <header th:replace="~{fragments/header}"></header>
 <h1>Suche nach einer Prüfung...</h1>
 <div th:replace="~{fragments/exam-number-input}"></div>
-<div th:each="examFile: ${examFiles}">
+<div class="exam-files" th:each="examFile: ${examFiles}">
     <div th:replace="~{fragments/exam-file}"></div>
 </div>
 <div th:if="${examFiles != null && examFiles.size() >= 2}">

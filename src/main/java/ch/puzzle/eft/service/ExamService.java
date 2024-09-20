@@ -13,11 +13,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.text.Collator;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class ExamService {
@@ -62,8 +63,12 @@ public class ExamService {
                                               String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
                                                             examNumber));
         }
+        Collator collator = Collator.getInstance(Locale.GERMAN);
+        collator.setStrength(Collator.PRIMARY);
+
         return matchingFiles.stream()
                             .map(ExamModel::new)
+                            .sorted((e1, e2) -> collator.compare(e1.getSubjectName(), e2.getSubjectName()))
                             .toList();
     }
 
