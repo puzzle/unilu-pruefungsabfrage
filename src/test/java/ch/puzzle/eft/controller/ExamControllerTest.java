@@ -65,6 +65,6 @@ class ExamControllerTest {
         this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"))
-                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("500"))));
+                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("unknown"))));
     }
 }
