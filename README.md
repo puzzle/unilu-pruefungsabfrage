@@ -17,7 +17,8 @@ implementing the real EFT application.
 1. `cd src/main/resources/certs/prod`
 2. Copy the content of httpd certificate and private key to files `resources/prod/httpd.crt.pem` and
    `resources/prod/httpd.key.pem`.
-3. `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12`
+3. Create the local keystore for SSL:
+   `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12`
    (password see application.yml).
 4. Do the similar steps for test environment in `src/main/resources/certs/test` to copy and create the files
    `httpd.crt`, `httpd.key.pem`, and `http.test.keystore.p12`.
@@ -30,8 +31,9 @@ implementing the real EFT application.
            ssl:
              key-store-type: PKCS12
              key-store: classpath:certs/prod/httpd.keystore.p12
-             key-store-password: uni-lu-eft-2024
+             key-store-password: <see application.xml>
              key-alias: unilu-eft
+             client-auth: want
 
 6. Start `PoC Login (TEST)` or `PoC Login (PROD)` run configuration to see Tomcat initialization on port 8443 (HTTPS)
 7. Enter [https://edview-test.unilu.ch:8443](https://edview-test.unilu.ch:8443)

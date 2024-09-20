@@ -6,6 +6,7 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuil
 import org.apache.hc.client5.http.io.HttpClientConnectionManager;
 import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactory;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +25,9 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest(classes = ExamFeedbackToolApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@Disabled("for local tests only with running SP")
 @ActiveProfiles("test")
+@SpringBootTest(classes = ExamFeedbackToolApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SampleTest {
 
     private static final Logger logger = LoggerFactory.getLogger(SampleTest.class);
@@ -73,6 +75,7 @@ class SampleTest {
         return new RestTemplate(factory);
     }
 
+    // use local truststore instead of Java keystore cacerts
     RestTemplate restTemplateUsingLocalTruststore() throws Exception {
         SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(trustStore.getURL(),
                                                                           trustStorePassword.toCharArray())
@@ -104,3 +107,4 @@ class SampleTest {
         logger.info("{} is stopped", serverName);
     }
 }
+

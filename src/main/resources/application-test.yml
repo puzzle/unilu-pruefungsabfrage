@@ -47,6 +47,6 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: info
     ch.puzzle.eft: info
     org.springframework.security: debug
