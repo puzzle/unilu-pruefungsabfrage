@@ -34,7 +34,7 @@ public class ExceptionController implements ErrorController {
                     req.getRequestURL(),
                     ex.getClass()
                       .getSimpleName());
-        session.setAttribute("errorModel", new ErrorModel("500", ex.getMessage()));
+        session.setAttribute("errorModel", new ErrorModel("unknown", ex.getMessage()));
         return "redirect:/error";
     }
 
