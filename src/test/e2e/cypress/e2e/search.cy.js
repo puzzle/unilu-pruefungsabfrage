@@ -14,7 +14,7 @@ it('should display header on search page', () => {
 
 it('should display label for searchbar', () => {
     cy.get('body').then((body) => {
-        expect(body).to.contain("Prüfungsnummer eingeben*:")
+       cy.contains("Prüfungsnummer eingeben:")
     })
 });
 
