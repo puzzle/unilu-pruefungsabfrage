@@ -34,12 +34,14 @@ public class SiteController {
     @PostMapping("/search")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
-        try {
-            // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
-            model.addAttribute("examFiles",
-                               examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
-        } catch (ResponseStatusException e) {
-            bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getMessage());
+        if (!bindingResult.hasErrors()) {
+            try {
+                // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
+                model.addAttribute("examFiles",
+                                   examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
+            } catch (ResponseStatusException e) {
+                bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getMessage());
+            }
         }
         return SEARCH_TEMPLATE;
     }
