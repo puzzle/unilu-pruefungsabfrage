@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css">
-</head>
 <body>
 <div>
     <a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="link"></a>
