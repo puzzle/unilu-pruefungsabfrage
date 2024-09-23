@@ -1,8 +1,6 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.service.ExamService;
-import ch.puzzle.eft.test.MockServletOutputStream;
-import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 
@@ -26,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WithMockUser
 class ExamControllerTest {
 
-    MockServletOutputStream outputStream = new MockServletOutputStream();
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -37,14 +35,13 @@ class ExamControllerTest {
     @Test
     void downloadZipShouldReturnZip() throws Exception {
         String examNumber = "11000";
-        doNothing().when(examFileService)
-                   .convertSelectedFilesToZip(examNumber);
+        when(examFileService.convertSelectedFilesToZip(examNumber)).thenReturn(new ByteArrayOutputStream());
 
         mockMvc.perform(get("/exams/download-zip/{examNumber}", examNumber))
                .andExpect(status().isOk())
                .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
-        //        verify(examFileService).convertSelectedFilesToZip(eq(examNumber), any(ServletOutputStream.class));
+        verify(examFileService).convertSelectedFilesToZip(eq(examNumber));
     }
 
     @Test
