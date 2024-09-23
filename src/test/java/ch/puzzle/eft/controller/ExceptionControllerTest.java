@@ -32,7 +32,7 @@ class ExceptionControllerTest {
         Exception ex = new Exception("Internal error message");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost/test-url"));
 
-        String viewName = exceptionHandlingController.handleInternalServerError(model, request, ex, session);
+        String viewName = exceptionHandlingController.handleInternalServerError(request, ex, session);
 
         verify(session, times(1)).setAttribute(eq("errorModel"), any(ErrorModel.class));
 

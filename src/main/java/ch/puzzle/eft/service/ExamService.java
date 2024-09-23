@@ -111,7 +111,7 @@ public class ExamService {
                 zos.closeEntry();
             }
         } catch (IOException e) {
-            logger.warn(e.getMessage());
+            logger.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return outputStream;
