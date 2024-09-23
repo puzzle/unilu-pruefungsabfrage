@@ -150,7 +150,7 @@ class ExamServiceTest {
 
         List<ExamModel> examFileList = Arrays.asList(fileModel1, fileModel2);
 
-        examFileService.convertFilesToZip(examFileList, mockOutputStream);
+        examFileService.convertFilesToZip(examFileList);
 
         ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream.getContentAsByteArray());
         ZipInputStream zis = new ZipInputStream(bis);
@@ -181,7 +181,7 @@ class ExamServiceTest {
     void shouldReturnCorrectFilesAfterZip() throws IOException {
         MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
-        examFileService.convertSelectedFilesToZip("11000", mockOutputStream);
+        examFileService.convertSelectedFilesToZip("11000");
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
         byte[] zipContent = mockOutputStream.getContentAsByteArray();

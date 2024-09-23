@@ -1,15 +1,14 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamModel;
-import jakarta.servlet.ServletOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -17,8 +16,6 @@ import java.text.Collator;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 public class ExamService {
@@ -93,7 +90,9 @@ public class ExamService {
         return examToDownload;
     }
 
-    public ResponseEntity<Object> convertFilesToZip(List<ExamModel> examFileList, ServletOutputStream outputStream) {
+    public ByteArrayOutputStream convertFilesToZip(List<ExamModel> examFileList) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
         try (ZipOutputStream zos = new ZipOutputStream(outputStream)) {
             for (ExamModel examFile : examFileList) {
                 String name = examFile.getSubjectName() + ".pdf";
@@ -112,15 +111,14 @@ public class ExamService {
             }
         } catch (IOException e) {
             logger.warn(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return null;
+        return outputStream;
     }
 
-    public void convertSelectedFilesToZip(String examNumber, ServletOutputStream outputStream) {
+    public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber) {
         // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
         List<ExamModel> matchingExams = getMatchingExams(examNumber, "11112222");
-        convertFilesToZip(matchingExams, outputStream);
+        return convertFilesToZip(matchingExams);
     }
 }
