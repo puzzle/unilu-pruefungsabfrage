@@ -41,7 +41,7 @@ class ExamControllerTest {
                .andExpect(status().isOk())
                .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
-        verify(examFileService).convertSelectedFilesToZip(eq(examNumber));
+        verify(examFileService).convertSelectedFilesToZip(examNumber);
     }
 
     @Test

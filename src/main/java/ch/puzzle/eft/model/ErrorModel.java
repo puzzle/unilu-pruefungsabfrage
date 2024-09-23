@@ -1,8 +1,5 @@
 package ch.puzzle.eft.model;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.web.context.WebApplicationContext;
 
 public class ErrorModel {
 

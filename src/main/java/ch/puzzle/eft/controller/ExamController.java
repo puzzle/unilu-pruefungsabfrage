@@ -1,7 +1,6 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.service.ExamService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/exams")

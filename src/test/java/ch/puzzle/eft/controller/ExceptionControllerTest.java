@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class ExceptionControllerTest {
+class ExceptionControllerTest {
 
     @Mock
     private HttpServletRequest request;

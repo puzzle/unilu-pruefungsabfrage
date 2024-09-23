@@ -41,7 +41,7 @@ public class SiteController {
             model.addAttribute("examFiles",
                                examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
         } catch (ResponseStatusException e) {
-            bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getReason());
+            bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getMessage());
         }
         return "search";
     }
