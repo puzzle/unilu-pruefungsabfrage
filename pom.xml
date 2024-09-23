@@ -102,11 +102,8 @@
 					<goals>
 						<goal>compile</goal>
 						<goal>process-classes</goal>
-<!--						would be nice to skip those, but not possible with this plugin-->
-<!--						<goal>-Dcyclonedx.skip=true</goal>-->
-<!--						<goal>-Djacoco.skip=true</goal>-->
-<!--						<goal>-Dformatter.skip=true</goal>-->
-<!--						<goal>-Dproperties.skip=true</goal>-->
+<!--						would be nice to skip the following plugin executions because it increases the build time
+							those, but not possible with this plugin: cyclonedx, jacoco, formatter, properties-->
 					</goals>
 				</configuration>
 			</plugin>
