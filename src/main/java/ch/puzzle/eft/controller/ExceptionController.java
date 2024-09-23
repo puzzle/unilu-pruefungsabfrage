@@ -12,12 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 @Controller
-@SessionAttributes("errorModel")
 public class ExceptionController implements ErrorController {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
