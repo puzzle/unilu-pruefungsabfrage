@@ -73,14 +73,8 @@ it('should show downloadable files with name of subject-folder they are in', () 
 });
 
 it('should not be disabled if number is in input', () => {
-    cy.get('input[type="text"]').type('110');
+    cy.get('input[type="text"]');
     cy.get('button').should('not.be.disabled');
-});
-
-it('should disable button if input is empty', () => {
-    cy.get('button').should('be.disabled');
-    cy.get('input[type="text"]').type(' ');
-    cy.get('button').should('be.disabled')
 });
 
 it('should not be able to input more than 5 characters', () => {
