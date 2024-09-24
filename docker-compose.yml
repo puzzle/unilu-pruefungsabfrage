@@ -14,7 +14,11 @@ services:
       SPRING_THYMELEAF_CACHE: false
       SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:src/main/resources/static/
       SPRING_WEB_RESOURCES_CACHE_PERIOD: 0
-
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - ./:/app-root/
       - ~/.m2/repository:/root/.m2/repository
@@ -27,3 +31,17 @@ services:
     volumes:
       - ./:/app-root/
       - ~/.m2/repository:/root/.m2/repository
+
+  zap:
+    container_name: zap
+    tty: true
+    image: ghcr.io/zaproxy/zaproxy:stable
+    command: zap-baseline.py -t http://spring:8080 -c "rule-config.tsv" -r zap-report.html -z "-configfile /zap/wrk/options.conf"
+    working_dir: /zap
+    profiles:
+      - zap
+    depends_on:
+      spring:
+        condition: service_healthy
+    volumes:
+      - ./zap:/zap/wrk/:rw

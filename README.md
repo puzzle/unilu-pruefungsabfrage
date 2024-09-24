@@ -23,6 +23,14 @@ To change formatting preferences, you can export your formatting settings as ecl
 code formatter profile file, call it formatting(.xml) and replace the old config file in the
 resources directory.
 
+## Security headers
+To test the security headers of the application, you can use the following command:
+`docker compose --profile zap up -d `
+
+This will create the report (`zap-report.html`) in `/zap` which you can open in your browser to see the
+scan results. The scan results contain all found alerts and a more detailed insight on every single one with a description
+of the alert, the request that triggered it, solution, reference etc.
+
 ### Code Quality
 
 The code quality is verified by SonarQube which is executed when a feature branch is merge into the main branch.
