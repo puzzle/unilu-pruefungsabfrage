@@ -10,11 +10,9 @@
     <div class="d-flex justify-content-end flex-column">
         <p class="me-3 fs-3 text-end">Sven Studi</p><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
         <div class="me-3 d-flex gap-3 flex-row">
-            <a class="navigation-item" id="search-routing-link" th:href="@{/search}">
-                Prüfungslaufnummer
-            </a>
-            <a class="navigation-item">Kontakt</a><!--Todo wenn contact.html existiert-->
-            <a class="navigation-item">Logout</a> <!--Todo wenn login funktioniert-->
+            <a class="link-primary" th:href="@{/search}">Prüfungslaufnummer</a>
+            <a class="link-primary" th:href="'#'">Kontakt</a><!--Todo wenn contact.html existiert-->
+            <a class="link-primary" th:href="'#'">Logout</a> <!--Todo wenn login funktioniert-->
         </div>
     </div>
 </header>

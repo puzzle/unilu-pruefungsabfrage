@@ -4,23 +4,21 @@
 url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
 }
 
+:root {
+    --purple: #6f42c1;
+    --bs-primary-rgb: 0, 0,0;
+    --bs-link-hover-color-rgb: 229, 0, 125;
+}
+
 body {
     margin: 0;
     font-family: OpenSans, sans-serif;
 }
 
-.link {
-    color: rgb(229, 0, 125);
+a {
+    text-decoration: none;
 }
 
-.link:hover {
-    color: black;
-}
-
-.button {
-    border: 1px rgb(229, 0, 125) solid;
-}
-
-.button:hover {
-    border: 1px black solid;
+.link-primary:focus, .link-primary:hover {
+    color: RGBA(var(--bs-link-hover-color-rgb), 1) !important;
 }
