@@ -12,40 +12,39 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 @Controller
-@SessionAttributes("errorModel")
 public class ExceptionController implements ErrorController {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
+    private static final String ERROR_MODEL = "errorModel";
 
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNotFound(Model model, HttpSession session) {
-        session.setAttribute("errorModel", new ErrorModel("404", "Resource not found"));
+        session.setAttribute(ERROR_MODEL, new ErrorModel("404", "Resource not found"));
         return "redirect:/error";
     }
 
     @ExceptionHandler(Exception.class)
-    public String handleInternalServerError(Model model, HttpServletRequest req, Exception ex, HttpSession session) {
-        logger.warn("Request URL: {} raised an {}",
-                    req.getRequestURL(),
-                    ex.getClass()
-                      .getSimpleName());
-        session.setAttribute("errorModel", new ErrorModel("unknown", ex.getMessage()));
+    public String handleInternalServerError(HttpServletRequest req, Exception ex, HttpSession session) {
+        logger.error("Request URL: {} raised an {}",
+                     req.getRequestURL(),
+                     ex.getClass()
+                       .getSimpleName());
+        session.setAttribute(ERROR_MODEL, new ErrorModel("unknown", ex.getMessage()));
         return "redirect:/error";
     }
 
     @GetMapping("/error")
-    public String viewErrorPage(Model model) {
+    public String viewErrorPage() {
         return "error";
     }
 
     @GetMapping("/return")
     public String viewCompleteErrorPage(Model model, HttpSession session) {
-        session.removeAttribute("errorModel");
+        session.removeAttribute(ERROR_MODEL);
         return "redirect:/";
     }
 }

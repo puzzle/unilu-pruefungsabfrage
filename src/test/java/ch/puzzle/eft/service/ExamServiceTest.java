@@ -1,7 +1,6 @@
 package ch.puzzle.eft.service;
 
 import ch.puzzle.eft.model.ExamModel;
-import ch.puzzle.eft.test.MockServletOutputStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +29,6 @@ class ExamServiceTest {
     @Spy
     ExamService examFileService;
 
-    MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
     @Autowired
     public ExamServiceTest(ExamService examFileService) {
@@ -150,9 +149,9 @@ class ExamServiceTest {
 
         List<ExamModel> examFileList = Arrays.asList(fileModel1, fileModel2);
 
-        examFileService.convertFilesToZip(examFileList, mockOutputStream);
+        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertFilesToZip(examFileList);
 
-        ByteArrayInputStream bis = new ByteArrayInputStream(mockOutputStream.getContentAsByteArray());
+        ByteArrayInputStream bis = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
         ZipInputStream zis = new ZipInputStream(bis);
         ZipEntry entry;
 
@@ -179,12 +178,11 @@ class ExamServiceTest {
 
     @Test
     void shouldReturnCorrectFilesAfterZip() throws IOException {
-        MockServletOutputStream mockOutputStream = new MockServletOutputStream();
 
-        examFileService.convertSelectedFilesToZip("11000", mockOutputStream);
+        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11000");
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
-        byte[] zipContent = mockOutputStream.getContentAsByteArray();
+        byte[] zipContent = byteArrayOutputStream.toByteArray();
         ZipInputStream zipInputStream = new ZipInputStream(new java.io.ByteArrayInputStream(zipContent));
 
         ZipEntry entry;
