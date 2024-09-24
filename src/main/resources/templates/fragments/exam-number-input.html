@@ -2,11 +2,12 @@
     <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated ">
         <label for="examNumber">Prüfungsnummer eingeben:</label>
         <span class="d-flex">
-        <input type="text" name="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
-               pattern="[0-9]{5}" placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required class="form-control">
-        <button type="submit" class="btn btn-secondary">Suchen</button>
+        <input type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
+               placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required class="form-control">
+        <button type="submit" id="submitButton" class="btn btn-primary">Suchen</button>
         </span>
-        <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
+
+        <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}" class="text-danger">Prüfungsnummer Error</p>
     </form>
 </div>
 <

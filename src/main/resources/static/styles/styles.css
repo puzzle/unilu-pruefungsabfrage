@@ -22,3 +22,5 @@ a {
 .link-primary:focus, .link-primary:hover {
     color: RGBA(var(--bs-link-hover-color-rgb), 1) !important;
 }
+
+p.form-error-text { color: red; }
