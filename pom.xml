@@ -214,6 +214,28 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.40.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>apply</goal> <!-- Automatically apply the formatting -->
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>
+						<includes>
+							<include>src/main/resources/templates/**/*.html</include> <!-- Thymeleaf HTML files -->
+						</includes>
+						<prettier>
+							<configFile>${project.basedir}/.prettierrc</configFile> <!-- Prettier config for formatting -->
+						</prettier>
+					</format>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
 				<version>1.2.1</version>
