@@ -225,6 +225,23 @@
 					</execution>
 				</executions>
 				<configuration>
+					<formats>
+						<format>
+							<includes>
+								<include>src/main/resources/**/*.css</include>
+								<include>src/main/resources/**/*.html</include>
+							</includes>
+
+							<prettier>
+								<!-- Specify at most one of the following 3 configs: either 'prettierVersion' (2.0.5 is default), 'devDependencies' or 'devDependencyProperties'  -->
+								<prettierVersion>3.3.3</prettierVersion>
+
+								<!-- Specify config file and/or inline config, the inline always trumps file -->
+								<configFile>${project.basedir}/.prettierrc</configFile>
+							</prettier>
+						</format>
+
+					</formats>
 					<java>
 						<eclipse>
 							<version>4.26</version>                     <!-- optional version of Eclipse Formatter -->
@@ -235,7 +252,6 @@
 							<order>java|javax,ch.puzzle,org,com,com.diffplug,,\#com.diffplug,\#</order>  <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
 							<!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
 							<semanticSort>true</semanticSort> <!-- Optional, default false. Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case). Use <treatAsPackage> and <treatAsClass> for exceptions. -->
-
 						</importOrder>
 						<formatAnnotations />
 					</java>
