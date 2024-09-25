@@ -2,8 +2,8 @@
     <label for="examNumber">Prüfungsnummer eingeben:</label>
     <span class="d-flex">
     <input type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
-           placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required class="form-control">
-    <button type="submit" id="submitButton" class="btn btn-primary">Suchen</button>
+           placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control">
+    <button type="submit" id="submitButton" class="btn btn-outline-primary">Suchen</button>
     </span>
 
     <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}" class="text-danger">Prüfungsnummer Error</p>
