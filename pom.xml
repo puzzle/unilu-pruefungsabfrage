@@ -195,25 +195,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>net.revelc.code.formatter</groupId>
-				<artifactId>formatter-maven-plugin</artifactId>
-				<version>2.24.1</version>
-				<configuration>
-					<compilerSource>21</compilerSource>
-					<compilerCompliance>21</compilerCompliance>
-					<compilerTargetPlatform>21</compilerTargetPlatform>
-					<lineEnding>LF</lineEnding>
-					<configFile>${project.basedir}/src/main/resources/formatting.xml</configFile>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>format</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
 				<version>2.40.0</version>
@@ -231,20 +212,14 @@
 								<include>src/main/resources/**/*.css</include>
 								<include>src/main/resources/**/*.html</include>
 							</includes>
-
 							<excludes>
 								<exclude>src/main/resources/static/styles/bootstrap.min.css</exclude>
 							</excludes>
-
 							<prettier>
-								<!-- Specify at most one of the following 3 configs: either 'prettierVersion' (2.0.5 is default), 'devDependencies' or 'devDependencyProperties'  -->
 								<prettierVersion>3.3.3</prettierVersion>
-
-								<!-- Specify config file and/or inline config, the inline always trumps file -->
 								<configFile>${project.basedir}/.prettierrc</configFile>
 							</prettier>
 						</format>
-
 					</formats>
 					<java>
 						<eclipse>

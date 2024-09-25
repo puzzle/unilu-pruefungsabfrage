@@ -13,4 +13,4 @@ jobs:
           java-version: '21'
           distribution: 'oracle'
       - name: Validate that the code is formatted correctly
-        run: mvn spotlify:check
+        run: mvn spotless:check
