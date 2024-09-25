@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css">
-</head>
-<div>
-    <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post">
-        <label for="examNumber">Prüfungsnummer eingeben*:</label>
-        <input type="text" name="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
-               placeholder="20202" th:value="*{examNumber}" th:maxlength="5" required>
-        <button type="submit" class="button search-button">Suchen</button>
-        <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}">Prüfungsnummer Error</p>
-    </form>
-</div>
-</body>
-</html>
+<form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated ">
+    <label for="examNumber">Prüfungsnummer eingeben:</label>
+    <span class="d-flex">
+    <input type="text" pattern="^\d+$" name="examNumber" id="examNumber" placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control">
+    <button type="submit" id="submitButton" class="btn btn-outline-primary">Suchen</button>
+    </span>
+
+    <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}" class="text-danger">Prüfungsnummer Error</p>
+</form>

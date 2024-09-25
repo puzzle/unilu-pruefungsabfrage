@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Objects;
+
 @Controller
 public class SiteController {
 
@@ -40,7 +42,7 @@ public class SiteController {
                 model.addAttribute("examFiles",
                                    examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
             } catch (ResponseStatusException e) {
-                bindingResult.rejectValue("examNumber", "error.examNumberForm", e.getMessage());
+                bindingResult.rejectValue("examNumber", "error.examNumberForm", Objects.requireNonNull(e.getReason()));
             }
         }
         return SEARCH_TEMPLATE;

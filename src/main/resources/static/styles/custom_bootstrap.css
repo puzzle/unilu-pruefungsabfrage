@@ -1,0 +1,42 @@
+:root {
+    --primary-rgb: 229, 0, 125;
+    --primary-hex: rgba(var(--bs-primary-rgb),1);
+    /*bootstrap*/
+    --bs-primary-rgb: var(--primary-rgb);
+    --bs-secondary-rgb: 0, 0,0;
+
+
+    --bs-primary-link-hover-color-rgb: 0,0,0;
+    --bs-secondary-link-hover-color-rgb: var(--bs-primary-rgb);
+
+    --button-primary-color: var(--primary-hex);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--button-primary-color);
+    --bs-btn-border-color: var(--button-primary-color);
+    --bs-btn-hover-color: black;
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: black;
+    --bs-btn-focus-shadow-rgb: var(--button-primary-color);
+    --bs-btn-active-color: black;
+    --bs-btn-active-bg: var(--button-primary-color);
+    --bs-btn-active-border-color: var(--button-primary-color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--button-primary-color);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--button-primary-color);
+    --bs-gradient: none;
+}
+
+.link-primary:focus, .link-primary:hover {
+    color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-opacity, 1)) !important;
+    -webkit-text-decoration-color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    text-decoration-color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+}
+
+.link-secondary:focus, .link-secondary:hover {
+    color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-opacity, 1)) !important;
+    -webkit-text-decoration-color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    text-decoration-color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+}

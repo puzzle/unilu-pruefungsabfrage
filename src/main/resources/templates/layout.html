@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="">
+<head>
+    <script th:src="@{javascript/bootstrap.bundle.min.js}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"></script>
+    <link th:href="@{styles/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{styles/custom_bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{styles/styles.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{styles/header.css}" rel="stylesheet" type="text/css">
+    <title>Universität Luzern - Prüfungen</title>
+    <link th:href="@{favicon.ico}" rel="icon" type="image/png">
+</head>
+<body>
+<header th:replace="~{fragments/header}"></header>
+<div class="container-fluid">
+    <div class="d-flex justify-content-center">
+        <section layout:fragment="content">
+            <p>Page content goes here</p>
+        </section>
+    </div>
+</div>
+</body>
+</html>

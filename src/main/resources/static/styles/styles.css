@@ -1,7 +1,7 @@
 @font-face {
     font-family: OpenSans, sans-serif;
     src: url('../fonts/Open_Sans/OpenSans-Regular.ttf') format('truetype');
-url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
+         url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
 }
 
 body {
@@ -9,18 +9,6 @@ body {
     font-family: OpenSans, sans-serif;
 }
 
-.link {
-    color: rgb(229, 0, 125);
-}
-
-.link:hover {
-    color: black;
-}
-
-.button {
-    border: 1px rgb(229, 0, 125) solid;
-}
-
-.button:hover {
-    border: 1px black solid;
+a {
+    text-decoration: none;
 }

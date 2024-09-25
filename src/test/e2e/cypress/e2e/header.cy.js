@@ -10,8 +10,9 @@ it('should display the right image', () => {
 });
 
 it('should navigate to /search when link to the Search Page is clicked', () => {
-    cy.get('header').find('#search-routing-link').should('exist');
-    cy.get('#search-routing-link').click();
+    const item = cy.get('header').contains('Prüfungslaufnummer')
+        item.should('exist');
+    item.click();
     cy.url().should('eq', Cypress.config().baseUrl + '/search');
     cy.get('body').then((body) => {
         expect(body).to.contain("Suche nach einer Prüfung...")

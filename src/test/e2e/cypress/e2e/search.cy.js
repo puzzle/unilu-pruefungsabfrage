@@ -14,7 +14,7 @@ it('should display header on search page', () => {
 
 it('should display label for searchbar', () => {
     cy.get('body').then((body) => {
-        expect(body).to.contain("Prüfungsnummer eingeben*:")
+       cy.contains("Prüfungsnummer eingeben:")
     })
 });
 
@@ -79,10 +79,6 @@ it('should not be disabled if number is in input', () => {
 
 it('should not be able to input more than 5 characters', () => {
     cy.get('input[type="text"]').type('110000').should('have.value', '11000');
-});
-
-it('should not be able to input other characters', () => {
-    cy.get('input[type="text"]').type('a2c').should('have.value', '2');
 });
 
 it('should show files in alphabetical order', () => {
