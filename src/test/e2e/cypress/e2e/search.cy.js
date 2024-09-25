@@ -34,10 +34,16 @@ it('should display error when no exams were found', () => {
     cy.contains('Keine Prüfungen für die Prüfungslaufnummer 99999 gefunden');
 });
 
-it('should display error when exam number is invalid', () => {
+it('should display error when exam number is too short', () => {
     cy.get('input[type="text"]').type('123');
     cy.get('button').click();
-    cy.contains('Prüfungsnummer muss 5 Ziffern lang sein');
+    cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen');
+});
+
+it('should display error when input consists of letters', () => {
+    cy.get('input[type="text"]').type('asdf');
+    cy.get('button').click();
+    cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen');
 });
 
 it('should display download as ZIP button when input is valid', () => {
