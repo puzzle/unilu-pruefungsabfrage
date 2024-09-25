@@ -1,0 +1,23 @@
+<div aria-labelledby="exampleModalLabel" class="modal d-block overflow-hidden" id="exampleModal" tabindex="-1"
+     xmlns="http://www.w3.org/1999/html">
+    <div class="modal-dialog modal-dialog-scrollable mb-5">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <img alt="image not found" class="m-4" id="logo"
+                     th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}">
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center flex-column text-center">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Diese Webseite verwendet Cookies</h1>
+                <p>Wir benutzen Cookies um die Funktionalität der Seite sicher zu stellen</p>
+            </div>
+            <form th:action="@{/accept-cookies}" method="post">
+                <div class="modal-footer d-flex flex-row justify-content-center">
+                    <button  class="btn btn-primary w-25"
+                             type="button">Zulassen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

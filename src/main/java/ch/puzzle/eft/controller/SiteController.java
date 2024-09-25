@@ -2,7 +2,10 @@ package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamService;
+import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,5 +50,14 @@ public class SiteController {
             }
         }
         return SEARCH_TEMPLATE;
+    }
+
+
+    @PostMapping("/accept-cookies")
+    public ResponseEntity<String> acceptCookies(Model model) {
+        Cookie cookie = new Cookie("cookie-consent", "true");
+        return ResponseEntity.ok()
+                             .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                             .body("index");
     }
 }
