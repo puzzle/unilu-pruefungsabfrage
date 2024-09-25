@@ -1,8 +1,7 @@
 <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated ">
     <label for="examNumber">Prüfungsnummer eingeben:</label>
     <span class="d-flex">
-    <input type="text" name="examNumber" id="examNumber" oninput="this.value = this.value.replace(/\D+/g, '')"
-           placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control">
+    <input type="text" pattern="^\d{5}$|^$" name="examNumber" id="examNumber" placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control">
     <button type="submit" id="submitButton" class="btn btn-outline-primary">Suchen</button>
     </span>
 
