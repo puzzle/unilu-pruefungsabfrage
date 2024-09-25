@@ -1,8 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<div>
-    <a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="link"></a>
-</div>
-</body>
-</html>
+<a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="link-primary"></a>
