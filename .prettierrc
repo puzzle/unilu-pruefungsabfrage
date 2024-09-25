@@ -4,5 +4,5 @@
   "printWidth": 80,
   "htmlWhitespaceSensitivity": "ignore",
   "bracketSameLine": true,
-  "lf": "auto"
+  "endOfLine": "lf"
 }
