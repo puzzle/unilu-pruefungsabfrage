@@ -2,7 +2,7 @@ package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamService;
-import jakarta.validation.Valid;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
+import jakarta.validation.Valid;
 
 import java.time.Duration;
 import java.util.Objects;

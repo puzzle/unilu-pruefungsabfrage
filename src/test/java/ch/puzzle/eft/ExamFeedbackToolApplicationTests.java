@@ -4,6 +4,7 @@ import ch.puzzle.eft.controller.ExamController;
 import ch.puzzle.eft.controller.SiteController;
 import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.service.ValidationService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;

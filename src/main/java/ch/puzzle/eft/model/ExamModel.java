@@ -1,11 +1,11 @@
 package ch.puzzle.eft.model;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.File;
 
 public class ExamModel {
     private final File file;
