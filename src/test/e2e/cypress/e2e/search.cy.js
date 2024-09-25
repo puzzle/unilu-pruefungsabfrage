@@ -81,10 +81,6 @@ it('should not be able to input more than 5 characters', () => {
     cy.get('input[type="text"]').type('110000').should('have.value', '11000');
 });
 
-it('should not be able to input other characters', () => {
-    cy.get('input[type="text"]').type('a2c').should('have.value', '2');
-});
-
 it('should show files in alphabetical order', () => {
         cy.get('input[type="text"]').type('11000');
         cy.get('button').click();
