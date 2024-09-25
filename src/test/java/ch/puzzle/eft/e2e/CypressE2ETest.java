@@ -29,7 +29,6 @@ class CypressE2ETest {
         try (GenericContainer<?> container = new GenericContainer<>("cypress/included:13.13.2")) {
             container.withClasspathResourceMapping("e2e", "/e2e", BindMode.READ_ONLY)
                      .withWorkingDirectory("/e2e")
-                     .withWorkingDirectory("/e2e")
                      .withEnv("CYPRESS_baseUrl", "http://host.testcontainers.internal:" + port)
                      .withLogConsumer(new Slf4jLogConsumer(logger))
                      .withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy())
