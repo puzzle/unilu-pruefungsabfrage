@@ -5,9 +5,14 @@ url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
 }
 
 :root {
-    --purple: #6f42c1;
-    --bs-primary-rgb: 0, 0,0;
-    --bs-link-hover-color-rgb: 229, 0, 125;
+    --bs-primary-rgb: 229, 0, 125;
+    --bs-secondary-rgb: 0, 0,0;
+
+    /*--bs-link-hover-color-rgb: 0, 0,0;*/
+
+    --bs-primary-link-hover-color-rgb: 106, 0, 33;
+    --bs-secondary-link-hover-color-rgb: 229, 0, 125;
+
 }
 
 body {
@@ -19,6 +24,20 @@ a {
     text-decoration: none;
 }
 
+/*.link-primary:focus, .link-primary:hover {*/
+/*    color: RGBA(var(--bs-link-hover-color-rgb), 1) !important;*/
+/*}*/
+
+
+
 .link-primary:focus, .link-primary:hover {
-    color: RGBA(var(--bs-link-hover-color-rgb), 1) !important;
+    color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-opacity, 1)) !important;
+    -webkit-text-decoration-color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    text-decoration-color: RGBA(var(--bs-primary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+}
+
+.link-secondary:focus, .link-secondary:hover {
+    color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-opacity, 1)) !important;
+    -webkit-text-decoration-color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
+    text-decoration-color: RGBA(var(--bs-secondary-link-hover-color-rgb), var(--bs-link-underline-opacity, 1)) !important;
 }
