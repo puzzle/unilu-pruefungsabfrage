@@ -25,7 +25,7 @@ implementing the real EFT application.
    `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12`
    (password see application.yml).
 4. Do the similar steps for test environment in `src/main/resources/certs/test` to copy and create the files
-   `httpd.crt`, `httpd.key.pem`, and `http.test.keystore.p12`.
+   `httpd.crt`, `httpd.key.pem`, and `httpd.test.keystore.p12`.
 5. Check and/or adapt configuration in `application.yml` or `application-test.yml`, e.g.
 
          server:

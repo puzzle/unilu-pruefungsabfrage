@@ -4,15 +4,12 @@
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
-        <mxCell id="3a17f1ce550125da-8" value="Shibboleth Identity Provider" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
-          <mxGeometry x="120" y="120" width="120" height="80" as="geometry" />
-        </mxCell>
         <mxCell id="3a17f1ce550125da-9" value="Shibboleth Service Provider" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
           <mxGeometry x="280" y="320" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="3a17f1ce550125da-26" style="edgeStyle=elbowEdgeStyle;rounded=0;html=1;startArrow=blockThin;startFill=1;jettySize=auto;orthogonalLoop=1;fontSize=18;exitX=0.592;exitY=1.038;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;exitPerimeter=0;" parent="1" edge="1">
+        <mxCell id="3a17f1ce550125da-26" style="edgeStyle=elbowEdgeStyle;rounded=0;html=1;startArrow=blockThin;startFill=1;jettySize=auto;orthogonalLoop=1;fontSize=18;entryX=0.25;entryY=0;entryDx=0;entryDy=0;endArrow=blockThin;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" edge="1" source="3a17f1ce550125da-8">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="181.03999999999996" y="203.03999999999996" as="sourcePoint" />
+            <mxPoint x="181" y="210" as="sourcePoint" />
             <mxPoint x="180.5" y="280" as="targetPoint" />
             <Array as="points">
               <mxPoint x="181" y="240" />
@@ -23,11 +20,11 @@
         <mxCell id="N-nf-0B1seHdFH5EAekI-1" value="Apache Web Server" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;gradientColor=none;" parent="1" vertex="1">
           <mxGeometry x="120" y="320" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="N-nf-0B1seHdFH5EAekI-2" value="Application" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
+        <mxCell id="N-nf-0B1seHdFH5EAekI-2" value="Spring Boot Application" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
           <mxGeometry x="560" y="320" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="N-nf-0B1seHdFH5EAekI-3" value="Browser" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="540" y="120" width="160" height="120" as="geometry" />
+          <mxGeometry x="540" y="80" width="160" height="120" as="geometry" />
         </mxCell>
         <mxCell id="N-nf-0B1seHdFH5EAekI-10" value="Docker Container" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="70" y="280" width="370" height="160" as="geometry" />
@@ -68,7 +65,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="N-nf-0B1seHdFH5EAekI-17" value="https" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
-          <mxGeometry x="500" y="360" as="geometry">
+          <mxGeometry x="500" y="320" as="geometry">
             <mxPoint x="115" y="-84" as="offset" />
           </mxGeometry>
         </mxCell>
@@ -81,6 +78,15 @@
           <mxGeometry x="255" y="430" as="geometry">
             <mxPoint x="-76" y="-196" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="3XaaPXTU7xvzBTpcXIFb-1" value="edview.unilu.ch" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="260" width="700" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="3XaaPXTU7xvzBTpcXIFb-2" value="SWITCH AAI" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="80" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="3a17f1ce550125da-8" value="Shibboleth Identity Provider" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="3XaaPXTU7xvzBTpcXIFb-2" vertex="1">
+          <mxGeometry x="51" y="30" width="120" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

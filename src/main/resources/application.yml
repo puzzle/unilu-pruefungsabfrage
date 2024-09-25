@@ -26,13 +26,6 @@ spring:
               singlesignon:
                 url: https://edview.unilu.ch/Shibboleth.sso/Login
                 sign-request: false
-              # metadata-uri: classpath:metadata.aaitest+idp.xml
-              # metadata-uri: classpath:testxml.xml
-              # metadata-uri: classpath:metadata.aaitest+idp.xml
-              # metadata-uri: classpath:metadata.switchaai+idp.xml
-              # metadata-uri: https://dev-15393397.okta.com/app/exkid13t0fswoJ1h75d7/sso/saml/metadata
-              # metadata-uri: https://eft-dev.puzzle.ch/metadata/metadata.switchaai+idp.xml
-            # metadata-uri: https://eft-dev.puzzle.ch/metadata/metadata.aaitest+idp.xml
             singlelogout:
               url: https://edview.unilu.ch/Shibboleth.sso/Logout
               response-url: https://edview.unilu.ch/

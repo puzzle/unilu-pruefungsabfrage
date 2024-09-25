@@ -27,6 +27,7 @@ target/
 *.iws
 *.iml
 *.ipr
+*.bkp
 
 ### VS Code ###
 .vscode/

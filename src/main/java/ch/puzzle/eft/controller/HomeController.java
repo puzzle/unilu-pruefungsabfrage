@@ -33,13 +33,13 @@ public class HomeController {
     }
 
     @RequestMapping("/unauthorized")
-    public String unauthorized(HttpServletRequest request) {
+    public String unauthorized(HttpServletRequest request, Model model) {
         logger.info("processing unauthorized... ");
-        return processRequest(request, null, null);
+        return processRequest(request, null, model);
     }
 
     @RequestMapping("/authorized")
-    //     public String authorized(HttpServletRequest request, @AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
+    // public String authorized(HttpServletRequest request, @AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
     public String authorized(HttpServletRequest request, Model model) {
         logger.info("processing authorized... ");
         return processRequest(request, null, model);
