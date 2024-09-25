@@ -27,7 +27,7 @@ jobs:
             sleep 5
           done
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.12.0
+        uses: zaproxy/action-baseline@v0.13.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           allow_issue_writing: false
