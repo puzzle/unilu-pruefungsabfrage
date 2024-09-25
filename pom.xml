@@ -225,14 +225,20 @@
 					</execution>
 				</executions>
 				<configuration>
-					<format>
-						<includes>
-							<include>src/main/resources/templates/**/*.html</include> <!-- Thymeleaf HTML files -->
-						</includes>
-						<prettier>
-							<configFile>${project.basedir}/.prettierrc</configFile> <!-- Prettier config for formatting -->
-						</prettier>
-					</format>
+					<java>
+						<eclipse>
+							<version>4.26</version>                     <!-- optional version of Eclipse Formatter -->
+							<file>${project.basedir}/src/main/resources/formatting.xml</file> <!-- optional -->
+						</eclipse>
+						<removeUnusedImports />
+						<importOrder>  <!-- or a custom ordering -->
+							<order>java|javax,ch.puzzle,org,com,com.diffplug,,\#com.diffplug,\#</order>  <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
+							<!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
+							<semanticSort>true</semanticSort> <!-- Optional, default false. Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case). Use <treatAsPackage> and <treatAsClass> for exceptions. -->
+
+						</importOrder>
+						<formatAnnotations />
+					</java>
 				</configuration>
 			</plugin>
 			<plugin>
