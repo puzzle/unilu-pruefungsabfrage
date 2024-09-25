@@ -232,6 +232,10 @@
 								<include>src/main/resources/**/*.html</include>
 							</includes>
 
+							<excludes>
+								<exclude>src/main/resources/static/styles/bootstrap.min.css</exclude>
+							</excludes>
+
 							<prettier>
 								<!-- Specify at most one of the following 3 configs: either 'prettierVersion' (2.0.5 is default), 'devDependencies' or 'devDependencyProperties'  -->
 								<prettierVersion>3.3.3</prettierVersion>
