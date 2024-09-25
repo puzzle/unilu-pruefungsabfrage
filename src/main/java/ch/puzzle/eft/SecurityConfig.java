@@ -19,7 +19,7 @@ import static org.springframework.security.web.header.writers.CrossOriginEmbedde
 @EnableWebSecurity
 public class SecurityConfig {
     private static final String CSP_CONFIG = "default-src 'self';" + "script-src 'strict-dynamic' 'sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz';" + "style-src 'self';" + "img-src 'self'; " + "font-src 'self';" + "object-src 'none';" + "base-uri 'self';" + "form-action 'self';" + "frame-ancestors 'none'; ";
-    private static final String PERMISSION_POLICY = "accelerometer=()," + "ambient-light-sensor=()," + "autoplay=(self <origin>)," + "battery=()," + "camera=()," + "display-capture=()," + "document-domain=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "magnetometer=()," + "microphone=()," + "picture-in-picture=()," + "speaker-selection=()," + "usb=()," + "screen-wake-lock=()," + "xr-spatial-tracking=()";
+    private static final String PERMISSION_POLICY = "accelerometer=()," + "autoplay=(self)," + "camera=()," + "display-capture=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "magnetometer=()," + "microphone=()," + "picture-in-picture=()," + "usb=()," + "screen-wake-lock=()," + "xr-spatial-tracking=()";
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
