@@ -1,6 +1,6 @@
 # Setup guide
 ## Prerequisites
-- [Docker](https://nodejs.org/en/)
+- [Docker](https://docs.docker.com/engine/install/ubuntu/)
 
 ## Docker rootless
 There are two installation approaches.
@@ -60,7 +60,15 @@ $ sudo loginctl enable-linger $(whoami)
 ```
 
 ## Start docker container
-To start the docker container, run the following command:
+To start the docker container you have to complete the following steps:
+- Pull the image from the harbor docker registry
+  - `docker docker pull harbor.puzzle.ch/pitc-mobility-public/uni-luzern:<correct tag>`
+- Find the parent folder of the subjects folders (something like `~/unilu/files/parent`)
+  - This folder `parent` should contain the folders of the subjects.
+  - That means if you ran the command `ls ~/unilu/files/parent` you should see the folders of the subjects.
+- Update the command below with the correct path and run it
 ```bash
-`docker run --rm  -v ./static:/resources -p 8080:8080 uni-luzern:latest`
+docker run --rm  -v <Parent folder of the subjects folders>:/resources -p 8080:8080 uni-luzern:<correct tag>`
 ```
+
+## Map the dns entry to the container
