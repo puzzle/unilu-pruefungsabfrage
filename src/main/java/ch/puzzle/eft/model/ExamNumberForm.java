@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Pattern;
 
 public class ExamNumberForm {
 
-    @Pattern(regexp = "[0-9]{5}", message = "Prüfungsnummer muss 5 Ziffern lang sein.")
+    @Pattern(regexp = "[0-9]{5}", message = "Prüfungsnummer muss aus genau 5 Ziffern bestehen.")
     private String examNumber;
 
 
