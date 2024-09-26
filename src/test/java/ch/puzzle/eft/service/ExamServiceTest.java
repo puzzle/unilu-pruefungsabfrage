@@ -117,7 +117,7 @@ class ExamServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoExamsIsFound() {
+    void shouldThrowExceptionWhenNoExamIsFound() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
                                                                                                                "11000_22223333.pdf"));
