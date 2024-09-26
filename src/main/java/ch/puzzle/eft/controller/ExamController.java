@@ -1,6 +1,5 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.service.AuthorizationService;
 import ch.puzzle.eft.service.ExamService;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
@@ -17,21 +16,18 @@ import java.io.File;
 @RequestMapping("/exams")
 public class ExamController {
 
+    //Todo mit richtiger Matrikelnummer ersetzen
+    private final String userMatriculationNumber = "11112222";
+
     ExamService examFileService;
 
-    AuthorizationService authorizationService;
-
-    public ExamController(ExamService examFileService, AuthorizationService authorizationService) {
+    public ExamController(ExamService examFileService) {
         this.examFileService = examFileService;
-        this.authorizationService = authorizationService;
     }
 
 
     @GetMapping("/download-zip/{examNumber}")
     public ResponseEntity<byte[]> downloadSubject(@PathVariable("examNumber") String examNumber) {
-        if (!authorizationService.isAuthorized())
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                                              "Du bist nicht berechtigt, diese Datei herunterzuladen.");
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Disposition", "attachment; filename=" + examNumber + ".zip");
         ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip(examNumber);
@@ -40,12 +36,10 @@ public class ExamController {
                              .body(byteArrayOutputStream.toByteArray());
     }
 
-    @GetMapping(value = "/download/{subject}/{fileName}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/download/{subject}/{examNumber}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseBody
-    public ResponseEntity<FileSystemResource> downloadFile(@PathVariable("subject") String subject, @PathVariable("fileName") String fileName) {
-        if (!authorizationService.isAuthorized())
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
-                                              "Du bist nicht berechtigt, diese Datei herunterzuladen.");
+    public ResponseEntity<FileSystemResource> downloadFile(@PathVariable("subject") String subject, @PathVariable("examNumber") String examNumber) {
+        String fileName = examNumber + "_" + userMatriculationNumber + ".pdf";
         File examFile = examFileService.getFileToDownload(subject, fileName);
         HttpHeaders responseHeaders = new HttpHeaders();
 

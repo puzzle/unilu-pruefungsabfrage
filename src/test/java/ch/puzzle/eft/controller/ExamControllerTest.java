@@ -1,8 +1,6 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.service.AuthorizationService;
 import ch.puzzle.eft.service.ExamService;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,15 +29,12 @@ class ExamControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private ExamService examFileService;
-    @MockBean
-    private AuthorizationService authorizationService;
 
 
     @Test
     void downloadZipShouldReturnZip() throws Exception {
         String examNumber = "11000";
         when(examFileService.convertSelectedFilesToZip(examNumber)).thenReturn(new ByteArrayOutputStream());
-        when(authorizationService.isAuthorized()).thenReturn(true);
 
         mockMvc.perform(get("/exams/download-zip/{examNumber}", examNumber))
                .andExpect(status().isOk())
@@ -50,17 +45,15 @@ class ExamControllerTest {
 
     @Test
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
-        File file = new File("static/Privatrecht/11001_22223333.pdf");
-        when(examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf")).thenReturn(file);
-        when(authorizationService.isAuthorized()).thenReturn(true);
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11001_22223333.pdf"))
+        File file = new File("static/Privatrecht/11000_11112222.pdf");
+        when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenReturn(file);
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
     }
 
     @Test
-    void shouldRedirectToErrorPageIfNotAuthorized() throws Exception {
-        when(authorizationService.isAuthorized()).thenReturn(false);
+    void shouldRedirectToErrorPageIfNotYourExam() throws Exception {
         this.mockMvc.perform(get("/exams/download/Privatrecht/11000_11112222.pdf"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"));
@@ -68,7 +61,6 @@ class ExamControllerTest {
 
     @Test
     void shouldReturnErrorPageIfFileNotFound() throws Exception {
-        when(authorizationService.isAuthorized()).thenReturn(true);
         when(examFileService.getFileToDownload("Privatrecht", "11000_22223333.pdf")).thenThrow(
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
