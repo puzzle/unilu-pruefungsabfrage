@@ -1,7 +1,6 @@
 package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.service.ExamService;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,7 +16,8 @@ import java.nio.file.Files;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -29,8 +29,7 @@ class ExamControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private ExamService examFileService;
-    @Autowired
-    private HttpSession httpSession;
+
 
     @Test
     void downloadZipShouldReturnZip() throws Exception {
@@ -46,11 +45,18 @@ class ExamControllerTest {
 
     @Test
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
-        File file = new File("static/Privatrecht/11001_22223333.pdf");
-        when(examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf")).thenReturn(file);
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11001_22223333.pdf"))
+        File file = new File("static/Privatrecht/11000_11112222.pdf");
+        when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenReturn(file);
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
+    }
+
+    @Test
+    void shouldRedirectToErrorPageIfNotYourExam() throws Exception {
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11000_11112222.pdf"))
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(view().name("redirect:/error"));
     }
 
     @Test

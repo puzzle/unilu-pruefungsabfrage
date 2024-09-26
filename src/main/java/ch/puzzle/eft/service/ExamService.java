@@ -82,9 +82,9 @@ public class ExamService {
         List<String> pathParts = List.of(getBasePath(), subjectName, filename);
         File examToDownload = new File(String.join(File.separator, pathParts));
         if (!examToDownload.exists()) {
-            logger.info("No file found for subject {} and filename {}", subjectName, filename);
+            logger.info("No file found for subject {} with filename {}", subjectName, filename);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                              String.format("Kein File für Fach %s und Filename %s",
+                                              String.format("Kein File für das Fach %s mit dem Dateinamen %s",
                                                             subjectName,
                                                             filename));
         }
