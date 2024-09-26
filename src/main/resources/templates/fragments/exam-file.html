@@ -1,1 +1,1 @@
-<a methods="post" th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="link-primary"></a>
+<a th:href="@{|/exams/download/${examFile.getDownloadPath}|}" th:text="${examFile.getSubjectName()}" class="link-primary"></a>
