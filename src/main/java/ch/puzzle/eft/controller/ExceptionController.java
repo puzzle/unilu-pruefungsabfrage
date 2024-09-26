@@ -22,14 +22,6 @@ public class ExceptionController implements ErrorController {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionController.class);
     private static final String ERROR_MODEL = "errorModel";
 
-    @Value("${spring.application.version}")
-    private String applicationVersion;
-
-    @ModelAttribute("applicationVersion")
-    public String getApplicationVersion() {
-        return applicationVersion;
-    }
-
     @ExceptionHandler(NoResourceFoundException.class)
     public String handleNotFound(Model model, HttpSession session) {
         session.setAttribute(ERROR_MODEL, new ErrorModel("404", "Resource not found"));

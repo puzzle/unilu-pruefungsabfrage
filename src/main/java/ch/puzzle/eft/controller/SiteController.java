@@ -1,6 +1,5 @@
 package ch.puzzle.eft.controller;
 
-import ch.puzzle.eft.ExamFeedbackToolApplication;
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamService;
 import jakarta.validation.Valid;
@@ -8,20 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.Objects;
-import java.util.jar.Attributes;
-import java.util.jar.Manifest;
 
 @Controller
 public class SiteController {
 
-    private final ExamService examFileService;
     private static final String SEARCH_TEMPLATE = "search";
+    private final ExamService examFileService;
 
     public SiteController(ExamService examFileService) {
         this.examFileService = examFileService;
