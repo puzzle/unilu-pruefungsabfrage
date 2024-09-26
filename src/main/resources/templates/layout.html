@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="">
+<html lang="" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <script th:src="@{javascript/bootstrap.bundle.min.js}" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"></script>
-    <link th:href="@{styles/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{styles/custom_bootstrap.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{styles/styles.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{styles/header.css}" rel="stylesheet" type="text/css">
+    <script integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            th:src="@{javascript/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{styles/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{styles/custom_bootstrap.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{styles/footer.css}" type="text/css">
     <title>Universität Luzern - Prüfungen</title>
-    <link th:href="@{favicon.ico}" rel="icon" type="image/png">
+    <link rel="icon" th:href="@{favicon.ico}" type="image/png">
 </head>
 <body>
 <header th:replace="~{fragments/header}"></header>
@@ -18,5 +20,6 @@
         </section>
     </div>
 </div>
+<footer th:replace="~{fragments/footer}"></footer>
 </body>
 </html>

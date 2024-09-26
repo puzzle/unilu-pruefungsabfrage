@@ -1,0 +1,12 @@
+<footer class="w-100 position-absolute z-1 bottom-0 bg-white">
+    <hr class="mt-0">
+    <div class="p-3 align-items-center justify-content-between d-flex">
+        <a href="https://www.swissuniversities.ch/" target="_blank">
+            <img alt="Swissuniversities logo" height="22px" th:src="@{images/swissuniversities.png}">
+        </a>
+        <div class="d-flex justify-content-end gap-4">
+            <a class="link-primary" href="https://www.unilu.ch/impressum/" target="_blank">Impressum & Datenschutz</a>
+            <span th:text="${'Version ' + @environment.getProperty('spring.application.version')}"></span>
+        </div>
+    </div>
+</footer>

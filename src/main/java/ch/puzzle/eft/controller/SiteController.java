@@ -15,8 +15,8 @@ import java.util.Objects;
 @Controller
 public class SiteController {
 
-    private final ExamService examFileService;
     private static final String SEARCH_TEMPLATE = "search";
+    private final ExamService examFileService;
 
     public SiteController(ExamService examFileService) {
         this.examFileService = examFileService;
@@ -26,6 +26,7 @@ public class SiteController {
     public String viewIndexPage(Model model) {
         return "index";
     }
+
 
     @GetMapping("/search")
     public String viewSearchPage(Model model) {
