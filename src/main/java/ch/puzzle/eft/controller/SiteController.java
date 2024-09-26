@@ -5,10 +5,13 @@ import ch.puzzle.eft.service.ExamService;
 import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,7 +29,9 @@ public class SiteController {
     }
 
     @GetMapping("/")
-    public String viewIndexPage(Model model) {
+    public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookieConsent, Model model) {
+        boolean cookiesMissing = !"true".equals(cookieConsent);
+        model.addAttribute("cookiesMissing", cookiesMissing);
         return "index";
     }
 
@@ -53,11 +58,15 @@ public class SiteController {
     }
 
 
-    @PostMapping("/accept-cookies")
+    @PostMapping("/")
     public ResponseEntity<String> acceptCookies(Model model) {
-        Cookie cookie = new Cookie("cookie-consent", "true");
-        return ResponseEntity.ok()
-                             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                             .body("index");
+        ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie.from("cookie-consent", "true");
+        cookieBuilder.maxAge(60 * 60 * 24 * 365);
+        return ResponseEntity.status(HttpStatus.FOUND)
+                             .header(HttpHeaders.SET_COOKIE,
+                                     cookieBuilder.build()
+                                                  .toString())
+                             .header(HttpHeaders.LOCATION, "/")
+                             .build();
     }
 }

@@ -1,3 +1,9 @@
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 }
+.modal-header{
+    border-color: var(--primary-hex);
+}
+.modal-footer{
+    border-color: var(--primary-hex);
+}
