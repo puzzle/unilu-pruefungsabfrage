@@ -1,5 +1,11 @@
 beforeEach(() => {
     cy.visit("/");
+    cy.get('[data-testid="cookie-consent-button"]').then((btn) => { if (btn) {
+        btn.click();
+    } else {
+        cy.visit("/");
+    }
+    });
 })
 
 it('should show greeting message on index page', () => {
@@ -22,6 +28,6 @@ it('should open swissuniversities.ch on click', async () => {
     cy.wait('@redirectRequest').its('response.statusCode').should('eq', 200);
 })
 
-it('should display header on search page', () => {
+it('should display header on index page', () => {
     cy.get('#logo').should("be.visible");
 })

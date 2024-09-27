@@ -1,5 +1,8 @@
 beforeEach(() => {
     cy.visit("/");
+    if (cy.get('[data-testid="cookie-consent-button"]')){
+    cy.get('[data-testid=\"cookie-consent-button\"]').click();
+    }
 })
 
 it('should display the right image', () => {
