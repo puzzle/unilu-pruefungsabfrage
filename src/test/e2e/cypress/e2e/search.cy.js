@@ -9,12 +9,12 @@ describe('Search site displays all static elements', () => {
         })
     })
 
-    it('should display header on search page', () => {
+    it('should display header image on search page', () => {
         cy.get('#logo').should("be.visible");
     })
 
     it('should display label for searchbar', () => {
-        cy.get('body').then((body) => {
+        cy.get('body').then(() => {
             cy.contains("Prüfungsnummer eingeben:")
         })
     });

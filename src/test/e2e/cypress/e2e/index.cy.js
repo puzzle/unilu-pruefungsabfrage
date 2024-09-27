@@ -10,6 +10,6 @@ it('should show greeting message on index page', () => {
     })
 })
 
-it('should display header on index page', () => {
+it('should display header image on homepage', () => {
     cy.get('header #logo').should("be.visible");
 })
