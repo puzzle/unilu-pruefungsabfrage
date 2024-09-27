@@ -27,19 +27,19 @@ describe('verify content of search page', () => {
 describe('Verify searchbar functionality', () => {
     it('should display results when searching with valid exam number', () => {
         cy.getByTestId("exam-number-input").type('11000');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.contains('Privatrecht');
     });
 
     it('should display error when no exams were found', () => {
         cy.getByTestId("exam-number-input").type('99999');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.contains('Keine Prüfungen für die Prüfungslaufnummer 99999 gefunden');
     });
 
     it('should display error when exam number is too short', () => {
         cy.getByTestId("exam-number-input").type('123');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
 });
 
@@ -56,13 +56,13 @@ it('should display error when input consists of letters', () => {
 
     it('should display download as ZIP button when input is valid', () => {
         cy.getByTestId("exam-number-input").type('11000');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.contains('Alle als ZIP herunterladen');
     });
 
     it('should not display ZIP download when exam number is invalid', () => {
         cy.getByTestId("exam-number-input").type('123');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.get('Alle als ZIP herunterladen').should('not.exist');
     });
 })
@@ -70,7 +70,7 @@ it('should display error when input consists of letters', () => {
 describe('Verify download functionality', () => {
     it('should show downloadable files with name of subject-folder they are in', () => {
         cy.getByTestId("exam-number-input").type('11000');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.contains('Handels und Gesellschaftsrecht');
         cy.contains('Privatrecht');
         cy.contains('Strafrecht');
@@ -79,7 +79,7 @@ describe('Verify download functionality', () => {
 
     it('should show files in alphabetical order', () => {
         cy.getByTestId("exam-number-input").type('11000');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         cy.get('.exam-files').then(files => {
             const fileNames = [...files].map(file => file.innerText);
             const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
@@ -89,7 +89,7 @@ describe('Verify download functionality', () => {
 
     it('should download files with correct name when link is clicked', () => {
         cy.getByTestId("exam-number-input").type('11000');
-        cy.getByTestId("search-button").click();
+        cy.getByTestId("submit-button").click();
         const subjects = ['Handels und Gesellschaftsrecht', 'Privatrecht', 'Strafrecht']
 
         for (let i = 0; i < subjects.length; i++) {

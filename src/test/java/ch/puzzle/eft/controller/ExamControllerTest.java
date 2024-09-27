@@ -61,13 +61,17 @@ class ExamControllerTest {
 
     @Test
     void shouldReturnErrorPageIfFileNotFound() throws Exception {
-        when(examFileService.getFileToDownload("Privatrecht", "11000_22223333.pdf")).thenThrow(
+        when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenThrow(
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11000_22223333.pdf"))
+        this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"))
-                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("unknown"))));
+                    .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("500"))))
+                    .andExpect(request().sessionAttribute("errorModel",
+                                                          hasProperty("errorMessage",
+                                                                      is("404 NOT_FOUND \"Keine Unterordner im Pfad Privatrecht gefunden\""))));
+
     }
 }
