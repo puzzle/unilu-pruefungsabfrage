@@ -3,7 +3,7 @@ beforeEach(() => {
     cy.get('[data-testid="cookie-consent-button"]').click();
 })
 
-describe('header displays all elements', () => {
+describe('Header displays all elements', () => {
     it('should display the right image', () => {
         cy.get("header").find("#logo")
             .should('have.attr', 'src')
@@ -20,7 +20,7 @@ describe('header displays all elements', () => {
     })
 })
 
-describe('header provides excepted functionality', () => {
+describe('Header provides excepted functionality', () => {
     it('should navigate to /search when link to the Search Page is clicked', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');

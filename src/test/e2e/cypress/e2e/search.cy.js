@@ -2,7 +2,7 @@ beforeEach(() => {
     cy.visit("/search");
 })
 
-describe('search site displays all static elements', () => {
+describe('Search site displays all static elements', () => {
     it('should show info message on search page', () => {
         cy.get('body').then((body) => {
             expect(body).to.contain("Suche nach einer Prüfung...")
@@ -24,7 +24,7 @@ describe('search site displays all static elements', () => {
     });
 })
 
-describe('verify searchbar functionality', () => {
+describe('Verify searchbar functionality', () => {
     it('should display results when searching with valid exam number', () => {
         cy.get('input[type="text"]').type('11000');
         cy.get('button').click();
@@ -66,7 +66,7 @@ it('should display error when input consists of letters', () => {
     });
 })
 
-describe('verify download functionality', () => {
+describe('Verify download functionality', () => {
     it('should show downloadable files with name of subject-folder they are in', () => {
         cy.get('input[type="text"]').type('11000');
         cy.get('button').click();
