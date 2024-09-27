@@ -18,7 +18,3 @@ it('should navigate to /search when link to the Search Page is clicked', () => {
         expect(body).to.contain("Suche nach einer Prüfung...")
     })
 });
-
-afterEach(() => {
-    cy.clearCookies()
-});

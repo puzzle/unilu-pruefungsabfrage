@@ -13,7 +13,3 @@ it('should show greeting message on index page', () => {
 it('should display header on index page', () => {
     cy.get('#logo').should("be.visible");
 })
-
-afterEach(() => {
-    cy.clearCookies()
-});

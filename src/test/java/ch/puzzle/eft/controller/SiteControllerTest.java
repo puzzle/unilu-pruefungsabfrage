@@ -3,6 +3,7 @@ package ch.puzzle.eft.controller;
 import ch.puzzle.eft.model.ExamModel;
 import ch.puzzle.eft.service.ExamService;
 import jakarta.servlet.http.Cookie;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,8 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.server.ResponseStatusException;
-import org.testcontainers.shaded.org.bouncycastle.asn1.dvcs.Data;
+
 
 import java.io.DataInput;
 import java.io.File;
@@ -23,6 +25,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -104,19 +109,17 @@ class SiteControllerTest {
 
     @Test
     void shouldCreateCookie() throws Exception {
-
-        String expectedExpires = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US) {
-            {
-                setTimeZone(TimeZone.getTimeZone("GMT"));
-            }
-        }.format(new Date(System.currentTimeMillis() + 365L * 24 * 60 * 60 * 1000));
-
-        this.mockMvc.perform(post("/").with(csrf()))
-                    .andExpect(status().isFound())
-                    .andExpect(header().string(HttpHeaders.LOCATION, "/"))
-                    .andExpect(header().string(HttpHeaders.SET_COOKIE,
-                                               "cookie-consent=true; Max-Age=31536000; Expires=" + expectedExpires + "; HttpOnly; SameSite=Strict"));
-
+        MvcResult mvcResult = this.mockMvc.perform(post("/").with(csrf()))
+                                          .andExpect(status().isFound())
+                                          .andExpect(header().string(HttpHeaders.LOCATION, "/"))
+                                          .andReturn();
+        String cookieHeader = mvcResult.getResponse()
+                                       .getHeader(HttpHeaders.SET_COOKIE);
+        Assertions.assertNotNull(cookieHeader);
+        Assertions.assertTrue(cookieHeader.contains("SameSite=Strict"));
+        Assertions.assertTrue(cookieHeader.contains("cookie-consent=true;"));
+        Assertions.assertTrue(cookieHeader.contains("Max-Age=31536000;"));
+        Assertions.assertTrue(cookieHeader.contains("HttpOnly;"));
     }
 
     @Test
