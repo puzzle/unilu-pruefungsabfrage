@@ -5,6 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Arrays;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/eft")
 public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -39,10 +40,9 @@ public class HomeController {
     }
 
     @RequestMapping("/authorized")
-    // public String authorized(HttpServletRequest request, @AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
-    public String authorized(HttpServletRequest request, Model model) {
+    public String authorized(HttpServletRequest request, @AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
         logger.info("processing authorized... ");
-        return processRequest(request, null, model);
+        return processRequest(request, principal, model);
     }
 
     private static String processRequest(HttpServletRequest request, Saml2AuthenticatedPrincipal principal, Model model) {
@@ -60,7 +60,7 @@ public class HomeController {
             model.addAttribute("email", principal.getFirstAttribute("email"));
             model.addAttribute("userAttributes", principal.getAttributes());
         }
-        return "home";
+        return "loggedin";
     }
 
     private static void logInfos(Cookie[] cookies) {

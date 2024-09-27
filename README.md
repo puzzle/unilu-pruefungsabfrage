@@ -2,12 +2,20 @@
 
 ## Overview
 
+While we are developing the Exam Feedback Tool (EFT) with Shibboleth / SAML integration, we build a docker container for
+the Apache server httpd and the Shibboleth Service Provider (SP). The EFT application is behind the Apache server
+running in a Spring Boot environment. And finally, Spring Boot uses a Tomcat Server with specific connectors for HTTPS
+and AJP (Apache Java Protocol).
+
 ![SwitchAAI](doc/SwitchAAI.drawio.png)
+
+In the final environment the EFT application might be integrated within the docker image as well. This would simplify
+the build and deployment process.
 
 ## Create & Run Service Provider
 
-If not already done, you should set up your local Shibboleth Service Provider (SP). Therefore, clone the repository
-and following the installation and configuration instructions:
+If not already done, you should set up your local SP. Therefore, clone the repository and following the installation and
+configuration instructions:
 
 ```
 git clone git@ssh.gitlab.puzzle.ch:cga/docker/unilu-docker-shibboleth-sp.git
@@ -38,9 +46,13 @@ implementing the real EFT application.
              key-store-password: <see application.xml>
              key-alias: unilu-eft
              client-auth: want
+           ajp:
+             protocol: https
+             port: 8448
 
 6. Start `PoC Login (TEST)` or `PoC Login (PROD)` run configuration to see Tomcat initialization on port 8443 (HTTPS)
-7. Enter [https://edview-test.unilu.ch:8443](https://edview-test.unilu.ch:8443)
+   and 8448 (HTTPS)
+7. Enter [https://edview-test.unilu.ch/eft/authorized](https://edview-test.unilu.ch/eft/authorized)
    or [https://edview.unilu.ch:8443](https://edview.unilu.ch:8443) in your web browser to start the web
    application.
 

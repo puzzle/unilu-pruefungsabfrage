@@ -8,30 +8,33 @@ server:
     key-store-password: uni-lu-eft-2024
     key-alias: unilu-eft
     client-auth: want
+  ajp:
+    protocol: https
+    port: 8448
 
 spring:
   application:
     name: exam-feedback-tool
-  security:
-    saml2:
-      relyingparty:
-        registration:
-          switch-saml2:
-            assertingparty:
-              entity-id: https://edview.unilu.ch/idp/shibboleth
-              verification:
-                credentials:
-                  - certificate-location:
-                      classpath:certs/prod/httpd.crt.pem
-              singlesignon:
-                url: https://edview.unilu.ch/Shibboleth.sso/Login
-                sign-request: false
-            singlelogout:
-              url: https://edview.unilu.ch/Shibboleth.sso/Logout
-              response-url: https://edview.unilu.ch/
+#  security:
+#    saml2:
+#      relyingparty:
+#        registration:
+#          switch-saml2:
+#            assertingparty:
+#              entity-id: https://edview.unilu.ch/idp/shibboleth
+#              verification:
+#                credentials:
+#                  - certificate-location:
+#                      classpath:certs/prod/httpd.crt.pem
+#              singlesignon:
+#                url: https://edview.unilu.ch/Shibboleth.sso/Login
+#                sign-request: false
+#            singlelogout:
+#              url: https://edview.unilu.ch/Shibboleth.sso/Logout
+#              response-url: https://edview.unilu.ch/
 
-logging:
-  level:
-    root: info
-    ch.puzzle.eft: info
-    org.springframework.security: info
+logging.level:
+  root: info
+  ch.puzzle.eft: info
+  org.springframework.security: info
+  org.apache: info

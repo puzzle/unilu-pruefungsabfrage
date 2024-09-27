@@ -9,5 +9,4 @@ public class ExamFeedbackToolApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExamFeedbackToolApplication.class, args);
     }
-
 }

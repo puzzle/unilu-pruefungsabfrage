@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Welcome</h1>
+<h1>Welcome: You are logged in!</h1>
 <p>You are successfully logged in as <span sec:authentication="name"></span></p>
 <p>Your email address is <span th:text="${email}"></span>.</p>
 <p>Your title is <span th:text="title"></span>.</p>
@@ -18,10 +18,8 @@
     <dd th:text="${userAttribute.value}"></dd>
 </dl>
 
-<p>Let's start with your application <a href="/home">here</a></p>
-
-<form th:action="@{/home}" method="get">
-    <button id="Start" type="submit">Start</button>
+<form th:action="@{/Shibboleth.sso/Logout}" method="get">
+    <button id="Logout" type="submit">Logout</button>
 </form>
 
 </body>

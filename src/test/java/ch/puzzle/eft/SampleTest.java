@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SampleTest {
 
     private static final Logger logger = LoggerFactory.getLogger(SampleTest.class);
-    private static final String BASE_URL = "https://edview-test.unilu.ch:8443";
+    private static final String BASE_URL = "https://edview-test.unilu.ch";
 
     @Value("${client.ssl.trust-store}")
     private Resource trustStore;
@@ -40,18 +40,20 @@ class SampleTest {
     private String trustStorePassword;
 
     @Test
-    void getIndexFromSslServer() throws Exception {
-        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL, String.class, Collections.emptyMap());
+    void startLoginProcessForAuthorizedMethod() throws Exception {
+        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/eft/authorized",
+                                                                      String.class,
+                                                                      Collections.emptyMap());
 
         logger.info(response.getBody());
         assertTrue(response.getBody()
-                           .contains("Getting Started: Serving Web Content"));
+                           .contains("This is the Discovery Service for the AAI Test federation."));
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void getHomeFromSslServer() throws Exception {
-        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/home",
+    void startLoginProcessForUnauthorizedMethod() throws Exception {
+        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/eft/unauthorized",
                                                                       String.class,
                                                                       Collections.emptyMap());
         logger.info(response.getBody());

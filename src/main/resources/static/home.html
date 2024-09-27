@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Welcome</h1>
+<h1>Welcome Home!</h1>
 <p>You are successfully logged in as <span sec:authentication="name"></span></p>
 <p>Your email address is <span th:text="${email}"></span>.</p>
 <p>Your title is <span th:text="title"></span>.</p>
@@ -17,10 +17,6 @@
     <dt th:text="${userAttribute.key}"></dt>
     <dd th:text="${userAttribute.value}"></dd>
 </dl>
-
-<form th:action="@{/logout}" method="post">
-    <button id="logout" type="submit">Logout</button>
-</form>
 
 </body>
 </html>
