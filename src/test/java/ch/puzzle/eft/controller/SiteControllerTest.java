@@ -1,7 +1,11 @@
 package ch.puzzle.eft.controller;
 
+import java.io.File;
+import java.util.List;
+
 import ch.puzzle.eft.model.ExamModel;
 import ch.puzzle.eft.service.ExamService;
+
 import jakarta.servlet.http.Cookie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,9 +19,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.File;
-import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
