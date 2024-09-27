@@ -1,12 +1,8 @@
 beforeEach(() => {
     cy.visit("/");
-    cy.get('[data-testid="cookie-consent-button"]').then((btn) => { if (btn) {
-        btn.click();
-    } else {
-        cy.visit("/");
-    }
-    });
+    cy.get('[data-testid="cookie-consent-button"]').click();
 })
+
 
 it('should show greeting message on index page', () => {
     cy.get('body').then((body) => {
@@ -17,3 +13,7 @@ it('should show greeting message on index page', () => {
 it('should display header on index page', () => {
     cy.get('#logo').should("be.visible");
 })
+
+afterEach(() => {
+    cy.clearCookies()
+});
