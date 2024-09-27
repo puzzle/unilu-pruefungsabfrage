@@ -42,7 +42,7 @@ it('should display error when exam number is too short', () => {
 
 it('should display error when input consists of letters', () => {
     cy.get('input[type="text"]').type('asdf');
-    cy.get('button').click();
+    cy.get('[data-testid=\"submit-button\"]').click();
     cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
 });
 
