@@ -68,7 +68,9 @@ To start the docker container you have to complete the following steps:
   - That means if you ran the command `ls ~/unilu/files/parent` you should see the folders of the subjects.
 - Update the command below with the correct path and run it
 ```bash
-docker run --rm  -v <Parent folder of the subjects folders>:/resources -p 8080:8080 uni-luzern:<correct tag>`
+docker run --rm  -v <Parent folder of the subjects folders>:/resources -p <Port on host>:8080 uni-luzern:<correct tag>`
 ```
 
-## Map the dns entry to the container
+## Make the application in the container accessible publicly via https
+Make the application(the port under which the application is availabe) available from outside by routing the traffic from a public domain to the container.
+- 
