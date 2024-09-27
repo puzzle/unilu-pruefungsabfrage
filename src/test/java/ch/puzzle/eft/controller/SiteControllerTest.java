@@ -124,8 +124,7 @@ class SiteControllerTest {
 
     @Test
     public void testViewIndexPage_withCookieConsentSetToTrue() throws Exception {
-        mockMvc.perform(get("/").with(csrf())
-                                .cookie(new Cookie("cookie-consent", "true")))
+        mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "true")))
                .andExpect(status().isOk())
                .andExpect(view().name("index"))
                .andExpect(model().attribute("cookiesMissing", false));
@@ -133,8 +132,7 @@ class SiteControllerTest {
 
     @Test
     public void testViewIndexPage_withCookieConsentSetToFalse() throws Exception {
-        mockMvc.perform(get("/").with(csrf())
-                                .cookie(new Cookie("cookie-consent", "false")))
+        mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "false")))
                .andExpect(status().isOk())
                .andExpect(view().name("index"))
                .andExpect(model().attribute("cookiesMissing", true));
