@@ -20,26 +20,26 @@ describe('Search site displays all static elements', () => {
     });
 
     it('should display input for exam number', () => {
-        cy.get('input[type="text"]').should('exist');
+        cy.get('[data-testid="exam-number-input"]').should('exist');
     });
 })
 
 describe('Verify searchbar functionality', () => {
     it('should display results when searching with valid exam number', () => {
-        cy.get('input[type="text"]').type('11000');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('11000');
+        cy.get('[data-testid="search-button"]').click();
         cy.contains('Privatrecht');
     });
 
     it('should display error when no exams were found', () => {
-        cy.get('input[type="text"]').type('99999');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('99999');
+        cy.get('[data-testid="search-button"]').click();
         cy.contains('Keine Prüfungen für die Prüfungslaufnummer 99999 gefunden');
     });
 
     it('should display error when exam number is too short', () => {
-        cy.get('input[type="text"]').type('123');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('123');
+        cy.get('[data-testid="search-button"]').click();
         cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
 });
 
@@ -50,26 +50,26 @@ it('should display error when input consists of letters', () => {
     });
 
     it('should not be able to input more than 5 characters', () => {
-        cy.get('input[type="text"]').type('110000').should('have.value', '11000');
+        cy.get('[data-testid="exam-number-input"]').type('110000').should('have.value', '11000');
     });
 
     it('should display download as ZIP button when input is valid', () => {
-        cy.get('input[type="text"]').type('11000');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('11000');
+        cy.get('[data-testid="search-button"]').click();
         cy.contains('Alle als ZIP herunterladen');
     });
 
     it('should not display ZIP download when exam number is invalid', () => {
-        cy.get('input[type="text"]').type('123');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('123');
+        cy.get('[data-testid="search-button"]').click();
         cy.get('Alle als ZIP herunterladen').should('not.exist');
     });
 })
 
 describe('Verify download functionality', () => {
     it('should show downloadable files with name of subject-folder they are in', () => {
-        cy.get('input[type="text"]').type('11000');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('11000');
+        cy.get('[data-testid="search-button"]').click();
         cy.contains('Handels und Gesellschaftsrecht');
         cy.contains('Privatrecht');
         cy.contains('Strafrecht');
@@ -77,8 +77,8 @@ describe('Verify download functionality', () => {
     });
 
     it('should show files in alphabetical order', () => {
-        cy.get('input[type="text"]').type('11000');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('11000');
+        cy.get('[data-testid="search-button"]').click();
         cy.get('.exam-files').then(files => {
             const fileNames = [...files].map(file => file.innerText);
             const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
@@ -87,8 +87,8 @@ describe('Verify download functionality', () => {
     });
 
     it('should download files with correct name when link is clicked', () => {
-        cy.get('input[type="text"]').type('11000');
-        cy.get('button').click();
+        cy.get('[data-testid="exam-number-input"]').type('11000');
+        cy.get('[data-testid="search-button"]').click();
         const subjects = ['Handels und Gesellschaftsrecht', 'Privatrecht', 'Strafrecht']
 
         for (let i = 0; i < subjects.length; i++) {

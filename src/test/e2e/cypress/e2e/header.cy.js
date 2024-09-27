@@ -20,7 +20,7 @@ describe('Header displays all elements', () => {
     })
 })
 
-describe('Header provides excepted functionality', () => {
+describe('Header provides expected functionality', () => {
     it('should navigate to /search when link to the Search Page is clicked', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');
@@ -31,7 +31,7 @@ describe('Header provides excepted functionality', () => {
         })
     });
 
-    // ToDo: Write tests for 'Kontakt' and 'Logout'
+    // ToDo: Write tests for 'Kontakt' and 'Logout' once the functionality is implemented
 })
 
 

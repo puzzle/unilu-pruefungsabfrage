@@ -3,19 +3,19 @@ beforeEach(() => {
 })
 
 it('should display the right image', () => {
-    cy.get("footer").find("img")
+    cy.get('[data-testid="swissuniversities-logo"]')
         .should('have.attr', 'src')
         .and('include', 'swissuniversities.png');
 })
 
 it('should redirect to swissuniversities', () => {
-    cy.get("footer").find("a").eq(0)
+    cy.get('[data-testid="swissuniversities-link"]')
         .should('have.attr', 'href')
         .and('include', 'https://www.swissuniversities.ch/');
 });
 
 it('should redirect to impressum', () => {
-    cy.get("footer").find("a").eq(1)
+    cy.get('[data-testid="impressum-link"]')
         .should('have.attr', 'href')
         .and('include', 'https://www.unilu.ch/impressum/');
 });
