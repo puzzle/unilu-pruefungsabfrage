@@ -79,7 +79,7 @@ public class SecurityConfig {
 
     @Bean
     public RequestAttributeAuthenticationFilter authenticationFilter(AuthenticationManager authenticationManager) {
-        RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolthRequestAuthenticationFilter();
+        RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolethRequestAuthenticationFilter();
         authenticationFilter.setPrincipalEnvironmentVariable("remoteUser");
         authenticationFilter.setAuthenticationManager(authenticationManager);
         authenticationFilter.setContinueFilterChainOnUnsuccessfulAuthentication(true);
