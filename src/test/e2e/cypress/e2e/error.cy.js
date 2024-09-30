@@ -1,4 +1,4 @@
-describe('verify functionality of error page', () => {
+describe('Verify functionality of error page', () => {
     it('should show not found page when 404 occurs ', () => {
         cy.visit("/123");
         cy.get('body').then((body) => {

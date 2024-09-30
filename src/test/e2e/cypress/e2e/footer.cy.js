@@ -2,7 +2,7 @@ beforeEach(() => {
     cy.visit("/");
 })
 
-describe('verify content of footer', () => {
+describe('Verify content of footer', () => {
     it('should display the right image', () => {
         cy.getByTestId("swissuniversities-logo")
             .should('have.attr', 'src')
