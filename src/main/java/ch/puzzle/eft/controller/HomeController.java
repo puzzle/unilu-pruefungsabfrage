@@ -5,13 +5,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticatedPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 @Controller
@@ -40,12 +39,12 @@ public class HomeController {
     }
 
     @RequestMapping("/authorized")
-    public String authorized(HttpServletRequest request, @AuthenticationPrincipal Saml2AuthenticatedPrincipal principal, Model model) {
+    public String authorized(HttpServletRequest request, Model model) {
         logger.info("processing authorized... ");
-        return processRequest(request, principal, model);
+        return processRequest(request, null, model);
     }
 
-    private static String processRequest(HttpServletRequest request, Saml2AuthenticatedPrincipal principal, Model model) {
+    private static String processRequest(HttpServletRequest request, Principal principal, Model model) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             logInfos(cookies);
@@ -56,9 +55,6 @@ public class HomeController {
             logger.warn("current principal is null");
         } else {
             logger.info("current principal is {}", principal.getName());
-            model.addAttribute("name", principal.getName());
-            model.addAttribute("email", principal.getFirstAttribute("email"));
-            model.addAttribute("userAttributes", principal.getAttributes());
         }
         return "loggedin";
     }

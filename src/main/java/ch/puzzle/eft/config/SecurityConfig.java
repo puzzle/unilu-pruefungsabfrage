@@ -14,15 +14,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.security.web.authentication.preauth.RequestAttributeAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.security.web.header.writers.*;
 
+import java.security.Principal;
 import java.security.Security;
 import java.util.Collection;
-import java.util.List;
 
 import static org.springframework.security.web.header.writers.CrossOriginEmbedderPolicyHeaderWriter.CrossOriginEmbedderPolicy.REQUIRE_CORP;
 
@@ -38,35 +38,37 @@ public class SecurityConfig {
         return token -> new UserDetails() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return List.of();
+                Collection<GrantedAuthority> authorities = token.getAuthorities();
+                logger.debug("current authorities is (size={}) {}", authorities.size(), authorities);
+                return authorities;
             }
 
             @Override
             public String getPassword() {
-                String password = getMaskedPassword(token);
+                String password = getMaskedCredentials(token);
                 logger.debug("current password is {}", password);
                 return password;
             }
 
             @Override
             public String getUsername() {
-                String username = token.getPrincipal() != null
-                        ? token.getPrincipal()
-                               .toString()
-                        : "n/a";
+                String username = "n/a";
+                if (token.getPrincipal() instanceof Principal principal) {
+                    username = principal.getName();
+                }
                 logger.debug("current username is {}", username);
                 return username;
             }
         };
     }
 
-    private static String getMaskedPassword(PreAuthenticatedAuthenticationToken token) {
+    private static String getMaskedCredentials(PreAuthenticatedAuthenticationToken token) {
         if (token.getCredentials() == null) {
             return "n/a";
         } else {
-            String password = token.getCredentials()
-                                   .toString();
-            return password.charAt(0) + "*****" + password.charAt(password.length() - 1);
+            String credentials = token.getCredentials()
+                                      .toString();
+            return credentials.charAt(0) + "*****" + credentials.charAt(credentials.length() - 1);
         }
     }
 
@@ -91,11 +93,11 @@ public class SecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http, AuthenticationManager authenticationManager, RequestAttributeAuthenticationFilter authenticationFilter) throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 
-        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/eft/unauthorized") // could be accessed without authentication
+        http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/eft/unauthorized") // could be accessed without authentication but is useless in case of pre-authentication
                                                          .permitAll()
                                                          .anyRequest()
                                                          .authenticated())
-            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(authenticationFilter, SecurityContextHolderFilter.class)
             .authenticationManager(authenticationManager)
             .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::deny) // or frameOptions.deny()
                            .xssProtection(e -> e.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))

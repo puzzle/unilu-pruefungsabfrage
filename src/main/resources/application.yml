@@ -2,6 +2,7 @@ server:
   address: edview.unilu.ch
   port: 8443
   forward-headers-strategy: framework
+  home.url: /home.html
   ssl:
     key-store-type: PKCS12
     key-store: classpath:certs/prod/httpd.keystore.p12
@@ -11,6 +12,7 @@ server:
   ajp:
     protocol: https
     port: 8448
+    packet.size: 65536
 
 spring:
   application:

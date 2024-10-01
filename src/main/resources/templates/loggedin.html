@@ -9,14 +9,9 @@
 
 <h1>Welcome: You are logged in!</h1>
 <p>You are successfully logged in as <span sec:authentication="name"></span></p>
-<p>Your email address is <span th:text="${email}"></span>.</p>
-<p>Your title is <span th:text="title"></span>.</p>
-<p>Your authorities are <span sec:authentication="authorities"></span>.</p>
-<h2>All Your Attributes</h2>
-<dl th:each="userAttribute : ${userAttributes}">
-    <dt th:text="${userAttribute.key}"></dt>
-    <dd th:text="${userAttribute.value}"></dd>
-</dl>
+<p>Your last name is <span th:text="${surname}"></span>.</p>
+<p>Your first name is <span th:text="${givenName}"></span>.</p>
+<p>Your matriculation number is <span th:text="${matriculationNumber}"></span>.</p>
 
 <form th:action="@{/Shibboleth.sso/Logout}" method="get">
     <button id="Logout" type="submit">Logout</button>

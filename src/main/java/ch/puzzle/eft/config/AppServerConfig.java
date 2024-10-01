@@ -17,6 +17,8 @@ public class AppServerConfig {
     private String ajpProtocol;
     @Value("${server.ajp.port:8448}")
     private int ajpPort;
+    @Value("${server.ajp.packet.size:65536}")
+    private int ajpPacketSize;
 
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainer() {
@@ -38,7 +40,7 @@ public class AppServerConfig {
         protocol.setSecretRequired(false);
         protocol.setTomcatAuthentication(false);
         protocol.setAllowedRequestAttributesPattern(".{1,}"); // should be "AJP_"
-        protocol.setPacketSize(65536);
+        protocol.setPacketSize(ajpPacketSize);
 
         return connector;
     }
