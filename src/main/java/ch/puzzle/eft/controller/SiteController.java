@@ -62,6 +62,7 @@ public class SiteController {
         cookieBuilder.maxAge(60 * 60 * 24 * 365);
         cookieBuilder.sameSite("Strict");
         cookieBuilder.httpOnly(true);
+        cookieBuilder.secure(true);
         return ResponseEntity.status(HttpStatus.FOUND)
                              .header(HttpHeaders.SET_COOKIE,
                                      cookieBuilder.build()

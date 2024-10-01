@@ -111,6 +111,7 @@ class SiteControllerTest {
         Assertions.assertTrue(cookieHeader.contains("cookie-consent=true;"));
         Assertions.assertTrue(cookieHeader.contains("Max-Age=31536000;"));
         Assertions.assertTrue(cookieHeader.contains("HttpOnly;"));
+        Assertions.assertTrue(cookieHeader.contains("Secure;"));
     }
 
     @Test
