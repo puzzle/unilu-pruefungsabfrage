@@ -12,6 +12,6 @@ describe('Verify content of index', () => {
     })
 
     it('should display header image on homepage', () => {
-        cy.get('header#logo').should("be.visible");
+        cy.get('header #logo').should("be.visible");
     })
 });
