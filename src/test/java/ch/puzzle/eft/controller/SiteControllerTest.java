@@ -16,18 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.server.ResponseStatusException;
 
-
-import java.io.DataInput;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -119,7 +110,6 @@ class SiteControllerTest {
         Assertions.assertTrue(cookieHeader.contains("SameSite=Strict"));
         Assertions.assertTrue(cookieHeader.contains("cookie-consent=true;"));
         Assertions.assertTrue(cookieHeader.contains("Max-Age=31536000;"));
-        Assertions.assertTrue(cookieHeader.contains("HttpOnly;"));
     }
 
     @Test

@@ -2,7 +2,6 @@ package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamService;
-import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,11 +29,10 @@ public class SiteController {
 
     @GetMapping("/")
     public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookieConsent, Model model) {
-        boolean cookiesMissing = !"true".equals(cookieConsent);
+        boolean cookiesMissing = !cookieConsent.equals("true");
         model.addAttribute("cookiesMissing", cookiesMissing);
         return "index";
     }
-
 
     @GetMapping("/search")
     public String viewSearchPage(Model model) {
@@ -63,7 +61,6 @@ public class SiteController {
         ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie.from("cookie-consent", "true");
         cookieBuilder.maxAge(60 * 60 * 24 * 365);
         cookieBuilder.sameSite("Strict");
-        cookieBuilder.httpOnly(true);
         return ResponseEntity.status(HttpStatus.FOUND)
                              .header(HttpHeaders.SET_COOKIE,
                                      cookieBuilder.build()
