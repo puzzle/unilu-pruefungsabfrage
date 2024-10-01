@@ -20,4 +20,10 @@ describe('Verify content of footer', () => {
             .should('have.attr', 'href')
             .and('include', 'https://www.unilu.ch/impressum/');
     });
+
+    it('should redirect to github-page', () => {
+        cy.getByTestId("version-link")
+            .should('have.attr', 'href')
+            .and('include', 'https://github.com/puzzle/unilu-pruefungsabfrage');
+    });
 });
