@@ -1,7 +1,11 @@
 @font-face {
-    font-family: OpenSans, sans-serif;
-    src: url('../fonts/Open_Sans/OpenSans-Regular.ttf') format('truetype');
-         url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
+    font-family: 'OpenSans';
+    src:
+            local('OpenSans Regular'),
+            url('../fonts/Open_Sans/OpenSans-Regular.ttf') format('truetype'),
+            url('../fonts/Open_Sans/OpenSans-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
