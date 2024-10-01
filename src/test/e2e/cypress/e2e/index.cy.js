@@ -11,5 +11,7 @@ it('should show greeting message on index page', () => {
 })
 
 it('should display header on index page', () => {
-    cy.get('#logo').should("be.visible");
+    const header = cy.get('header #logo');
+    header.should("be.visible");
+    Cypress.dom.isFocusable(header);
 })
