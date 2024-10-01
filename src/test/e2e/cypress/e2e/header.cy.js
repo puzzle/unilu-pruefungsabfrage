@@ -1,12 +1,12 @@
 beforeEach(() => {
     cy.visit("/");
+    cy.get('[data-testid="cookie-consent-button"]').click();
 })
 
 it('should display the right image', () => {
     cy.get("header").find("#logo")
         .should('have.attr', 'src')
         .and('include', 'UNILU_Schriftzug_Standard_schwarz_DE.png');
-
 });
 
 it('should navigate to /search when link to the Search Page is clicked', () => {

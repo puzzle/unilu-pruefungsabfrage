@@ -2,14 +2,18 @@ package ch.puzzle.eft.controller;
 
 import ch.puzzle.eft.model.ExamModel;
 import ch.puzzle.eft.service.ExamService;
+import jakarta.servlet.http.Cookie;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
@@ -94,4 +98,35 @@ class SiteControllerTest {
                     .andExpect(model().attributeDoesNotExist("examFiles"));
     }
 
+    @Test
+    void shouldCreateCookie() throws Exception {
+        MvcResult mvcResult = this.mockMvc.perform(post("/").with(csrf()))
+                                          .andExpect(status().isFound())
+                                          .andExpect(header().string(HttpHeaders.LOCATION, "/"))
+                                          .andReturn();
+        String cookieHeader = mvcResult.getResponse()
+                                       .getHeader(HttpHeaders.SET_COOKIE);
+        Assertions.assertNotNull(cookieHeader);
+        Assertions.assertTrue(cookieHeader.contains("SameSite=Strict"));
+        Assertions.assertTrue(cookieHeader.contains("cookie-consent=true;"));
+        Assertions.assertTrue(cookieHeader.contains("Max-Age=31536000;"));
+        Assertions.assertTrue(cookieHeader.contains("HttpOnly;"));
+        //        Assertions.assertTrue(cookieHeader.contains("Secure;")); TODO: do as soon as login is in main
+    }
+
+    @Test
+    public void testViewIndexPage_withCookieConsentSetToTrue() throws Exception {
+        mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "true")))
+               .andExpect(status().isOk())
+               .andExpect(view().name("index"))
+               .andExpect(model().attribute("cookiesMissing", false));
+    }
+
+    @Test
+    public void testViewIndexPage_withCookieConsentSetToFalse() throws Exception {
+        mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "false")))
+               .andExpect(status().isOk())
+               .andExpect(view().name("index"))
+               .andExpect(model().attribute("cookiesMissing", true));
+    }
 }
