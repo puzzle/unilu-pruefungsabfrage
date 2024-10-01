@@ -1,14 +1,13 @@
-<header class="d-flex p-2 pb-0 align-items-center justify-content-between">
+<header class="d-flex p-2 pb-0 align-items-center justify-content-between border-bottom border-dark mx-4 pb-3">
     <a href="/">
         <img alt="image not found" class="m-4" id="logo" th:src="@{images/UNILU_Schriftzug_Standard_schwarz_DE.png}">
     </a>
     <div class="d-flex justify-content-end flex-column">
-        <p class="me-3 fs-3 text-end">Sven Studi</p><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
-        <div class="me-3 d-flex gap-3 flex-row">
+        <p class="me-4 fs-3 text-end">Sven Studi</p><!--Todo wenn login funktioniert auf eingeloggten user ändern-->
+        <div class="me-4 d-flex gap-3 flex-row">
             <a class="link-primary" th:href="@{/search}">Prüfungslaufnummer</a>
             <a class="link-primary" th:href="'#'">Kontakt</a><!--Todo wenn contact.html existiert-->
             <a class="link-primary" th:href="'#'">Logout</a> <!--Todo wenn login funktioniert-->
         </div>
     </div>
 </header>
-<hr class="mt-0">
