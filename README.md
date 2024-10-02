@@ -15,7 +15,7 @@ the build and deployment process.
 ## Create & Run Service Provider
 
 If not already done, you should set up your local SP. Therefore, clone the repository and following the installation and
-configuration instructions:
+configuration instructions of the cloned repo:
 
 ```
 git clone git@ssh.gitlab.puzzle.ch:cga/docker/unilu-docker-shibboleth-sp.git
@@ -49,22 +49,22 @@ implementing the real EFT application.
            ajp:
              protocol: https
              port: 8448
+             packet.size: 65536
 
 6. Start `PoC Login (TEST)` or `PoC Login (PROD)` run configuration to see Tomcat initialization on port 8443 (HTTPS)
    and 8448 (HTTPS)
-7. Enter [https://edview-test.unilu.ch/eft/authorized](https://edview-test.unilu.ch/eft/authorized)
-   or [https://edview.unilu.ch:8443](https://edview.unilu.ch:8443) in your web browser to start the web
-   application.
+7. Enter [Start Page (Test)](https://edview-test.unilu.ch/home) or [Start Page (Prod)](https://edview.unilu.ch/home)
+   in your web browser to start the web application.
+8. For the `test` environment you can choose one of the suggested users like `demostudent` (no matriculation number),
+   `demouser` (complete user information), or `umlauttest` (check for solved "Umlaut" problem). For the `prod`
+   environment you can use `test.ksf@stud.unilu.ch` (password
+   see [cryptoplus](https://cryptopus.puzzle.ch/encryptables/7341)).
 
 The alias `edview.unilu.ch` is used for the application host (localhost). Therefore, you might add the alias to
 `/etc/hosts` if not already done. The same is true for test environment `edview-test.unilu.ch`.
 
-## Docker
+## TODO:
 
-### Build Image
-
-`docker build . -t uni-luzern`
-
-### Run Image
-
-`docker run --rm  -v ./static:/resources -p 8080:8080 uni-luzern:latest`
+- [ ] Mock or skip authentication for unit tests
+- [ ] Mock or skip authentication for E2E tests
+- [ ] http vs. https in tests

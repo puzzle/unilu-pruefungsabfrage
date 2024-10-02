@@ -82,7 +82,6 @@ public class SecurityConfig {
     @Bean
     public RequestAttributeAuthenticationFilter authenticationFilter(AuthenticationManager authenticationManager) {
         RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolethRequestAuthenticationFilter();
-        authenticationFilter.setPrincipalEnvironmentVariable("remoteUser");
         authenticationFilter.setAuthenticationManager(authenticationManager);
         authenticationFilter.setContinueFilterChainOnUnsuccessfulAuthentication(true);
         authenticationFilter.setCheckForPrincipalChanges(false);
@@ -95,8 +94,12 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/eft/unauthorized") // could be accessed without authentication but is useless in case of pre-authentication
                                                          .permitAll()
+                                                         .requestMatchers("/eft/**") // pre-authenticated by Shibboleth
+                                                         .authenticated()
+                                                         .requestMatchers("/home.html") // pre-authentication is skipped programmatically
+                                                         .permitAll()
                                                          .anyRequest()
-                                                         .authenticated())
+                                                         .denyAll())
             .addFilterBefore(authenticationFilter, SecurityContextHolderFilter.class)
             .authenticationManager(authenticationManager)
             .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::deny) // or frameOptions.deny()

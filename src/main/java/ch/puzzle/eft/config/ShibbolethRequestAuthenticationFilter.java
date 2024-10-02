@@ -22,7 +22,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
         Principal principal = request.getUserPrincipal();
         if (principal == null || principal.getName() == null) {
             if (homeUrl.equals(request.getRequestURI())) {
-                logger.debug("no principal and home page requested, returning anonymous principal");
+                logger.debug("no principal for home page required, returning anonymous principal");
                 return "anonymous principal for home page";
             }
             logger.debug("no principal, fallback to configured principal environment variable");
@@ -43,7 +43,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
             try {
                 String value = (String) request.getAttribute(attributeName);
                 value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
-                request.setAttribute(attributeName, value + "(äöü)");
+                request.setAttribute(attributeName, value);
                 logger.debug("converted string attribute '{}' from ISO-8859-1 to UTF-8 is '{}'", attributeName, value);
             } catch (UnsupportedEncodingException | ClassCastException | NullPointerException e) {
                 logger.info("unable to convert string attribute {} to UTF-8: {}", attributeName, e);

@@ -10,7 +10,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @Disabled("for local tests only with running SP")
 @SpringBootTest
-class ExamFeedbackToolApplicationTest {
+class ExamFeedbackToolApplicationIT {
 
     @Test
     void contextLoads(ApplicationContext context) {

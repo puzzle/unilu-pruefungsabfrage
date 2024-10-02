@@ -28,9 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Disabled("for local tests only with running SP")
 @ActiveProfiles("test")
 @SpringBootTest(classes = ExamFeedbackToolApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-class SampleTest {
+class SimpleSecurityIT {
 
-    private static final Logger logger = LoggerFactory.getLogger(SampleTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleSecurityIT.class);
     private static final String BASE_URL = "https://edview-test.unilu.ch";
 
     @Value("${client.ssl.trust-store}")
@@ -38,6 +38,18 @@ class SampleTest {
 
     @Value("${client.ssl.trust-store-password}")
     private String trustStorePassword;
+
+    @Test
+    void callHomeUrl() throws Exception {
+        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/home",
+                                                                      String.class,
+                                                                      Collections.emptyMap());
+
+        logger.info(response.getBody());
+        assertTrue(response.getBody()
+                           .contains("<h1>Welcome Home!</h1>"));
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 
     @Test
     void startLoginProcessForAuthorizedMethod() throws Exception {
