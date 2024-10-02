@@ -32,7 +32,7 @@ class ExamControllerTest {
 
 
     @Test
-    void downloadZipShouldReturnZip() throws Exception {
+    void shouldReturnZipWhenCallingDownloadZip() throws Exception {
         String examNumber = "11000";
         when(examFileService.convertSelectedFilesToZip(examNumber)).thenReturn(new ByteArrayOutputStream());
 

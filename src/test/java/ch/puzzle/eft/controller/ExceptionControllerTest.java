@@ -28,7 +28,7 @@ class ExceptionControllerTest {
     private ExceptionController exceptionHandlingController;
 
     @Test
-    void testHandleInternalServerError() {
+    void shouldCorrectlyHandleInternalServerError() {
         Exception ex = new Exception("Internal error message");
         when(request.getRequestURL()).thenReturn(new StringBuffer("http://localhost/test-url"));
 
@@ -40,14 +40,14 @@ class ExceptionControllerTest {
     }
 
     @Test
-    void testHandleNotFound() {
+    void shouldCorrectlyHandleNotFoundError() {
         String viewName = exceptionHandlingController.handleNotFound(model, session);
         verify(session, times(1)).setAttribute(eq("errorModel"), any(ErrorModel.class));
         assertEquals("redirect:/error", viewName);
     }
 
     @Test
-    void testIfSessionAttributeIsRemoved() {
+    void shouldRemoveSessionAttributeWhenReturningToIndexPage() {
         String viewName = exceptionHandlingController.viewCompleteErrorPage(model, session);
         verify(session, times(1)).removeAttribute("errorModel");
         assertEquals("redirect:/", viewName);
