@@ -28,9 +28,8 @@ public class SiteController {
     }
 
     @GetMapping("/")
-    public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookieConsent, Model model) {
-        boolean cookiesMissing = !cookieConsent.equals("true");
-        model.addAttribute("cookiesMissing", cookiesMissing);
+    public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookiesAccepted, Model model) {
+        model.addAttribute("cookiesMissing", !(Boolean.parseBoolean(cookiesAccepted)));
         return "index";
     }
 
