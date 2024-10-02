@@ -1,8 +1,8 @@
-<form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated d-flex flex-column align-items-center">
+<form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated d-flex flex-column align-items-center" novalidate>
     <label class="mb-4 mt-3" for="examNumber">Prüfungsnummer eingeben:</label>
     <span class="search-input d-flex w-100 mb-3">
         <input type="text" pattern="[0-9]{5}" name="examNumber" id="examNumber" data-testid="exam-number-input" placeholder="20202"
-               th:value="*{examNumber}" th:maxlength="5" class="search-input-elements w-100">
+               th:value="*{examNumber}" th:maxlength="5" class="search-input-elements w-100 ps-3">
         <button type="submit" id="submitButton" data-testid="submit-button" class="search-input-elements pe-4 ps-4">
             <img alt="Search icon" th:src="@{images/search_icon.svg}">
         </button>
