@@ -1,8 +1,7 @@
 beforeEach(() => {
     cy.visit("/");
-    cy.get('[data-testid="cookie-consent-button"]').click();
+    cy.getByTestId("cookie-consent-button").click();
 })
-
 
 describe('Verify content of index', () => {
     it('should show greeting message on index page', () => {

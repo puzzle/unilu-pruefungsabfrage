@@ -20,7 +20,7 @@ describe('Verify content of search page', () => {
     });
 
     it('should display input for exam number', () => {
-        cy.get('[data-testid="exam-number-input"]').should('exist');
+        cy.getByTestId("exam-number-input").should('exist');
     });
 })
 
@@ -41,12 +41,18 @@ describe('Verify searchbar functionality', () => {
         cy.getByTestId("exam-number-input").type('123');
         cy.getByTestId("submit-button").click();
         cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
-});
+    });
 
-it('should display error when input consists of letters', () => {
-    cy.get('input[type="text"]').type('asdf');
-    cy.get('[data-testid=\"submit-button\"]').click();
+    it('should display error when input consists of letters', () => {
+        cy.get('input[type="text"]').type('asdf');
+        cy.getByTestId("submit-button").click();
     cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
+    });
+
+    it('should display error when input consists of a mix between letters and numbers', () => {
+        cy.get('input[type="text"]').type('wow25');
+        cy.getByTestId("submit-button").click();
+        cy.contains('Prüfungsnummer muss aus genau 5 Ziffern bestehen.');
     });
 
     it('should not be able to input more than 5 characters', () => {
@@ -97,4 +103,11 @@ describe('Verify download functionality', () => {
             cy.readFile(`cypress/downloads/${subjects[i]}.pdf`).should('exist');
         }
     });
+
+    it('should download ZIP file', () => {
+        cy.getByTestId("exam-number-input").type('11000');
+        cy.getByTestId("submit-button").click();
+        cy.getByTestId("zip-download-button").click();
+        cy.readFile('cypress/downloads/11000.zip').should('exist');
+    })
 });

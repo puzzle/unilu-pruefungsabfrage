@@ -1,10 +1,10 @@
 beforeEach(() => {
     cy.visit("/");
-    cy.get('[data-testid="cookie-consent-button"]').click();
+    cy.getByTestId("cookie-consent-button").click();
 })
 
 describe('Verify content of header', () => {
-    it('should display the right image', () => {
+    it('should display the correct image', () => {
         cy.get("header").find("#logo")
             .should('have.attr', 'src')
             .and('include', 'UNILU_Schriftzug_Standard_schwarz_DE.png');
@@ -18,6 +18,8 @@ describe('Verify content of header', () => {
             expect(header).to.contain("Logout")
         })
     })
+
+    //TODO: Write tests for student name once the login functionality is implemented
 })
 
 describe('Verify functionality of header', () => {
