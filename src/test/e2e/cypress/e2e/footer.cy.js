@@ -9,19 +9,19 @@ describe('Verify content of footer', () => {
             .and('include', 'swissuniversities.png');
     })
 
-    it('should redirect to swissuniversities', () => {
+    it('should have link to swissuniversities', () => {
         cy.getByTestId("swissuniversities-link")
             .should('have.attr', 'href')
             .and('include', 'https://www.swissuniversities.ch/');
     });
 
-    it('should redirect to impressum', () => {
+    it('should have link to impressum', () => {
         cy.getByTestId("impressum-link")
             .should('have.attr', 'href')
             .and('include', 'https://www.unilu.ch/impressum/');
     });
 
-    it('should redirect to github-page', () => {
+    it('should have link to github-page', () => {
         cy.getByTestId("version-link")
             .should('have.attr', 'href')
             .and('include', 'https://github.com/puzzle/unilu-pruefungsabfrage');
