@@ -15,15 +15,18 @@
         <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css" />
         <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css" />
         <link rel="stylesheet" th:href="@{styles/footer.css}" type="text/css" />
-        <link rel="stylesheet" th:href="@{styles/cookie-consent-popup.css}" type="text/css">
-    <title>Universität Luzern - Prüfungen</title>
+        <link
+            rel="stylesheet"
+            th:href="@{styles/cookie-consent-popup.css}"
+            type="text/css" />
+        <title>Universität Luzern - Prüfungen</title>
         <link rel="icon" th:href="@{favicon.ico}" type="image/png" />
     </head>
     <body>
         <header th:replace="~{fragments/header}"></header>
-<div th:if="${cookiesMissing}">
-    <div  th:replace="~{fragments/cookie-consent-popup}"></div>
-</div>
+        <div th:if="${cookiesMissing}">
+            <div th:replace="~{fragments/cookie-consent-popup}"></div>
+        </div>
         <div class="container-fluid">
             <div class="d-flex justify-content-center">
                 <section layout:fragment="content">

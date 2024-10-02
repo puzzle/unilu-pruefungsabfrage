@@ -10,7 +10,7 @@
     --bs-secondary-link-hover-color-rgb: var(--bs-primary-rgb);
 
     --button-primary-color: var(--primary-hex);
-    --button-primary-hover-color:rgb( 240, 38, 144);
+    --button-primary-hover-color: rgb(240, 38, 144);
 }
 
 .btn-outline-primary {
