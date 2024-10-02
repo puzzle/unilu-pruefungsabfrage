@@ -36,14 +36,14 @@ class SiteControllerTest {
     private ExamService examFileService;
 
     @Test
-    void defaultRouteShouldReturnIndexPage() throws Exception {
+    void shouldReturnIndexPageWhenAccessingDefaultRoute() throws Exception {
         this.mockMvc.perform(get("/"))
                     .andExpect(status().isOk())
                     .andExpect(view().name("index"));
     }
 
     @Test
-    void searchRouteShouldReturnSearchPage() throws Exception {
+    void shouldReturnSearchPageWhenAccessingSearchRoute() throws Exception {
         this.mockMvc.perform(get("/search"))
                     .andExpect(status().isOk())
                     .andExpect(view().name("search"));
@@ -84,7 +84,7 @@ class SiteControllerTest {
     }
 
     @Test
-    void shouldNotAcceptExamNumberWithNoMatchingFiles() throws Exception {
+    void shouldRespondWithHttpStatus404WhenEnteringExamNumberWithNoMatchingFiles() throws Exception {
         when(examFileService.getMatchingExams("11000", "11112222")).thenThrow(new ResponseStatusException(
                                                                                                           HttpStatus.NOT_FOUND,
                                                                                                           String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
@@ -115,7 +115,7 @@ class SiteControllerTest {
     }
 
     @Test
-    public void testViewIndexPage_withCookieConsentSetToTrue() throws Exception {
+    void shouldRespondWithCookiesMissingFalseWhenCookieConsentGiven() throws Exception {
         mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "true")))
                .andExpect(status().isOk())
                .andExpect(view().name("index"))
@@ -123,7 +123,7 @@ class SiteControllerTest {
     }
 
     @Test
-    public void testViewIndexPage_withCookieConsentSetToFalse() throws Exception {
+    void shouldRespondWithCookiesMissingTrueWhenCookieConsentNotGiven() throws Exception {
         mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "false")))
                .andExpect(status().isOk())
                .andExpect(view().name("index"))

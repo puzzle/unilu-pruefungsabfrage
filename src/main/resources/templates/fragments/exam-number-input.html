@@ -1,9 +1,8 @@
 <form action="#" th:action="@{/search}" th:object="${examNumberForm}" method="post" class="was-validated" novalidate>
     <label for="examNumber">Prüfungsnummer eingeben:</label>
     <span class="d-flex">
-    <input type="text" pattern="[0-9]{5}" name="examNumber" id="examNumber" placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control" required>
-    <button type="submit" id="submitButton" data-testid="submit-button" class="btn btn-outline-primary">Suchen</button>
+    <input data-testid="exam-number-input" type="text" pattern="[0-9]{5}" name="examNumber" id="examNumber" placeholder="20202" th:value="*{examNumber}" th:maxlength="5" class="form-control" required>
+    <button data-testid="submit-button" type="submit" id="submit-button" class="btn btn-outline-primary">Suchen</button>
     </span>
-
     <p th:if="${#fields.hasErrors('examNumber')}" th:errors="*{examNumber}" class="text-danger">Prüfungsnummer Error</p>
 </form>
