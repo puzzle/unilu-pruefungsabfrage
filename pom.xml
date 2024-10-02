@@ -201,7 +201,7 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>apply</goal> <!-- Automatically apply the formatting -->
+							<goal>apply</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -223,14 +223,13 @@
 					</formats>
 					<java>
 						<eclipse>
-							<version>4.26</version>                     <!-- optional version of Eclipse Formatter -->
-							<file>${project.basedir}/src/main/resources/formatting.xml</file> <!-- optional -->
+							<version>4.26</version>
+							<file>${project.basedir}/src/main/resources/formatting.xml</file>
 						</eclipse>
 						<removeUnusedImports />
-						<importOrder>  <!-- or a custom ordering -->
-							<order>java|javax,ch.puzzle,org,com,com.diffplug,,\#com.diffplug,\#</order>  <!-- or use <file>${project.basedir}/eclipse.importorder</file> -->
-							<!-- you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. -->
-							<semanticSort>true</semanticSort> <!-- Optional, default false. Sort by package, then class, then member (for static imports). Splitting is based on common conventions (packages are lower case, classes start with upper case). Use <treatAsPackage> and <treatAsClass> for exceptions. -->
+						<importOrder>
+							<order>java|javax,ch.puzzle,org,com,com.diffplug,,\#com.diffplug,\#</order>
+							<semanticSort>true</semanticSort>
 						</importOrder>
 						<formatAnnotations />
 					</java>
