@@ -3,29 +3,37 @@
     th:action="@{/search}"
     th:object="${examNumberForm}"
     method="post"
-    class="was-validated"
+    class="was-validated d-flex flex-column"
     novalidate>
-    <label for="examNumber">Prüfungsnummer eingeben:</label>
-    <span class="d-flex">
-        <input
-            data-testid="exam-number-input"
-            type="text"
-            pattern="[0-9]{5}"
-            name="examNumber"
-            id="examNumber"
-            placeholder="20202"
-            th:value="*{examNumber}"
-            th:maxlength="5"
-            class="form-control"
-            required />
-        <button
-            data-testid="submit-button"
-            type="submit"
-            id="submit-button"
-            class="btn btn-outline-primary">
-            Suchen
-        </button>
-    </span>
+    <div class="d-flex flex-column align-items-center">
+        <label class="mb-4 mt-3" for="exam-number">
+            Prüfungsnummer eingeben:
+        </label>
+        <span class="search-input d-flex w-100 mb-3">
+            <input
+                type="text"
+                pattern="[0-9]{5}"
+                name="examNumber"
+                id="exam-number"
+                data-testid="exam-number-input"
+                placeholder="z.B. 20202"
+                th:value="*{examNumber}"
+                th:maxlength="5"
+                class="search-input-elements w-100 ps-3" />
+            <button
+                type="submit"
+                id="submitButton"
+                data-testid="submit-button"
+                class="search-input-elements submit-button pe-4 ps-4">
+                <img
+                    class="search-icon"
+                    alt="Search icon"
+                    th:src="@{images/search_icon.svg}"
+                    width="23px" />
+            </button>
+        </span>
+    </div>
+
     <p
         th:if="${#fields.hasErrors('examNumber')}"
         th:errors="*{examNumber}"
