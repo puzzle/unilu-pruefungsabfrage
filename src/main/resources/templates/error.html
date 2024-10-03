@@ -1,11 +1,19 @@
+<!--prettier-ignore-->
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}" lang="">
-<body>
-<section layout:fragment="content">
-    <div th:replace="~{fragments/internal-server-error}"></div>
-    <div th:replace="~{fragments/not-found-error}"></div>
-    <a data-testid="back-to-main-page" href="/return" class="link-secondary">Zurück zur Startseite</a>
-</section>
-</body>
+<html
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}"
+    lang="de">
+    <body>
+        <section layout:fragment="content">
+            <div th:replace="~{fragments/internal-server-error}"></div>
+            <div th:replace="~{fragments/not-found-error}"></div>
+            <a
+                data-testid="back-to-main-page"
+                href="/return"
+                class="link-secondary">
+                Zurück zur Startseite
+            </a>
+        </section>
+    </body>
 </html>

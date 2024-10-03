@@ -195,23 +195,45 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>net.revelc.code.formatter</groupId>
-				<artifactId>formatter-maven-plugin</artifactId>
-				<version>2.24.1</version>
-				<configuration>
-					<compilerSource>21</compilerSource>
-					<compilerCompliance>21</compilerCompliance>
-					<compilerTargetPlatform>21</compilerTargetPlatform>
-					<lineEnding>LF</lineEnding>
-					<configFile>${project.basedir}/src/main/resources/formatting.xml</configFile>
-				</configuration>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.40.0</version>
 				<executions>
 					<execution>
 						<goals>
-							<goal>format</goal>
+							<goal>apply</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<formats>
+						<format>
+							<includes>
+								<include>src/main/resources/**/*.css</include>
+								<include>src/main/resources/**/*.html</include>
+							</includes>
+							<excludes>
+								<exclude>src/main/resources/static/styles/bootstrap.min.css</exclude>
+							</excludes>
+							<prettier>
+								<prettierVersion>3.3.3</prettierVersion>
+								<configFile>${project.basedir}/.prettierrc</configFile>
+							</prettier>
+						</format>
+					</formats>
+					<java>
+						<eclipse>
+							<version>4.26</version>
+							<file>${project.basedir}/src/main/resources/formatting.xml</file>
+						</eclipse>
+						<removeUnusedImports />
+						<importOrder>
+							<order>java|javax,ch.puzzle,org,com,com.diffplug,,\#com.diffplug,\#</order>
+							<semanticSort>true</semanticSort>
+						</importOrder>
+						<formatAnnotations />
+					</java>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

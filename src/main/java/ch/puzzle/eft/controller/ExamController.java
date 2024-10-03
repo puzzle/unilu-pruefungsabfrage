@@ -1,16 +1,15 @@
 package ch.puzzle.eft.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+
 import ch.puzzle.eft.service.ExamService;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 @RestController
 @RequestMapping("/exams")

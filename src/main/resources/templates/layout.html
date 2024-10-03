@@ -1,29 +1,40 @@
+<!--prettier-ignore-->
 <!DOCTYPE html>
-<html lang="" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <script integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+<html lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <script
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             th:src="@{javascript/bootstrap.bundle.min.js}"></script>
-    <link rel="stylesheet" th:href="@{styles/bootstrap.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{styles/custom_bootstrap.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{styles/footer.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{styles/cookie-consent-popup.css}" type="text/css">
-    <title>Universität Luzern - Prüfungen</title>
-    <link rel="icon" th:href="@{favicon.ico}" type="image/png">
-</head>
-<body>
-<header th:replace="~{fragments/header}"></header>
-<div th:if="${cookiesMissing}">
-    <div  th:replace="~{fragments/cookie-consent-popup}"></div>
-</div>
-<div class="container-fluid">
-    <div class="d-flex justify-content-center">
-        <section layout:fragment="content">
-            <p>Page content goes here</p>
-        </section>
-    </div>
-</div>
-<footer th:replace="~{fragments/footer}"></footer>
-</body>
+        <link
+            rel="stylesheet"
+            th:href="@{styles/bootstrap.min.css}"
+            type="text/css" />
+        <link
+            rel="stylesheet"
+            th:href="@{styles/custom_bootstrap.css}"
+            type="text/css" />
+        <link rel="stylesheet" th:href="@{styles/styles.css}" type="text/css" />
+        <link rel="stylesheet" th:href="@{styles/header.css}" type="text/css" />
+        <link rel="stylesheet" th:href="@{styles/footer.css}" type="text/css" />
+        <link
+            rel="stylesheet"
+            th:href="@{styles/cookie-consent-popup.css}"
+            type="text/css" />
+        <title>Universität Luzern - Prüfungen</title>
+        <link rel="icon" th:href="@{favicon.ico}" type="image/png" />
+    </head>
+    <body>
+        <header th:replace="~{fragments/header}"></header>
+        <div th:if="${cookiesMissing}">
+            <div th:replace="~{fragments/cookie-consent-popup}"></div>
+        </div>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center">
+                <section layout:fragment="content">
+                    <p>Page content goes here</p>
+                </section>
+            </div>
+        </div>
+        <footer th:replace="~{fragments/footer}"></footer>
+    </body>
 </html>

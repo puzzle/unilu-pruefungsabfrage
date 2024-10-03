@@ -1,9 +1,9 @@
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 }
-.modal-header{
+.modal-header {
     border-color: var(--primary-hex);
 }
-.modal-footer{
+.modal-footer {
     border-color: var(--primary-hex);
 }

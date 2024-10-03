@@ -1,6 +1,11 @@
 package ch.puzzle.eft.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.file.Files;
+
 import ch.puzzle.eft.service.ExamService;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,10 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.file.Files;
 
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;

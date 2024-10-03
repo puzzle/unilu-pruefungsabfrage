@@ -1,5 +1,5 @@
 #!/bin/sh
 
 addedFiles=$(git diff --cached --name-only --diff-filter=d)
-mvn formatter:format
+mvn spotless:apply
 git add $addedFiles
