@@ -1,6 +1,7 @@
 .content {
     padding-bottom: 6rem;
 }
+
 .search-input {
     background: #f7f8fa;
     height: 3.5rem;
@@ -12,10 +13,10 @@
     background: none;
 }
 
-.search-button:hover {
+.submit-button:hover {
     background: #e5007d;
 }
 
-.search-button:hover > .search-icon {
+.submit-button:hover > .search-icon {
     filter: brightness(0) invert(1);
 }
