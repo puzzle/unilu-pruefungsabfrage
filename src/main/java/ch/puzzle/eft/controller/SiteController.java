@@ -58,7 +58,7 @@ public class SiteController {
     @PostMapping("/")
     public ResponseEntity<String> acceptCookies(Model model) {
         ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie.from("cookie-consent", "true");
-        cookieBuilder.maxAge(60 * 60 * 24 * 365);
+        cookieBuilder.maxAge((long) 60 * 60 * 24 * 365);
         cookieBuilder.sameSite("Strict");
         cookieBuilder.httpOnly(true);
         //        cookieBuilder.secure(true); TODO: do as soon as login is in main
