@@ -11,3 +11,11 @@
     outline: none;
     background: none;
 }
+
+.search-button:hover {
+    background: #e5007d;
+}
+
+.search-button:hover > .search-icon {
+    filter: brightness(0) invert(1);
+}
