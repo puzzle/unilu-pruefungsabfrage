@@ -86,7 +86,8 @@ describe('Verify download functionality', () => {
     it('should show files in alphabetical order', () => {
         cy.getByTestId("exam-number-input").type('11000');
         cy.getByTestId("submit-button").click();
-        cy.get('.exam-files').then(files => {
+        cy.scrollTo('bottom');
+    cy.get('[data-testid="exam-files"]').then(files => {
             const fileNames = [...files].map(file => file.innerText);
             const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
             expect(fileNames).to.deep.equal(sortedFileNames)
