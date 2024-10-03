@@ -1,5 +1,6 @@
 package ch.puzzle.eft.controller;
 
+import java.time.Duration;
 import java.util.Objects;
 
 import ch.puzzle.eft.model.ExamNumberForm;
@@ -18,9 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
-
-import java.time.Duration;
-import java.util.Objects;
 
 @Controller
 public class SiteController {

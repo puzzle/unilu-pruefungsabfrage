@@ -1,22 +1,29 @@
+<!--prettier-ignore-->
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">
-<head>
-    <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css">
-</head>
-<body>
-<section layout:fragment="content" class="content">
-    <span class="display-4">Suche nach einer Prüfung...</span>
+<html
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}"
+    lang="de">
+    <head>
+        <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css" />
+        <title>Universität Luzern - Prüfungen</title>
+    </head>
+    <body>
+        <section layout:fragment="content" class="content">
+            <span class="display-4">Suche nach einer Prüfung...</span>
 
-    <div th:replace="~{fragments/exam-number-input}"></div>
-    <div class="exam-files" th:each="examFile: ${examFiles}">
-        <div th:replace="~{fragments/exam-file}"></div>
-    </div>
-    <div th:if="${examFiles != null && examFiles.size() >= 2}">
-        <a th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}" class="btn btn-outline-primary" data-testid="zip-download-button">
-            Alle als ZIP herunterladen
-        </a>
-    </div>
-</section>
-</body>
+            <div th:replace="~{fragments/exam-number-input}"></div>
+            <div class="exam-files" th:each="examFile: ${examFiles}">
+                <div th:replace="~{fragments/exam-file}"></div>
+            </div>
+            <div th:if="${examFiles != null && examFiles.size() >= 2}">
+                <a
+                    th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
+                    class="btn btn-outline-primary"
+                    data-testid="zip-download-button">
+                    Alle als ZIP herunterladen
+                </a>
+            </div>
+        </section>
+    </body>
 </html>
