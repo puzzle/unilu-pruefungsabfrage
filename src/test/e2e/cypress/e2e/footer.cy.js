@@ -23,7 +23,7 @@ describe('Verify content of footer', () => {
     });
 
     it('should display version', () => {
-        cy.getByTestId("version-link")
+        cy.getByTestId("version")
             .contains('Version')
     });
 });

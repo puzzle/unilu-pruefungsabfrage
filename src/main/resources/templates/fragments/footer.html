@@ -5,7 +5,7 @@
         </a>
         <div class="d-flex align-items-center gap-4">
             <a class="link-primary" href="https://www.unilu.ch/impressum/" target="_blank" data-testid="impressum-link">Impressum & Datenschutz</a>
-            <p class="m-0" th:text="${'Version ' + @environment.getProperty('spring.application.version')}" data-testid="version-link"></p>
+            <p class="m-0" th:text="${'Version ' + @environment.getProperty('spring.application.version')}" data-testid="version"></p>
         </div>
     </div>
 </footer>
