@@ -12,7 +12,7 @@
 <section layout:fragment="content" class="content">
     <span class="display-4">Suche nach einer Prüfung...</span>
     <div th:replace="~{fragments/exam-number-input}"></div>
-    <h2 th:if="${examFiles != null && examFiles.size() >= 2}" class="text-center pt-2">Resultate</h2>
+    <h2 th:if="${examFiles != null && examFiles.size() >= 2}" data-testid="result-text" class="text-center pt-2">Resultate</h2>
             <div class="d-flex justify-content-center" th:each="examFile: ${examFiles}">
         <div th:replace="~{fragments/exam-file}"></div>
     </div>

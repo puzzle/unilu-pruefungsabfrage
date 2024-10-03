@@ -111,4 +111,16 @@ describe('Verify download functionality', () => {
         cy.getByTestId("zip-download-button").click();
         cy.readFile('cypress/downloads/11000.zip').should('exist');
     })
+
+    it('should display Restultate text when input is valid', () => {
+        cy.getByTestId("exam-number-input").type('11000');
+        cy.getByTestId("submit-button").click();
+        cy.getByTestId("result-text").should('exist');
+    });
+
+    it('should not display Restultate text when exam number is invalid', () => {
+        cy.getByTestId("exam-number-input").type('123');
+        cy.getByTestId("submit-button").click();
+        cy.getByTestId("result-text").should('not.exist');
+    });
 });
