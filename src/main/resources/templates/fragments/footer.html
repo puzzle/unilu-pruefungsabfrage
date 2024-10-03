@@ -3,9 +3,9 @@
         <a data-testid="swissuniversities-link" href="https://www.swissuniversities.ch/" target="_blank">
             <img data-testid="swissuniversities-logo" alt="Swissuniversities logo" height="22px" th:src="@{images/swissuniversities.png}">
         </a>
-        <div class="d-flex justify-content-end gap-4">
+        <div class="d-flex align-items-center gap-4">
             <a class="link-primary" href="https://www.unilu.ch/impressum/" target="_blank" data-testid="impressum-link">Impressum & Datenschutz</a>
-            <a class="link-primary" th:href="@{https://github.com/puzzle/unilu-pruefungsabfrage}" th:text="${'Version ' + @environment.getProperty('spring.application.version')}" target="_blank" data-testid="version-link"></a>
+            <p class="m-0" th:text="${'Version ' + @environment.getProperty('spring.application.version')}" data-testid="version-link"></p>
         </div>
     </div>
 </footer>

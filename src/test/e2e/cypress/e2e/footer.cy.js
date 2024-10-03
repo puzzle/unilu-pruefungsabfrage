@@ -1,5 +1,6 @@
 beforeEach(() => {
     cy.visit("/");
+    cy.getByTestId("cookie-consent-button").click();
 })
 
 describe('Verify content of footer', () => {
@@ -21,9 +22,8 @@ describe('Verify content of footer', () => {
             .and('include', 'https://www.unilu.ch/impressum/');
     });
 
-    it('should have link to github-page', () => {
+    it('should display version', () => {
         cy.getByTestId("version-link")
-            .should('have.attr', 'href')
-            .and('include', 'https://github.com/puzzle/unilu-pruefungsabfrage');
+            .contains('Version')
     });
 });
