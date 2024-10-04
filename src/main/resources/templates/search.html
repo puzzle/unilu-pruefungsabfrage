@@ -7,17 +7,26 @@
     <head>
         <link rel="stylesheet" th:href="@{styles/search.css}" type="text/css" />
         <title>Universität Luzern - Prüfungen</title>
-</head>
-<body>
-<section layout:fragment="content" class="content">
-    <span class="display-4">Suche nach einer Prüfung...</span>
-    <div th:replace="~{fragments/exam-number-input}"></div>
-    <h2 th:if="${examFiles != null && examFiles.size() >= 2}" data-testid="result-text" class="text-center pt-2">Resultate</h2>
-            <div class="d-flex justify-content-center" th:each="examFile: ${examFiles}">
-        <div th:replace="~{fragments/exam-file}"></div>
-    </div>
-    <div th:if="${examFiles != null && examFiles.size() >= 2}">
-        <a th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}" class="btn btn-outline-primary d-block mx-auto w-75 m-3 py-3"
+    </head>
+    <body>
+        <section layout:fragment="content" class="content">
+            <span class="display-4">Suche nach einer Prüfung...</span>
+            <div th:replace="~{fragments/exam-number-input}"></div>
+            <h2
+                th:if="${examFiles != null && examFiles.size() >= 2}"
+                data-testid="result-text"
+                class="text-center pt-2">
+                Resultate
+            </h2>
+            <div
+                class="d-flex justify-content-center"
+                th:each="examFile: ${examFiles}">
+                <div th:replace="~{fragments/exam-file}"></div>
+            </div>
+            <div th:if="${examFiles != null && examFiles.size() >= 2}">
+                <a
+                    th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
+                    class="btn btn-outline-primary d-block mx-auto w-75 m-3 py-3"
                     data-testid="zip-download-button">
                     Alle als ZIP herunterladen
                 </a>

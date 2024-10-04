@@ -1,4 +1,11 @@
-<a th:href="@{|/exams/download/${examFile.getSubjectName}/${examNumberForm.getExamNumber()}|}" data-testid="exam-files" class="btn btn-single-download w-100 p-3 mx-5 my-2 d-flex justify-content-center align-items-center position-relative">
-<img th:src="@{/icons/filetype-pdf.svg}" class="position-absolute start-0 p-3"/>
-<span th:text="${examFile.getSubjectName()}" class=" d-flex align-items-center fs-4"></span>
+<a
+    th:href="@{|/exams/download/${examFile.getSubjectName}/${examNumberForm.getExamNumber()}|}"
+    data-testid="exam-files"
+    class="btn btn-single-download w-100 p-3 mx-5 my-2 d-flex justify-content-center align-items-center position-relative">
+    <img
+        th:src="@{/icons/filetype-pdf.svg}"
+        class="position-absolute start-0 p-3" />
+    <span
+        th:text="${examFile.getSubjectName()}"
+        class="d-flex align-items-center fs-4"></span>
 </a>

@@ -92,7 +92,7 @@
     ) !important;
 }
 
-.btn-single-download{
+.btn-single-download {
     --bs-btn-color: black;
     --bs-btn-border-color: black;
     --bs-btn-hover-color: var(--button-primary-color);
