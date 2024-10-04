@@ -14,7 +14,7 @@
 }
 
 .submit-button:hover {
-    background: #e5007d;
+    background: var(--primary-hex);
 }
 
 .submit-button:hover > .search-icon {
