@@ -37,6 +37,11 @@ public class SiteController {
         return SEARCH_TEMPLATE;
     }
 
+    @GetMapping("/contact")
+    public String viewContactPage(Model model) {
+        return "contact";
+    }
+
     @PostMapping("/")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
