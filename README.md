@@ -45,7 +45,13 @@ mvn clean verify sonar:sonar -Dsonar.login=<your-sonar-qube-token>
 
 ### The release workflow
 To release a new version of the tool we have a release pipeline. This pipeline is triggered when a tag with the format <br>
-`<semver-version>.<short-commit-hash>` is pushed. The pipeline executes the following steps:
+`<semver-version>.<short-commit-hash>` is pushed. The short commit hash must have seven characters for the pipeline to start.
+
+> **Attention:** The project version on Dependency Track is set as `<major-version>.<minor-version>.x`, so the first two numbers of
+the semver version. Since Dependency Track tracks every version of a project independently we should only increase the major or minor versions
+for code states want to track independently.
+
+The pipeline executes the following steps:
 
 1. Check out the tagged commit
 2. Assert that the semver version in the tag matches the semver version in the pom.xml.
