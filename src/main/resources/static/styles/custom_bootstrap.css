@@ -104,4 +104,5 @@
     --bs-btn-active-border-color: var(--button-primary-color);
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-gradient: none;
+    width: 536px;
 }
