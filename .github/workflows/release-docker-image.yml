@@ -88,6 +88,9 @@ jobs:
         with:
           ref: ${{ github.sha }}
 
+      - name: Get semver version from pom and store major and minor version as deptrack version
+        run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
+
       - name: Generate SBOM for maven dependencies
         run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
 
@@ -100,5 +103,5 @@ jobs:
           --header "Content-Type: multipart/form-data" \
           --form "autoCreate=true" \
           --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}" \
-          --form "projectVersion=latest" \
+          --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
           --form "bom=@target/bom.xml"
