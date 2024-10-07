@@ -1,9 +1,10 @@
 # Uni Luzern Prüfungsabfrage / Exam Feedback Tool (EFT)
 ## Docker
 ### Build Image
-`docker build . -t uni-luzern`
+`docker build . -t unilu-pruefungsabfrage`
+
 ### Run Image
-`docker run --rm  -v ./static:/resources -p 8080:8080 uni-luzern:latest`
+`docker run --rm  -v ./static:/resources -p 8080:8080 unilu-pruefungsabfrage:latest`
 
 ## Development
 ### Hot reload
@@ -41,6 +42,33 @@ For local execution you can use the following command:
 ```
 mvn clean verify sonar:sonar -Dsonar.login=<your-sonar-qube-token>
 ```
+
+### The release workflow
+To release a new version of the tool we have a release pipeline. This pipeline is triggered when a tag with the format <br>
+`<semver-version>.<short-commit-hash>` is pushed. The short commit hash must have seven characters for the pipeline to start.
+
+> **Attention:** The project version on Dependency Track is set as `<major-version>.<minor-version>.x`, so the first two numbers of
+the semver version. Since Dependency Track tracks every version of a project independently we should only increase the major or minor versions
+for code states we want to track independently.
+
+The pipeline executes the following steps:
+
+1. Check out the tagged commit
+2. Assert that the semver version in the tag matches the semver version in the pom.xml.
+3. Assert that the short commit hash in the tag matches the one from the checked out commit.
+4. Build and test the jar file
+5. If the tests succeed, a release on Github is created
+6. The docker image is built and pushed to the Github Container Registry (GHCR).
+7. If this all succeeds a new job creates the sbom and pushes it to Dependency Track.
+
+To create a clean release you should follow the following steps:
+1. Create a new branch on which you update the semver version in the pom.xml.
+2. Create a pull request with the new version and merge if ready.
+3. Check out the main branch and pull the latest changes.
+4. When you are ready to release execute the `create-release.sh` script in the root directory of the project.
+This will create the correct release tag to create a release from your locally checked out commit. After confirming the
+creation of the tag it will be pushed to Github and the release-workflow starts.
+
 
 ### Development with rootless docker setup
 > Attention: The steps below are for Ubuntu or an Ubuntu based distribution like Pop!_OS. For more
