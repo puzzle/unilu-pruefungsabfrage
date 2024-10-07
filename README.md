@@ -49,7 +49,7 @@ To release a new version of the tool we have a release pipeline. This pipeline i
 
 > **Attention:** The project version on Dependency Track is set as `<major-version>.<minor-version>.x`, so the first two numbers of
 the semver version. Since Dependency Track tracks every version of a project independently we should only increase the major or minor versions
-for code states want to track independently.
+for code states we want to track independently.
 
 The pipeline executes the following steps:
 
