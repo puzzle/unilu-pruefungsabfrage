@@ -13,7 +13,7 @@
             <span class="display-4">Suche nach einer Prüfung...</span>
             <div th:replace="~{fragments/exam-number-input}"></div>
             <h3
-                th:if="${examFiles != null && examFiles.size() >= 2}"
+                th:if="${examFiles != null && examFiles.size() > 0}"
                 data-testid="result-text"
                 class="text-center pt-2">
                 Resultate
