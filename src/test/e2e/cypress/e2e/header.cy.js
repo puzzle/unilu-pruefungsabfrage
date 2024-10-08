@@ -23,7 +23,7 @@ describe('Verify content of header', () => {
 })
 
 describe('Verify functionality of header', () => {
-    it('should navigate to / when link to the Search Page is clicked', () => {
+    it('should navigate to /search when link to the search page is clicked', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');
         item.click();
@@ -33,7 +33,14 @@ describe('Verify functionality of header', () => {
         })
     });
 
-    // ToDo: Write tests for 'Kontakt' and 'Logout' once the functionality is implemented
+    it('should navigate so /contact when link to the contact page is clicked', () => {
+        const item = cy.get('header').contains('Kontakt')
+        item.should('exist');
+        item.click();
+        cy.url().should('eq', Cypress.config().baseUrl + '/contact');
+    });
+
+    // TODO: Write tests for 'Logout' once the functionality is implemented
 })
 
 
