@@ -15,8 +15,8 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     private static final String ATTRIBUTE_MATRICULATION_NUMBER = "matriculationNumber";
     private static final String ATTRIBUTE_SURNAME = "surname";
     private static final String ATTRIBUTE_GIVEN_NAME = "givenName";
-    @Value("${server.home.url:/home}")
-    private String homeUrl;
+    @Value("${server.unauthorized.urls:/home}")
+    private String unauthorizedUrls;
     @Value("${test.mock.principal:false}")
     private boolean mockPrincipal;
 
@@ -38,7 +38,10 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
         Principal principal = request.getUserPrincipal();
         if (principal == null || principal.getName() == null) {
             if (checkPrincipal(request)) {
-                logger.debug("no principal for home page required, returning anonymous principal");
+                logger.debug("no principal for unauthorized page required, returning anonymous principal");
+                if (mockPrincipal) {
+                    return new AuthenticationUser("11112222", "mock");
+                }
                 return new AuthenticationUser("anonymous");
             }
             return null;
@@ -61,7 +64,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     }
 
     private boolean checkPrincipal(HttpServletRequest request) {
-        return homeUrl.equals(request.getRequestURI()) || mockPrincipal;
+        return unauthorizedUrls.contains(request.getRequestURI()) || mockPrincipal;
     }
 
     /**

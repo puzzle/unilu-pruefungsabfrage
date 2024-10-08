@@ -2,6 +2,7 @@ package ch.puzzle.eft;
 
 import ch.puzzle.eft.controller.ExamController;
 import ch.puzzle.eft.controller.SiteController;
+import ch.puzzle.eft.service.AuthenticationService;
 import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.service.ValidationService;
 
@@ -32,5 +33,6 @@ class ExamFeedbackToolApplicationTests {
     void checkServices(ApplicationContext context) {
         assertThat(context.getBean(ValidationService.class)).isNotNull();
         assertThat(context.getBean(ExamService.class)).isNotNull();
+        assertThat(context.getBean(AuthenticationService.class)).isNotNull();
     }
 }

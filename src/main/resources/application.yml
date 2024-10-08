@@ -1,7 +1,6 @@
 server:
   forward-headers-strategy: framework
-  home.url: /home
-  error.url: /error
+  unauthorized.urls: "/home /error /return"
   error.path: redirect:/error
   servlet:
     session:

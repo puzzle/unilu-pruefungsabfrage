@@ -28,6 +28,10 @@ public class AuthenticationUser implements Authentication {
         this(null, null, name, name);
     }
 
+    public AuthenticationUser(String matriculationNumber, String name) {
+        this(null, matriculationNumber, name, name);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

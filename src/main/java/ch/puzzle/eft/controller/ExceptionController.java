@@ -46,6 +46,6 @@ public class ExceptionController implements ErrorController {
     @GetMapping("/return")
     public String viewCompleteErrorPage(Model model, HttpSession session) {
         session.removeAttribute(ERROR_MODEL);
-        return "redirect:/";
+        return "redirect:/home";
     }
 }
