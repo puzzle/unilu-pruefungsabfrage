@@ -29,3 +29,11 @@ describe('Verify content of contact page', () => {
         })
     });
 });
+
+describe('Verify functionality of contact page', () => {
+    it('should have mailto to pruefungen-rf@unilu.ch', () => {
+        cy.getByTestId("mail-contact-link")
+            .should('have.attr', 'href')
+            .and('include', 'mailto:pruefungen-rf@unilu.ch');
+    });
+});

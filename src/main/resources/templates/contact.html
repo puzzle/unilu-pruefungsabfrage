@@ -12,8 +12,8 @@
         <title>Universität Luzern - Prüfungen</title>
     </head>
     <body>
-        <section layout:fragment="content" class="dudu">
-            <span class="display-4 d-flex flex-column align-items-center">
+        <section layout:fragment="content" class="w-25 dudu">
+            <span class="display-4 d-flex flex-column align-items-center mb-3">
                 Kontakt
             </span>
             <p class="fs-3" data-testid="exam-download-question-text">
@@ -21,7 +21,8 @@
                 bitte bei der Prüfungsadministration der
                 Rechtswissenschaftlichen Fakultät.
             </p>
-            <div>
+            <hr />
+            <div class="fs-5">
                 <p>Universität Luzern</p>
                 <p>Rechtwissenschaftliche Fakultät</p>
                 <p>Prüfungsadministration</p>
@@ -30,7 +31,10 @@
                 <p>6002 Luzern</p>
                 <br />
                 <p>T +41 41 229 53 14 / 15</p>
-                <a class="link-primary" href="mailto:pruefungen-rf@unilu.ch">
+                <a
+                    class="link-primary"
+                    href="mailto:pruefungen-rf@unilu.ch"
+                    data-testid="mail-contact-link">
                     pruefungen-rf@unilu.ch
                 </a>
             </div>
