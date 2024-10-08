@@ -33,16 +33,16 @@ public class SiteController {
     @GetMapping("/")
     public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookiesAccepted, Model model) {
         model.addAttribute("cookiesMissing", !(Boolean.parseBoolean(cookiesAccepted)));
-        return "index";
+        return "home";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/eft/search")
     public String viewSearchPage(Model model) {
         model.addAttribute("examNumberForm", new ExamNumberForm(null));
         return SEARCH_TEMPLATE;
     }
 
-    @PostMapping("/search")
+    @PostMapping("/eft/search")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
         if (!bindingResult.hasErrors()) {

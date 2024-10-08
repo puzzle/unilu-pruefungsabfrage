@@ -27,6 +27,7 @@ target/
 *.iws
 *.iml
 *.ipr
+*.bkp
 src/test/e2e/cypress/downloads
 
 ### VS Code ###
@@ -36,5 +37,10 @@ src/test/e2e/cypress/downloads
 .DS_Store
 Thumbs.db
 
+### ZAP ###
 zap/zap.yaml
 zap/zap-report.html
+
+### Security ###
+*.p12
+*.pem

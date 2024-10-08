@@ -37,7 +37,7 @@ class ExamControllerTest {
         String examNumber = "11000";
         when(examFileService.convertSelectedFilesToZip(examNumber)).thenReturn(new ByteArrayOutputStream());
 
-        mockMvc.perform(get("/exams/download-zip/{examNumber}", examNumber))
+        mockMvc.perform(get("/eft/exams/download-zip/{examNumber}", examNumber))
                .andExpect(status().isOk())
                .andExpect(header().string("Content-Disposition", "attachment; filename=11000.zip"));
 
@@ -48,14 +48,14 @@ class ExamControllerTest {
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
         File file = new File("static/Privatrecht/11000_11112222.pdf");
         when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenReturn(file);
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
+        this.mockMvc.perform(get("/eft/exams/download/Privatrecht/11000"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
     }
 
     @Test
     void shouldRedirectToErrorPageIfNotYourExam() throws Exception {
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11000_11112222.pdf"))
+        this.mockMvc.perform(get("/eft/exams/download/Privatrecht/11000_11112222.pdf"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"));
     }
@@ -66,7 +66,7 @@ class ExamControllerTest {
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));
-        this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
+        this.mockMvc.perform(get("/eft/exams/download/Privatrecht/11000"))
                     .andExpect(status().is3xxRedirection())
                     .andExpect(view().name("redirect:/error"))
                     .andExpect(request().sessionAttribute("errorModel", hasProperty("error", is("500"))))

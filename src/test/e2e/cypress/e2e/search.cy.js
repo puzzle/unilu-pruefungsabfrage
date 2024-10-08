@@ -1,5 +1,5 @@
 beforeEach(() => {
-    cy.visit("/search");
+    cy.visit("/eft/search");
 })
 
 describe('Verify content of search page', () => {

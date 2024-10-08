@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/exams")
+@RequestMapping("/eft/exams")
 public class ExamController {
 
     //Todo mit richtiger Matrikelnummer ersetzen

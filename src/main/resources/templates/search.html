@@ -18,7 +18,7 @@
             </div>
             <div th:if="${examFiles != null && examFiles.size() >= 2}">
                 <a
-                    th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
+                    th:href="@{'/eft/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
                     class="btn btn-outline-primary"
                     data-testid="zip-download-button">
                     Alle als ZIP herunterladen

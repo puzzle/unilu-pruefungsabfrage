@@ -27,7 +27,7 @@ describe('Verify functionality of header', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');
         item.click();
-        cy.url().should('eq', Cypress.config().baseUrl + '/search');
+        cy.url().should('eq', Cypress.config().baseUrl + '/eft/search');
         cy.get('body').then((body) => {
             expect(body).to.contain("Suche nach einer Prüfung...")
         })

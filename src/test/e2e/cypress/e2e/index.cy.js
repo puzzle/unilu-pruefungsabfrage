@@ -4,7 +4,7 @@ beforeEach(() => {
 })
 
 describe('Verify content of index', () => {
-    it('should show greeting message on index page', () => {
+    it('should show greeting message on home page', () => {
         cy.get('body').then((body) => {
             expect(body).to.contain("Willkommen bei der Prüfungsabfrage der Uni Luzern")
         })
