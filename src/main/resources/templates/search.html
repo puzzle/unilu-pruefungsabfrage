@@ -23,7 +23,7 @@
                 th:each="examFile: ${examFiles}">
                 <div th:replace="~{fragments/exam-file}"></div>
             </div>
-            <div th:if="${examFiles != null && examFiles.size() >= 2}">
+            <div th:if="${examFiles != null && examFiles.size() > 1}">
                 <a
                     th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
                     class="btn btn-outline-primary d-block mx-auto w-75 m-2 py-3"
