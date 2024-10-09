@@ -22,8 +22,6 @@ import jakarta.validation.Valid;
 
 @Controller
 public class SiteController {
-
-    private static final String SEARCH_TEMPLATE = "search";
     private final ExamService examFileService;
 
     public SiteController(ExamService examFileService) {
@@ -33,13 +31,8 @@ public class SiteController {
     @GetMapping("/")
     public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookiesAccepted, Model model) {
         model.addAttribute("cookiesMissing", !(Boolean.parseBoolean(cookiesAccepted)));
-        return "index";
-    }
-
-    @GetMapping("/search")
-    public String viewSearchPage(Model model) {
         model.addAttribute("examNumberForm", new ExamNumberForm(null));
-        return SEARCH_TEMPLATE;
+        return "index";
     }
 
     @PostMapping("/search")
@@ -54,7 +47,7 @@ public class SiteController {
                 bindingResult.rejectValue("examNumber", "error.examNumberForm", Objects.requireNonNull(e.getReason()));
             }
         }
-        return SEARCH_TEMPLATE;
+        return "index";
     }
 
 
