@@ -12,31 +12,36 @@
         <title>Universität Luzern - Prüfungen</title>
     </head>
     <body>
-        <section layout:fragment="content" class="w-25 dudu">
-            <span class="display-4 d-flex flex-column align-items-center mb-3">
+        <section layout:fragment="content" class="d-flex flex-column">
+            <span class="display-4 mb-4 d-flex justify-content-center">
                 Kontakt
             </span>
-            <p class="fs-3" data-testid="exam-download-question-text">
-                Falls Sie Fragen zum Prüfungsdownload haben, melden Sie sich
-                bitte bei der Prüfungsadministration der
-                Rechtswissenschaftlichen Fakultät.
-            </p>
-            <hr />
-            <div class="fs-5">
-                <p>Universität Luzern</p>
-                <p>Rechtwissenschaftliche Fakultät</p>
-                <p>Prüfungsadministration</p>
-                <p>Frohburgstrasse 3, Raum 4.A06</p>
-                <p>Postfach</p>
-                <p>6002 Luzern</p>
-                <br />
-                <p>T +41 41 229 53 14 / 15</p>
-                <a
-                    class="link-primary"
-                    href="mailto:pruefungen-rf@unilu.ch"
-                    data-testid="mail-contact-link">
-                    pruefungen-rf@unilu.ch
-                </a>
+            <div class="d-flex">
+                <div class="fs-3 w-50">
+                    <p
+                        class="info-text"
+                        data-testid="exam-download-question-text">
+                        Falls Sie Fragen zum Prüfungsdownload haben, melden Sie
+                        sich bitte bei der Prüfungsadministration der
+                        Rechtswissenschaftlichen Fakultät.
+                    </p>
+                </div>
+                <div class="fs-5 seperation-border">
+                    <p>Universität Luzern</p>
+                    <p>Rechtwissenschaftliche Fakultät</p>
+                    <p>Prüfungsadministration</p>
+                    <p>Frohburgstrasse 3, Raum 4.A06</p>
+                    <p>Postfach</p>
+                    <p>6002 Luzern</p>
+                    <br />
+                    <p>T +41 41 229 53 14 / 15</p>
+                    <a
+                        class="link-primary"
+                        href="mailto:pruefungen-rf@unilu.ch"
+                        data-testid="mail-contact-link">
+                        pruefungen-rf@unilu.ch
+                    </a>
+                </div>
             </div>
         </section>
     </body>

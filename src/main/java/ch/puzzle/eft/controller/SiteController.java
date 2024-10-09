@@ -43,7 +43,7 @@ public class SiteController {
     }
 
     @GetMapping("/contact")
-    public String viewContactPage(Model model) {
+    public String viewContactPage() {
         return "contact";
     }
 
