@@ -38,24 +38,17 @@ class SiteControllerTest {
     private ExamService examFileService;
 
     @Test
-    void shouldReturnIndexPageWhenAccessingDefaultRoute() throws Exception {
+    void shouldReturnSearchPageWhenAccessingDefaultRoute() throws Exception {
         this.mockMvc.perform(get("/"))
-                    .andExpect(status().isOk())
-                    .andExpect(view().name("index"));
-    }
-
-    @Test
-    void shouldReturnSearchPageWhenAccessingSearchRoute() throws Exception {
-        this.mockMvc.perform(get("/search"))
                     .andExpect(status().isOk())
                     .andExpect(view().name("search"));
     }
 
     @Test
     void shouldNotAcceptEmptyBody() throws Exception {
-        this.mockMvc.perform(post("/search").with(csrf())
-                                            .contentType(MediaType.APPLICATION_JSON)
-                                            .param("examNumber", ""))
+        this.mockMvc.perform(post("/").with(csrf())
+                                      .contentType(MediaType.APPLICATION_JSON)
+                                      .param("examNumber", ""))
                     .andExpect(status().isOk())
                     .andExpect(model().hasErrors())
                     .andExpect(model().attributeDoesNotExist("examFiles"));
@@ -64,9 +57,9 @@ class SiteControllerTest {
 
     @Test
     void shouldNotAcceptMoreThan5Digits() throws Exception {
-        this.mockMvc.perform(post("/search").with(csrf())
-                                            .contentType(MediaType.APPLICATION_JSON)
-                                            .param("examNumber", "1231313"))
+        this.mockMvc.perform(post("/").with(csrf())
+                                      .contentType(MediaType.APPLICATION_JSON)
+                                      .param("examNumber", "1231313"))
                     .andExpect(status().isOk())
                     .andExpect(model().hasErrors())
                     .andExpect(model().attributeDoesNotExist("examFiles"));
@@ -77,7 +70,7 @@ class SiteControllerTest {
     void shouldAcceptValidString() throws Exception {
         when(examFileService.getMatchingExams("11000", "11112222")).thenReturn(List.of(new ExamModel(new File(
                                                                                                               "./Privatrecht/11000_11112222.pdf"))));
-        this.mockMvc.perform(post("/search").with(csrf())
+        this.mockMvc.perform(post("/").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .param("examNumber", "11000"))
                     .andExpect(status().isOk())
@@ -92,7 +85,7 @@ class SiteControllerTest {
                                                                                                           String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
                                                                                                                         "11000")));
 
-        this.mockMvc.perform(post("/search").with(csrf())
+        this.mockMvc.perform(post("/").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .param("examNumber", "11000"))
                     .andExpect(status().isOk())
@@ -102,7 +95,7 @@ class SiteControllerTest {
 
     @Test
     void shouldCreateCookie() throws Exception {
-        MvcResult mvcResult = this.mockMvc.perform(post("/").with(csrf()))
+        MvcResult mvcResult = this.mockMvc.perform(post("/cookies").with(csrf()))
                                           .andExpect(status().isFound())
                                           .andExpect(header().string(HttpHeaders.LOCATION, "/"))
                                           .andReturn();
@@ -120,7 +113,7 @@ class SiteControllerTest {
     void shouldRespondWithCookiesMissingFalseWhenCookieConsentGiven() throws Exception {
         mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "true")))
                .andExpect(status().isOk())
-               .andExpect(view().name("index"))
+               .andExpect(view().name("search"))
                .andExpect(model().attribute("cookiesMissing", false));
     }
 
@@ -128,7 +121,7 @@ class SiteControllerTest {
     void shouldRespondWithCookiesMissingTrueWhenCookieConsentNotGiven() throws Exception {
         mockMvc.perform(get("/").cookie(new Cookie("cookie-consent", "false")))
                .andExpect(status().isOk())
-               .andExpect(view().name("index"))
+               .andExpect(view().name("search"))
                .andExpect(model().attribute("cookiesMissing", true));
     }
 }
