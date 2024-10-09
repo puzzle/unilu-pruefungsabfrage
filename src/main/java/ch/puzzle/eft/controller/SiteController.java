@@ -35,7 +35,7 @@ public class SiteController {
         return "index";
     }
 
-    @PostMapping("/search")
+    @PostMapping("/")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
         if (!bindingResult.hasErrors()) {
@@ -51,7 +51,7 @@ public class SiteController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/cookies")
     public ResponseEntity<String> acceptCookies(Model model) {
         ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie.from("cookie-consent", "true");
         cookieBuilder.maxAge(Duration.ofDays(365)
