@@ -11,15 +11,22 @@
     <body>
         <section layout:fragment="content" class="content">
             <span class="display-4">Suche nach einer Prüfung...</span>
-
             <div th:replace="~{fragments/exam-number-input}"></div>
-            <div class="exam-files" th:each="examFile: ${examFiles}">
+            <h3
+                th:if="${examFiles != null && examFiles.size() > 0}"
+                data-testid="result-text"
+                class="text-center pt-2">
+                Resultate
+            </h3>
+            <div
+                class="d-flex justify-content-center"
+                th:each="examFile: ${examFiles}">
                 <div th:replace="~{fragments/exam-file}"></div>
             </div>
-            <div th:if="${examFiles != null && examFiles.size() >= 2}">
+            <div th:if="${examFiles != null && examFiles.size() > 1}">
                 <a
                     th:href="@{'/exams/download-zip/' + ${examNumberForm.getExamNumber()}}"
-                    class="btn btn-outline-primary"
+                    class="btn btn-outline-primary d-block mx-auto w-75 m-2 py-3"
                     data-testid="zip-download-button">
                     Alle als ZIP herunterladen
                 </a>
