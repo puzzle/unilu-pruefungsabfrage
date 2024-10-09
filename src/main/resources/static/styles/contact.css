@@ -1,4 +1,8 @@
-.dudu {
-    overflow-wrap: break-word;
+.seperation-border {
+    border-left: 2px solid var(--primary-hex);
+    padding-left: 5rem;
+}
+
+.info-text {
     hyphens: auto;
 }

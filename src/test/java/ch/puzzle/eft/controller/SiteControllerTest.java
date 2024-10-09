@@ -45,6 +45,13 @@ class SiteControllerTest {
     }
 
     @Test
+    void shouldReturnContactPageWhenAccessingContactRoute() throws Exception {
+        this.mockMvc.perform(get("/contact"))
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("contact"));
+    }
+
+    @Test
     void shouldNotAcceptEmptyBody() throws Exception {
         this.mockMvc.perform(post("/").with(csrf())
                                       .contentType(MediaType.APPLICATION_JSON)
