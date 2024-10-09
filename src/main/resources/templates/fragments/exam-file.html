@@ -1,7 +1,8 @@
 <a
     th:href="@{|/exams/download/${examFile.getSubjectName}/${examNumberForm.getExamNumber()}|}"
     data-testid="exam-files"
-    class="btn btn-single-download p-3 mx-5 my-2 d-flex justify-content-start align-items-center">
+    class="btn btn-single-download p-3 mx-5 my-2 d-flex justify-content-start align-items-center"
+    data-bs-toggle="tooltip" th:title="${examFile.getSubjectName()}">
     <img th:src="@{/icons/filetype-pdf.svg}" class="start-0 me-3" />
     <span
         th:text="${examFile.getSubjectName()}"
