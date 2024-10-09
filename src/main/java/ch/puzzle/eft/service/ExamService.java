@@ -89,7 +89,7 @@ public class ExamService {
     }
 
     public File getFileToDownload(String subjectName, String examNumber) {
-        return getFileToDownload(subjectName, authenticationService.getMatriculationNumber(), examNumber + ".pdf");
+        return getFileToDownload(subjectName, authenticationService.getMatriculationNumber(), examNumber);
     }
 
     public File getFileToDownload(String subjectName, String matriculationNumber, String examNumber) {
@@ -133,8 +133,7 @@ public class ExamService {
     }
 
     public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber) {
-        List<ExamModel> matchingExams = getMatchingExams(examNumber, authenticationService.getMatriculationNumber());
-        return convertFilesToZip(matchingExams);
+        return convertSelectedFilesToZip(examNumber, authenticationService.getMatriculationNumber());
     }
 
     public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber, String matriculationNumber) {
