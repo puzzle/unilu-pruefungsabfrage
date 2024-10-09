@@ -32,7 +32,7 @@ public class SiteController {
     public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookiesAccepted, Model model) {
         model.addAttribute("cookiesMissing", !(Boolean.parseBoolean(cookiesAccepted)));
         model.addAttribute("examNumberForm", new ExamNumberForm(null));
-        return "index";
+        return "search";
     }
 
     @PostMapping("/")
@@ -47,7 +47,7 @@ public class SiteController {
                 bindingResult.rejectValue("examNumber", "error.examNumberForm", Objects.requireNonNull(e.getReason()));
             }
         }
-        return "index";
+        return "search";
     }
 
 
