@@ -91,3 +91,18 @@
         var(--bs-link-underline-opacity, 1)
     ) !important;
 }
+
+.btn-single-download {
+    --bs-btn-color: black;
+    --bs-btn-border-color: black;
+    --bs-btn-hover-color: var(--button-primary-color);
+    --bs-btn-hover-bg: white;
+    --bs-btn-hover-border-color: var(--button-primary-color);
+    --bs-btn-focus-shadow-rgb: var(--button-primary-color);
+    --bs-btn-active-color: black;
+    --bs-btn-active-bg: white;
+    --bs-btn-active-border-color: var(--button-primary-color);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-gradient: none;
+    width: 536px;
+}

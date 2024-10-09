@@ -86,7 +86,7 @@ describe('Verify download functionality', () => {
     it('should show files in alphabetical order', () => {
         cy.getByTestId("exam-number-input").type('11000');
         cy.getByTestId("submit-button").click();
-        cy.get('.exam-files').then(files => {
+    cy.get('[data-testid="exam-files"]').then(files => {
             const fileNames = [...files].map(file => file.innerText);
             const sortedFileNames = ["Handels und Gesellschaftsrecht", "Öffentliches Recht", "Privatrecht", "Strafrecht"];
             expect(fileNames).to.deep.equal(sortedFileNames)
@@ -110,4 +110,16 @@ describe('Verify download functionality', () => {
         cy.getByTestId("zip-download-button").click();
         cy.readFile('cypress/downloads/11000.zip').should('exist');
     })
+
+    it('should display "Resultate" text when input is valid', () => {
+        cy.getByTestId("exam-number-input").type('11000');
+        cy.getByTestId("submit-button").click();
+        cy.getByTestId("result-text").should('exist');
+    });
+
+    it('should not display "Resultate" text when exam number is invalid', () => {
+        cy.getByTestId("exam-number-input").type('123');
+        cy.getByTestId("submit-button").click();
+        cy.getByTestId("result-text").should('not.exist');
+    });
 });

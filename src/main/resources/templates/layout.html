@@ -23,7 +23,7 @@
         <title>Universität Luzern - Prüfungen</title>
         <link rel="icon" th:href="@{favicon.ico}" type="image/png" />
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <header th:replace="~{fragments/header}"></header>
         <div th:if="${cookiesMissing}">
             <div th:replace="~{fragments/cookie-consent-popup}"></div>
