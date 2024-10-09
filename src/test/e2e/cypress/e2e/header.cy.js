@@ -40,7 +40,7 @@ describe('Verify functionality of header', () => {
         cy.url().should('eq', Cypress.config().baseUrl + '/contact');
     });
 
-    // TODO: Write tests for 'Logout' once the functionality is implemented
+    // TODO: Write test for 'Logout' once the functionality is implemented
 })
 
 
