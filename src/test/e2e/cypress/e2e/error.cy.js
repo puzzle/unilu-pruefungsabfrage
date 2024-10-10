@@ -6,7 +6,7 @@ describe('Verify functionality of error page', () => {
     it('should show not found page when 404 occurs ', () => {
         cy.get('body').then((body) => {
             expect(body).to.contain("Die gesuchte Seite wurde nicht gefunden");
-            expect(body).to.contain("Zurück zur Startseite");
+            expect(body).to.contain("Zurück zur Prüfungsabfrage");
         });
     });
 

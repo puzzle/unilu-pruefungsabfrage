@@ -1,5 +1,6 @@
 beforeEach(() => {
-    cy.visit("/search");
+    cy.visit("/");
+    cy.getByTestId("cookie-consent-button").click();
 })
 
 describe('Verify content of search page', () => {

@@ -22,9 +22,9 @@ import jakarta.validation.Valid;
 
 @Controller
 public class SiteController {
+    private final ExamService examFileService;
 
     private static final String SEARCH_TEMPLATE = "search";
-    private final ExamService examFileService;
 
     public SiteController(ExamService examFileService) {
         this.examFileService = examFileService;
@@ -33,16 +33,11 @@ public class SiteController {
     @GetMapping("/")
     public String viewIndexPage(@CookieValue(value = "cookie-consent", defaultValue = "not-set") String cookiesAccepted, Model model) {
         model.addAttribute("cookiesMissing", !(Boolean.parseBoolean(cookiesAccepted)));
-        return "index";
-    }
-
-    @GetMapping("/search")
-    public String viewSearchPage(Model model) {
         model.addAttribute("examNumberForm", new ExamNumberForm(null));
         return SEARCH_TEMPLATE;
     }
 
-    @PostMapping("/search")
+    @PostMapping("/")
     public String viewValidatePage(@Valid ExamNumberForm examNumberForm, BindingResult bindingResult, Model model) {
         model.addAttribute("examNumberForm", examNumberForm);
         if (!bindingResult.hasErrors()) {
@@ -58,7 +53,7 @@ public class SiteController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/cookies")
     public ResponseEntity<String> acceptCookies(Model model) {
         ResponseCookie.ResponseCookieBuilder cookieBuilder = ResponseCookie.from("cookie-consent", "true");
         cookieBuilder.maxAge(Duration.ofDays(365)

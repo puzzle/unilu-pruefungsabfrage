@@ -23,11 +23,11 @@ describe('Verify content of header', () => {
 })
 
 describe('Verify functionality of header', () => {
-    it('should navigate to /search when link to the Search Page is clicked', () => {
+    it('should navigate to / when link to the Search Page is clicked', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');
         item.click();
-        cy.url().should('eq', Cypress.config().baseUrl + '/search');
+        cy.url().should('eq', Cypress.config().baseUrl + '/');
         cy.get('body').then((body) => {
             expect(body).to.contain("Suche nach einer Prüfung...")
         })
