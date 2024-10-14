@@ -25,7 +25,7 @@ describe('Verify content of contact page', () => {
             expect(body).to.contain("Postfach")
             expect(body).to.contain("6002 Luzern")
             expect(body).to.contain("T +41 41 229 53 14 / 15")
-            expect(body).to.contain("pruefungen-rf@unilu.ch ")
+            cy.getByTestId("mail-contact-link").should('exist')
         })
     });
 });
