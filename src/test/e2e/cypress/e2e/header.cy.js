@@ -23,7 +23,7 @@ describe('Verify content of header', () => {
 })
 
 describe('Verify functionality of header', () => {
-    it('should navigate to /search when link to the search page is clicked', () => {
+    it('should navigate to / when link to the search page is clicked', () => {
         const item = cy.get('header').contains('Prüfungslaufnummer')
         item.should('exist');
         item.click();
