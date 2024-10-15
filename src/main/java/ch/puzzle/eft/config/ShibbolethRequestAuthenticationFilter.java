@@ -15,7 +15,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     private static final String ATTRIBUTE_MATRICULATION_NUMBER = "matriculationNumber";
     private static final String ATTRIBUTE_SURNAME = "surname";
     private static final String ATTRIBUTE_GIVEN_NAME = "givenName";
-    @Value("${server.unauthorized.urls:/home}")
+    @Value("${server.unauthorized.urls:/}")
     private String unauthorizedUrls;
     @Value("${test.mock.principal:false}")
     private boolean mockPrincipal;
