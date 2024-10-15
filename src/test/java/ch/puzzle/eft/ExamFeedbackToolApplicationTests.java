@@ -2,16 +2,19 @@ package ch.puzzle.eft;
 
 import ch.puzzle.eft.controller.ExamController;
 import ch.puzzle.eft.controller.SiteController;
+import ch.puzzle.eft.service.AuthenticationService;
 import ch.puzzle.eft.service.ExamService;
 import ch.puzzle.eft.service.ValidationService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
+@ActiveProfiles("dev")
 class ExamFeedbackToolApplicationTests {
 
     @Test
@@ -30,5 +33,6 @@ class ExamFeedbackToolApplicationTests {
     void checkServices(ApplicationContext context) {
         assertThat(context.getBean(ValidationService.class)).isNotNull();
         assertThat(context.getBean(ExamService.class)).isNotNull();
+        assertThat(context.getBean(AuthenticationService.class)).isNotNull();
     }
 }
