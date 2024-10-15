@@ -11,25 +11,31 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import ch.puzzle.eft.config.AuthenticationUser;
 import ch.puzzle.eft.model.ExamModel;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("dev")
 class ExamServiceTest {
 
     @Spy
     ExamService examFileService;
-
 
     @Autowired
     public ExamServiceTest(ExamService examFileService) {
@@ -39,6 +45,15 @@ class ExamServiceTest {
     @BeforeEach
     void setUp() {
         when(examFileService.getBasePath()).thenReturn("static");
+
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new AuthenticationUser("11112222", "mock"));
+        SecurityContextHolder.setContext(securityContext);
+    }
+
+    @AfterEach
+    void tearDown() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -121,13 +136,13 @@ class ExamServiceTest {
     void shouldThrowExceptionWhenNoExamsAreFound() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
-                                                                                                               "11000_22223333.pdf"));
+                                                                                                               "19000"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldReturnFileToDownload() {
-        File result = examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf");
+        File result = examFileService.getFileToDownload("Privatrecht", "22223333", "11001");
         assertEquals(new File("static/Privatrecht/11001_22223333.pdf"), result);
     }
 

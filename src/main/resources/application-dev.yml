@@ -1,0 +1,12 @@
+server:
+  address: localhost
+  port: 8080
+
+test:
+  mock.principal: true
+
+logging.level:
+  root: info
+  ch.puzzle.eft: debug
+  org.springframework.security: info
+  org.apache: info

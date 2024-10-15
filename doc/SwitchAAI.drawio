@@ -1,0 +1,78 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="90a13364-a465-7bf4-72fc-28e22215d7a0">
+    <mxGraphModel dx="1165" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="826" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" style=";html=1;" />
+        <mxCell id="1" style=";html=1;" parent="0" />
+        <mxCell id="3a17f1ce550125da-9" value="Shibboleth Service Provider" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="520" y="410" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3a17f1ce550125da-26" style="edgeStyle=elbowEdgeStyle;rounded=0;html=1;startArrow=classicThin;startFill=1;jettySize=auto;orthogonalLoop=1;fontSize=18;endArrow=classicThin;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="3a17f1ce550125da-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="421" y="630" as="sourcePoint" />
+            <mxPoint x="415" y="530" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-2" value="Spring Boot Application" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="800" y="410" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-3" value="Browser" style="swimlane;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="336" y="100" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-10" value="Docker Container" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="310" y="370" width="370" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-12" style="edgeStyle=elbowEdgeStyle;rounded=0;html=1;startArrow=classicThin;startFill=1;jettySize=auto;orthogonalLoop=1;fontSize=18;endArrow=classicThin;endFill=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="800" y="450" as="sourcePoint" />
+            <mxPoint x="680" y="450" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="750" y="460" />
+              <mxPoint x="1115" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-14" value="ajp / https" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="N-nf-0B1seHdFH5EAekI-12" vertex="1" connectable="0">
+          <mxGeometry x="0.4667" y="-3" relative="1" as="geometry">
+            <mxPoint x="26" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-15" style="edgeStyle=elbowEdgeStyle;rounded=0;html=1;startArrow=classicThin;startFill=1;jettySize=auto;orthogonalLoop=1;fontSize=18;endArrow=classicThin;endFill=1;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="416" y="220" as="sourcePoint" />
+            <mxPoint x="415" y="370" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="415.5" y="400" />
+              <mxPoint x="558.5" y="774" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-20" value="saml / https" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="490" y="770" as="geometry">
+            <mxPoint x="-76" y="-196" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-21" value="https" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="490" y="480" as="geometry">
+            <mxPoint x="-76" y="-196" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="3XaaPXTU7xvzBTpcXIFb-1" value="edview.unilu.ch" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="260" y="350" width="700" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="N-nf-0B1seHdFH5EAekI-1" value="Apache Web Server" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;gradientColor=none;" parent="3XaaPXTU7xvzBTpcXIFb-1" vertex="1">
+          <mxGeometry x="95" y="61" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="3XaaPXTU7xvzBTpcXIFb-2" value="SWITCH AAI" style="swimlane;horizontal=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="310" y="600" width="200" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="3a17f1ce550125da-8" value="Shibboleth Identity Provider" style="whiteSpace=wrap;html=1;shadow=1;fontSize=18;fillColor=#433D3D;strokeColor=#666666;" parent="3XaaPXTU7xvzBTpcXIFb-2" vertex="1">
+          <mxGeometry x="45" y="30" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

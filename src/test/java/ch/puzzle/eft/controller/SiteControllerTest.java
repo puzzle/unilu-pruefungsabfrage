@@ -87,7 +87,7 @@ class SiteControllerTest {
 
     @Test
     void shouldRespondWithHttpStatus404WhenEnteringExamNumberWithNoMatchingFiles() throws Exception {
-        when(examFileService.getMatchingExams("11000", "11112222")).thenThrow(new ResponseStatusException(
+        when(examFileService.getMatchingExams("11000")).thenThrow(new ResponseStatusException(
                                                                                                           HttpStatus.NOT_FOUND,
                                                                                                           String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
                                                                                                                         "11000")));
