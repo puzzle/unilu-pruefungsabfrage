@@ -33,7 +33,7 @@ public class SecurityConfig {
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     private static final String CSP_CONFIG = "base-uri 'self';" + "connect-src 'none';" + "default-src 'self';" + "script-src 'strict-dynamic' 'sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz';" + "style-src 'self';" + "img-src 'self' data:; " + "font-src 'self';" + "object-src 'none';" + "form-action 'self';" + "frame-ancestors 'none'; " + "frame-src 'none';"; //TODO: restrict upgrade-insecure-requests
     private static final String PERMISSION_POLICY = "accelerometer=()," + "attribution-reporting=()," + "autoplay=()," + "camera=()," + "compute-pressure=()," + "display-capture=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "hid=()," + "identity-credentials-get=()," + "idle-detection=()," + "local-fonts=()," + "magnetometer=()," + "microphone=()," + "midi=()," + "otp-credentials=()," + "payment=()," + "picture-in-picture=()," + "publickey-credentials-create=()," + "publickey-credentials-get=()," + "screen-wake-lock=()," + "serial=()," + "storage-access=()," + "usb=()," + "window-management=()," + "xr-spatial-tracking=()";
-    @Value("${server.unauthorized.urls:/home}")
+    @Value("${server.unauthorized.urls:/}")
     private String unauthorizedUrls;
 
     @Bean
