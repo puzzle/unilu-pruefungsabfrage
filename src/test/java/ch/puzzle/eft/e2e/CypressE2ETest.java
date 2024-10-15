@@ -15,7 +15,7 @@ import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCh
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-// TODO enable tests when login / search is fixed
+// TODO enable tests once e2e tests can use login
 @Disabled("temporarily disabled")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ActiveProfiles("dev")
