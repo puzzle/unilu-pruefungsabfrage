@@ -19,7 +19,7 @@ jobs:
       - name: Clean install
         run: ./mvnw --no-transfer-progress clean install -DskipTests -Ddependency-check.skip -Dcyclonedx.skip=true -Dexec.skip
       - name: Start application
-        run: ./mvnw spring-boot:run &
+        run: ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev &
       - name: Wait till application is up
         run: |
           until curl --output /dev/null --silent --head --fail http://localhost:8080; do
