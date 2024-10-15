@@ -11,7 +11,6 @@
         <span
             class="me-4 fs-3 text-end"
             th:text="${givenName + ' ' + surname}"></span>
-        <!--Todo wenn login funktioniert auf eingeloggten user ändern-->
         <div class="me-4 d-flex gap-3 flex-row">
             <a class="link-primary" th:href="@{/}">Prüfungslaufnummer</a>
             <a class="link-primary" th:href="@{/contact}">Kontakt</a>
@@ -19,7 +18,6 @@
             <a class="link-primary" th:href="'/Shibboleth.sso/Logout'">
                 Logout
             </a>
-            <!--Todo wenn login funktioniert-->
         </div>
     </div>
 </header>
