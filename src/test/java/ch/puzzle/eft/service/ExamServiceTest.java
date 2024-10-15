@@ -195,7 +195,7 @@ class ExamServiceTest {
     @Test
     void shouldReturnCorrectFilesAfterZip() throws IOException {
 
-        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11000");
+        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11001", "22223333");
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
         byte[] zipContent = byteArrayOutputStream.toByteArray();

@@ -154,7 +154,7 @@
 				<configuration>
 					<excludes>
 						<exclude>ch/puzzle/eft/ExamFeedbackToolApplication.class</exclude>
-						<exclude>ch/puzzle/eft/SecurityConfig.class</exclude>
+						<exclude>ch/puzzle/eft/config/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
