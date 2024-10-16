@@ -42,20 +42,8 @@ class SimpleSecurityIT {
     private String trustStorePassword;
 
     @Test
-    void callHomeUrl() throws Exception {
-        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/home",
-                                                                      String.class,
-                                                                      Collections.emptyMap());
-
-        logger.info(response.getBody());
-        assertTrue(response.getBody()
-                           .contains("<h1>Welcome Home!</h1>"));
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-    }
-
-    @Test
     void startLoginProcessForAuthorizedMethod() throws Exception {
-        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/search",
+        ResponseEntity<String> response = restTemplate().getForEntity(BASE_URL + "/",
                                                                       String.class,
                                                                       Collections.emptyMap());
 
