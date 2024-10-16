@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import ch.puzzle.eft.config.AuthenticationUser;
 import ch.puzzle.eft.model.ExamModel;
 
 import org.junit.jupiter.api.AfterEach;
@@ -21,7 +20,6 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,10 +43,6 @@ class ExamServiceTest {
     @BeforeEach
     void setUp() {
         when(examFileService.getBasePath()).thenReturn("static");
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new AuthenticationUser("11112222", "mock"));
-        SecurityContextHolder.setContext(securityContext);
     }
 
     @AfterEach
@@ -125,6 +119,23 @@ class ExamServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenExamNumberInputIsNull() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getMatchingExams(null,
+                                                                                                              "11112222"));
+        assertEquals(HttpStatus.BAD_REQUEST, responseStatusException.getStatusCode());
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenMatriculationNumberIsNull() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getMatchingExams("11000",
+                                                                                                              null));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
     void shouldThrowExceptionWhenNoMatchingExamsAreFound() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getMatchingExams("11004",
@@ -133,10 +144,29 @@ class ExamServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoExamsAreFound() {
+    void shouldThrowExceptionWhenNoExamToDownloadIsFoundWhenDownloadingFile() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               "22223333",
                                                                                                                "19000"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenMatriculationNumberIsNullWhenDownloadingFile() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               null,
+                                                                                                               "11000"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenExamNumberIsNullWhenDownloadingFile() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               "22223333",
+                                                                                                               null));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
