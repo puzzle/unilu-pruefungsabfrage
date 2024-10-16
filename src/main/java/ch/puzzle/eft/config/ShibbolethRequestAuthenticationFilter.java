@@ -5,7 +5,6 @@ import java.security.Principal;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.web.authentication.preauth.RequestAttributeAuthenticationFilter;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,11 +14,11 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     private static final String ATTRIBUTE_MATRICULATION_NUMBER = "matriculationNumber";
     private static final String ATTRIBUTE_SURNAME = "surname";
     private static final String ATTRIBUTE_GIVEN_NAME = "givenName";
-    @Value("${server.unauthorized.urls:/}")
-    private String unauthorizedUrls;
-    @Value("${test.mock.principal:false}")
     private boolean mockPrincipal;
 
+    public ShibbolethRequestAuthenticationFilter(Boolean mockPrincipal) {
+        this.mockPrincipal = mockPrincipal;
+    }
 
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
@@ -37,12 +36,10 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     private AuthenticationUser createAuthenticationUser(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         if (principal == null || principal.getName() == null) {
-            if (checkPrincipal(request)) {
-                logger.debug("no principal for unauthorized page required, returning anonymous principal");
-                if (mockPrincipal) {
-                    return new AuthenticationUser("11112222", "mock");
-                }
-                return new AuthenticationUser("anonymous");
+            logger.debug("Principal or principal name from request is null");
+            if (mockPrincipal) {
+                logger.debug("mockPrincipal is true. Logging in with mock principal");
+                return new AuthenticationUser("11112222", "mock");
             }
             return null;
         }
@@ -61,10 +58,6 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
             }
         }
         return null;
-    }
-
-    private boolean checkPrincipal(HttpServletRequest request) {
-        return unauthorizedUrls.contains(request.getRequestURI()) || mockPrincipal;
     }
 
     /**
