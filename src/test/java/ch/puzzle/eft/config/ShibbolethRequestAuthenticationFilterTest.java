@@ -29,15 +29,15 @@ class ShibbolethRequestAuthenticationFilterTest {
         when(request.getUserPrincipal()).thenReturn(principal);
         when(principal.getName()).thenReturn("NAME");
         when(request.getAttribute("matriculationNumber")).thenReturn("11112222");
-        when(request.getAttribute("surname")).thenReturn("Fox");
-        when(request.getAttribute("givenName")).thenReturn("Peter");
+        when(request.getAttribute("surname")).thenReturn("Sören");
+        when(request.getAttribute("givenName")).thenReturn("Cédric");
 
         Object result = filter.getPreAuthenticatedPrincipal(request);
 
         assertInstanceOf(AuthenticationUser.class, result);
         AuthenticationUser authenticationUser = (AuthenticationUser) result;
-        assertEquals("Fox", authenticationUser.getSurname());
-        assertEquals("Peter", authenticationUser.getGivenName());
+        assertEquals("Sören", authenticationUser.getSurname());
+        assertEquals("Cédric", authenticationUser.getGivenName());
         assertEquals("11112222", authenticationUser.getMatriculationNumber());
     }
 
@@ -64,8 +64,8 @@ class ShibbolethRequestAuthenticationFilterTest {
         Principal principal = mock(Principal.class);
         when(request.getUserPrincipal()).thenReturn(principal);
         when(principal.getName()).thenReturn(null);
-        when(request.getAttribute("surname")).thenReturn("Fox");
-        when(request.getAttribute("givenName")).thenReturn("Peter");
+        when(request.getAttribute("surname")).thenReturn("Sören");
+        when(request.getAttribute("givenName")).thenReturn("Cédric");
 
         Object result = filter.getPreAuthenticatedPrincipal(request);
 
