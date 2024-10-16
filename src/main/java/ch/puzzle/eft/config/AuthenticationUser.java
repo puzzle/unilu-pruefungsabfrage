@@ -21,15 +21,17 @@ public class AuthenticationUser implements Authentication {
         this.matriculationNumber = matriculationNumber;
         this.surname = surname;
         this.givenName = givenName;
-        this.authenticated = true;
+        this.authenticated = principal != null;
     }
 
     public AuthenticationUser(String name) {
         this(null, null, name, name);
+        this.authenticated = false;
     }
 
     public AuthenticationUser(String matriculationNumber, String name) {
         this(null, matriculationNumber, name, name);
+        this.authenticated = true;
     }
 
     @Override
@@ -39,12 +41,12 @@ public class AuthenticationUser implements Authentication {
 
     @Override
     public Object getCredentials() {
-        return "n/a";
+        return null;
     }
 
     @Override
     public Object getDetails() {
-        return "n/a";
+        return null;
     }
 
     @Override
