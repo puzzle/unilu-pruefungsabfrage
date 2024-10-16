@@ -10,7 +10,7 @@
     </head>
     <body>
         <section layout:fragment="content" class="content">
-            <span class="display-4">Suche nach einer Prüfung...</span>
+            <h1 class="display-4">Suche nach einer Prüfung...</h1>
             <div th:replace="~{fragments/exam-number-input}"></div>
             <h3
                 th:if="${examFiles != null && examFiles.size() > 0}"
