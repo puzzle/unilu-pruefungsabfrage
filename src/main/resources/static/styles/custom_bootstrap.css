@@ -106,3 +106,11 @@
     --bs-gradient: none;
     width: 536px;
 }
+
+.w-60 {
+    width: 60% !important;
+}
+
+.w-35 {
+    width: 35% !important;
+}

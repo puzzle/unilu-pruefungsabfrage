@@ -1,0 +1,10 @@
+.seperation-border {
+    border-left: 2px solid var(--primary-hex);
+    padding-left: 5rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.info-text {
+    hyphens: auto;
+}

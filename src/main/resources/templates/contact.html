@@ -1,0 +1,48 @@
+<!--prettier-ignore-->
+<!DOCTYPE html>
+<html
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout.html}"
+    lang="de">
+    <head>
+        <link
+            rel="stylesheet"
+            th:href="@{styles/contact.css}"
+            type="text/css" />
+        <title>Universität Luzern - Prüfungen</title>
+    </head>
+    <body>
+        <section layout:fragment="content" class="d-flex flex-column w-60 mt-5">
+            <div class="d-flex">
+                <div class="d-flex flex-column">
+                    <h1 class="display-4 mb-4 d-flex">Kontakt</h1>
+                    <div class="fs-4">
+                        <p
+                            class="info-text"
+                            data-testid="exam-download-question-text">
+                            Falls Sie Fragen zum Prüfungsdownload haben, melden
+                            Sie sich bitte bei der Prüfungsadministration der
+                            Rechtswissenschaftlichen Fakultät.
+                        </p>
+                    </div>
+                </div>
+                <div class="fs-6 seperation-border w-35">
+                    <p>Universität Luzern</p>
+                    <p>Rechtwissenschaftliche Fakultät</p>
+                    <p>Prüfungsadministration</p>
+                    <p>Frohburgstrasse 3, Raum 4.A06</p>
+                    <p>Postfach</p>
+                    <p>6002 Luzern</p>
+                    <br />
+                    <p>T +41 41 229 53 14 / 15</p>
+                    <a
+                        class="link-primary"
+                        href="mailto:pruefungen-rf@unilu.ch"
+                        data-testid="mail-contact-link">
+                        pruefungen-rf@unilu.ch
+                    </a>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
