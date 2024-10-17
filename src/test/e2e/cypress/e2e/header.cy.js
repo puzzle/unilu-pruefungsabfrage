@@ -5,7 +5,7 @@ beforeEach(() => {
 
 describe('Verify content of header', () => {
     it('should display the correct image', () => {
-        cy.get("header").find("#unilu-logo-default")
+        cy.get("header").find("#unilu-logo-header")
             .should('have.attr', 'src')
             .and('include', 'UNILU_Schriftzug_Standard_schwarz_DE.svg');
 
