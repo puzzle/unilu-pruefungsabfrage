@@ -24,11 +24,6 @@ public class AuthenticationUser implements Authentication {
         this.authenticated = principal != null;
     }
 
-    public AuthenticationUser(String name) {
-        this(null, null, name, name);
-        this.authenticated = false;
-    }
-
     public AuthenticationUser(String matriculationNumber, String name) {
         this(null, matriculationNumber, name, name);
         this.authenticated = true;
