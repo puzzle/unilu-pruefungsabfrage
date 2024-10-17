@@ -1,6 +1,5 @@
 server:
   forward-headers-strategy: framework
-  unauthorized.urls: "/error /styles/** /javascript/** /images/** /fonts/** /favicon.ico"
   error.path: redirect:/error
   servlet:
     session:
