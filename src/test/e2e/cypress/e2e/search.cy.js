@@ -11,7 +11,7 @@ describe('Verify content of search page', () => {
     })
 
     it('should display header image on search page', () => {
-        cy.get('#logo').should("be.visible");
+        cy.get('#unilu-logo-header').should("be.visible");
     })
 
     it('should display label for searchbar', () => {
