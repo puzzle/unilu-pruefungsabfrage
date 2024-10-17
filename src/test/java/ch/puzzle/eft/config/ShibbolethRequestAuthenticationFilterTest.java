@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,5 +76,35 @@ class ShibbolethRequestAuthenticationFilterTest {
         assertEquals("mock", authenticationUser.getGivenName());
         assertEquals("11112222", authenticationUser.getMatriculationNumber());
         assertEquals("mock", authenticationUser.getPrincipal());
+    }
+
+    @Test
+    void shouldSetPropertiesToNullWhenAttributesAreNotSet() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        Principal principal = mock(Principal.class);
+        when(request.getUserPrincipal()).thenReturn(principal);
+        when(principal.getName()).thenReturn("Principal Name");
+
+        Object result = filter.getPreAuthenticatedPrincipal(request);
+
+        assertInstanceOf(AuthenticationUser.class, result);
+        AuthenticationUser authenticationUser = (AuthenticationUser) result;
+        assertNull(authenticationUser.getSurname());
+        assertNull(authenticationUser.getGivenName());
+        assertNull(authenticationUser.getMatriculationNumber());
+    }
+
+    @Test
+    void shouldReturnPreAuthenticatedPrincipalWhenPrincipalIsNullAndMockPrincipalIsFalse() {
+        this.filter = new ShibbolethRequestAuthenticationFilter(false);
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getUserPrincipal()).thenReturn(null);
+        doReturn("Remote User").when(request)
+                               .getAttribute(any());
+
+        Object result = filter.getPreAuthenticatedPrincipal(request);
+
+        assertInstanceOf(String.class, result);
+        assertEquals("Remote User", result);
     }
 }
