@@ -7,7 +7,7 @@ describe('Verify content of footer', () => {
     it('should display the right image', () => {
         cy.getByTestId("swissuniversities-logo")
             .should('have.attr', 'src')
-            .and('include', 'swissuniversities.png');
+            .and('include', 'swissuniversities.svg');
     })
 
     it('should have link to swissuniversities', () => {
