@@ -21,6 +21,7 @@ describe('Verify functionality of cookie-banner on homepage', () => {
     });
 
     it('should not re-render cookie-banner after accepting cookies and reloading the site', () => {
+        cy.getCookie('cookie-consent').should('not.exist')
         cy.getByTestId("cookie-consent-button").click();
         cy.getCookie('cookie-consent').should('have.property', 'value', 'true');
         cy.reload();
