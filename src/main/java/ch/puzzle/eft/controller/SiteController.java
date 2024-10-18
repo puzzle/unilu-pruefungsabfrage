@@ -47,9 +47,7 @@ public class SiteController {
         model.addAttribute("examNumberForm", examNumberForm);
         if (!bindingResult.hasErrors()) {
             try {
-                // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
-                model.addAttribute("examFiles",
-                                   examFileService.getMatchingExams(examNumberForm.getExamNumber(), "11112222"));
+                model.addAttribute("examFiles", examFileService.getMatchingExams(examNumberForm.getExamNumber()));
             } catch (ResponseStatusException e) {
                 bindingResult.rejectValue("examNumber", "error.examNumberForm", Objects.requireNonNull(e.getReason()));
             }

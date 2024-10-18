@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ExamFeedbackTool-DEV" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <envs>
+      <env name="RESOURCE_DIR" value="./static" />
+    </envs>
+    <module name="exam-feedback-tool" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="ch.puzzle.eft.ExamFeedbackToolApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

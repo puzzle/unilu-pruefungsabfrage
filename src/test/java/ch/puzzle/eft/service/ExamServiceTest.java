@@ -19,17 +19,19 @@ import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("dev")
 class ExamServiceTest {
 
     @Spy
     ExamService examFileService;
-
 
     @Autowired
     public ExamServiceTest(ExamService examFileService) {
@@ -110,6 +112,23 @@ class ExamServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenExamNumberInputIsNull() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getMatchingExams(null,
+                                                                                                              "11112222"));
+        assertEquals(HttpStatus.BAD_REQUEST, responseStatusException.getStatusCode());
+    }
+
+
+    @Test
+    void shouldThrowExceptionWhenMatriculationNumberIsNull() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getMatchingExams("11000",
+                                                                                                              null));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
     void shouldThrowExceptionWhenNoMatchingExamsAreFound() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getMatchingExams("11004",
@@ -118,16 +137,35 @@ class ExamServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoExamsAreFound() {
+    void shouldThrowExceptionWhenNoExamIsFoundWhenDownloadingFile() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
-                                                                                                               "11000_22223333.pdf"));
+                                                                                                               "22223333",
+                                                                                                               "19000"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenMatriculationNumberIsNullWhenDownloadingFile() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               null,
+                                                                                                               "11000"));
+        assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenExamNumberIsNullWhenDownloadingFile() {
+        ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
+                                                                       () -> examFileService.getFileToDownload("Privatrecht",
+                                                                                                               "22223333",
+                                                                                                               null));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldReturnFileToDownload() {
-        File result = examFileService.getFileToDownload("Privatrecht", "11001_22223333.pdf");
+        File result = examFileService.getFileToDownload("Privatrecht", "22223333", "11001");
         assertEquals(new File("static/Privatrecht/11001_22223333.pdf"), result);
     }
 
@@ -180,7 +218,7 @@ class ExamServiceTest {
     @Test
     void shouldReturnCorrectFilesAfterZip() throws IOException {
 
-        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11000");
+        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11001", "22223333");
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
         byte[] zipContent = byteArrayOutputStream.toByteArray();
