@@ -47,7 +47,7 @@ public class AuthenticationUser implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return principal != null ? principal : surname;
+        return principal;
     }
 
     @Override

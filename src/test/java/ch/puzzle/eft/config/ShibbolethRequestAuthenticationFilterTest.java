@@ -55,7 +55,7 @@ class ShibbolethRequestAuthenticationFilterTest {
         assertEquals("mock", authenticationUser.getSurname());
         assertEquals("mock", authenticationUser.getGivenName());
         assertEquals("11112222", authenticationUser.getMatriculationNumber());
-        assertEquals("mock", authenticationUser.getPrincipal());
+        assertNull(authenticationUser.getPrincipal());
     }
 
     @Test
@@ -75,7 +75,7 @@ class ShibbolethRequestAuthenticationFilterTest {
         assertEquals("mock", authenticationUser.getSurname());
         assertEquals("mock", authenticationUser.getGivenName());
         assertEquals("11112222", authenticationUser.getMatriculationNumber());
-        assertEquals("mock", authenticationUser.getPrincipal());
+        assertNull(authenticationUser.getPrincipal());
     }
 
     @Test
