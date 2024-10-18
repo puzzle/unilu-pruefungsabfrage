@@ -18,10 +18,11 @@
                     Diese Webseite verwendet Cookies
                 </h1>
                 <p>
-                    Die Cookies sind erforderlich,
-                    um die grundlegende Funktionalität der Webseite zu gewährleisten.<br>
-                    Wir verwenden nur notwendige Cookies,
-                    die weder persönliche Daten erfassen noch das Benutzerverhalten tracken.
+                    Die Cookies sind erforderlich, um die Authorisierung der
+                    Webseite zu gewährleisten. Wir verwenden nur notwendige
+                    Cookies, die weder persönliche Daten erfassen noch das
+                    Benutzerverhalten tracken. Die Cookies könnne durch das
+                    verlassen der Webseite abgelehnt werden.
                 </p>
             </div>
             <form th:action="@{/cookies}" method="post">
@@ -29,9 +30,9 @@
                     class="modal-footer d-flex flex-row justify-content-center">
                     <button
                         data-testid="cookie-consent-button"
-                        class="btn btn-primary col-4"
+                        class="btn btn-primary col-4 w-50"
                         type="submit">
-                        Zulassen
+                        Erforderliche zulassen
                     </button>
                 </div>
             </form>
