@@ -1,6 +1,5 @@
 package ch.puzzle.eft.e2e;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +14,8 @@ import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCh
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-// TODO enable tests once e2e tests can use login
-@Disabled("temporarily disabled")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+// TODO change profile to test once e2e tests can use login
 @ActiveProfiles("dev")
 class CypressE2ETest {
     private static final Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
