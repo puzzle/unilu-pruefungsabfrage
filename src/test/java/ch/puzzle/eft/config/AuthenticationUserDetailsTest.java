@@ -13,9 +13,7 @@ class AuthenticationUserDetailsTest {
     void shouldReturnCorrectDefaultValue() {
         AuthenticationUserDetails details = new AuthenticationUserDetails(new AuthenticationUser("", ""));
 
-        String result = details.getUsername();
-
-        assertEquals("n/a", result);
+        assertEquals("n/a", details.getUsername());
         assertNull(details.getPassword());
         assertEquals(List.of(), details.getAuthorities());
     }
