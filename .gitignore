@@ -38,3 +38,7 @@ Thumbs.db
 
 zap/zap.yaml
 zap/zap-report.html
+
+## Security ###
+*.p12
+*.pem
