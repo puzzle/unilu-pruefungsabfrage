@@ -24,6 +24,7 @@ public class AuthenticationUser implements Authentication {
         this.authenticated = principal != null;
     }
 
+    //This constructor is only used for a mock user in the ShibbolethRequestAuthenticationFilter
     public AuthenticationUser(String matriculationNumber, String name) {
         this(null, matriculationNumber, name, name);
         this.authenticated = true;
