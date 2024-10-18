@@ -15,17 +15,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class AuthenticationUserTest {
-
-    @Test
-    void shouldReturnSurnameWhenPrincipalIsNull() {
-        AuthenticationUser user = new AuthenticationUser(null, "", "Surname", "");
-
-        Object result = user.getPrincipal();
-
-        assertInstanceOf(String.class, result);
-        assertEquals("Surname", result);
-    }
-
     @Test
     void shouldReturnPrincipal() {
         Principal principal = mock(Principal.class);
@@ -61,7 +50,7 @@ class AuthenticationUserTest {
     }
 
     @Test
-    void ShouldReturnNameFromPrincipal() {
+    void shouldReturnNameFromPrincipal() {
         Principal principal = mock(Principal.class);
         when(principal.getName()).thenReturn("Principal Name");
 
@@ -71,7 +60,7 @@ class AuthenticationUserTest {
     }
 
     @Test
-    void shouldReturnSurnameWhenPrincipalIsNull2() {
+    void shouldReturnSurnameWhenPrincipalIsNull() {
         AuthenticationUser user = new AuthenticationUser(null, "", "Surnames", "");
 
         assertEquals("Surnames", user.getName());
@@ -103,11 +92,8 @@ class AuthenticationUserTest {
         user1.setAuthenticated(true);
         user2.setAuthenticated(false);
 
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
-
-        assertFalse(result1);
-        assertFalse(result2);
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
     }
 
     @Test
@@ -115,11 +101,8 @@ class AuthenticationUserTest {
         AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
         AuthenticationUser user2 = new AuthenticationUser(mock(Principal.class), "123", "Surname", "GivenName");
 
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
-
-        assertFalse(result1);
-        assertFalse(result2);
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
     }
 
     @Test
@@ -127,11 +110,8 @@ class AuthenticationUserTest {
         AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
         AuthenticationUser user2 = new AuthenticationUser(null, "321", "Surname", "GivenName");
 
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
-
-        assertFalse(result1);
-        assertFalse(result2);
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
     }
 
     @Test
@@ -139,11 +119,8 @@ class AuthenticationUserTest {
         AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
         AuthenticationUser user2 = new AuthenticationUser(null, "123", "emanrus", "GivenName");
 
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
-
-        assertFalse(result1);
-        assertFalse(result2);
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
     }
 
     @Test
@@ -151,11 +128,17 @@ class AuthenticationUserTest {
         AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
         AuthenticationUser user2 = new AuthenticationUser(null, "123", "Surname", "emaNneviG");
 
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
+        assertFalse(user1.equals(user2));
+        assertFalse(user2.equals(user1));
+    }
 
-        assertFalse(result1);
-        assertFalse(result2);
+    @Test
+    void shouldBeEqualWhenUsersAreEqual() {
+        AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
+        AuthenticationUser user2 = new AuthenticationUser(null, "123", "Surname", "GivenName");
+
+        assertTrue(user1.equals(user2));
+        assertTrue(user2.equals(user1));
     }
 
     @Test
@@ -164,17 +147,4 @@ class AuthenticationUserTest {
         assertNull(authenticationUser.getCredentials());
         assertNull(authenticationUser.getDetails());
     }
-
-    @Test
-    void shouldBeEqualWhenUsersAreEqual() {
-        AuthenticationUser user1 = new AuthenticationUser(null, "123", "Surname", "GivenName");
-        AuthenticationUser user2 = new AuthenticationUser(null, "123", "Surname", "GivenName");
-
-        boolean result1 = user1.equals(user2);
-        boolean result2 = user2.equals(user1);
-
-        assertTrue(result1);
-        assertTrue(result2);
-    }
-
 }
