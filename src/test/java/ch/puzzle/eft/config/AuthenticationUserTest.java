@@ -43,7 +43,7 @@ class AuthenticationUserTest {
     }
 
     @Test
-    void shouldSetAuthenticatedToTrue() {
+    void shouldSetAuthenticatedToTrueForMockUser() {
         AuthenticationUser result = new AuthenticationUser("", "");
 
         assertTrue(result.isAuthenticated());
@@ -70,9 +70,7 @@ class AuthenticationUserTest {
     void shouldBeEqualWhenUserIsTheSame() {
         AuthenticationUser user = new AuthenticationUser(null, "123", "Surname", "GivenName");
 
-        boolean result = user.equals(user);
-
-        assertTrue(result);
+        assertTrue(user.equals(user));
     }
 
     @ParameterizedTest
@@ -80,9 +78,7 @@ class AuthenticationUserTest {
     void shouldNotBeEqualWhenObjectIsAnotherClass(Object clazz) {
         AuthenticationUser user = new AuthenticationUser(null, "123", "Surname", "GivenName");
 
-        boolean result = user.equals(clazz);
-
-        assertFalse(result);
+        assertFalse(user.equals(clazz));
     }
 
     @Test

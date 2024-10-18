@@ -1,6 +1,9 @@
 package ch.puzzle.eft.config;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,12 +29,30 @@ class ShibbolethRequestAuthenticationFilterTest {
     @Test
     void shouldReturnAuthenticationUserWhenPrincipalInRequest() {
         HttpServletRequest request = mock(HttpServletRequest.class);
+
+        Map<String, Object> requestAttributes = new HashMap<>();
+
+        doAnswer(invocation -> {
+            String name = invocation.getArgument(0);
+            Object value = invocation.getArgument(1);
+            requestAttributes.put(name, value);
+            return null;
+        }).when(request)
+          .setAttribute(anyString(), any());
+
+        doAnswer(invocation -> {
+            String name = invocation.getArgument(0);
+            return requestAttributes.get(name);
+        }).when(request)
+          .getAttribute(anyString());
+
         Principal principal = mock(Principal.class);
-        when(request.getUserPrincipal()).thenReturn(principal);
         when(principal.getName()).thenReturn("NAME");
-        when(request.getAttribute("matriculationNumber")).thenReturn("11112222");
-        when(request.getAttribute("surname")).thenReturn("Sören");
-        when(request.getAttribute("givenName")).thenReturn("Cédric");
+
+        when(request.getUserPrincipal()).thenReturn(principal);
+        request.setAttribute("matriculationNumber", "11112222");
+        request.setAttribute("surname", new String("Sören".getBytes(), StandardCharsets.ISO_8859_1));
+        request.setAttribute("givenName", new String("Cédric".getBytes(), StandardCharsets.ISO_8859_1));
 
         Object result = filter.getPreAuthenticatedPrincipal(request);
 
