@@ -39,6 +39,16 @@ alias to `/etc/hosts` if not already done. The same is true for test environment
 | sp-certificate    | [test \| prod] | create the Shibboleth Service Provider certificate |
 | stop              |                | stop the docker image for test or prod node        |
 
+## Mandatory Files
+The following files are mandatory and need to be supplied via the volume mount specified in the `docker-compose.yml` file.
+
+| Name          | Target Dir           |                                        
+|---------------|----------------------|
+| sp.crt.pem    | /etc/shibboleth      |
+| sp.key.pem    | /etc/shibboleth      |
+| httpd.crt.pem | /etc/pki/tls/certs   |
+| httpd.crt.key | /etc/pki/tls/private |
+
 ## Useful Links
 
 ### Tests for TEST environment
