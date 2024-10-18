@@ -14,12 +14,15 @@
             </div>
             <div
                 class="modal-body d-flex justify-content-center align-items-center flex-column text-center">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                <h1 class="modal-title fs-5 mb-4 pt-2" id="exampleModalLabel">
                     Diese Webseite verwendet Cookies
                 </h1>
                 <p>
-                    Wir benutzen Cookies um die Funktionalität der Seite sicher
-                    zu stellen
+                    Die Cookies sind erforderlich, um die Authorisierung der
+                    Webseite zu gewährleisten. Wir verwenden nur notwendige
+                    Cookies, die weder persönliche Daten erfassen noch das
+                    Benutzerverhalten tracken. Die Cookies können durch das
+                    verlassen der Webseite abgelehnt werden.
                 </p>
             </div>
             <form th:action="@{/cookies}" method="post">
@@ -27,9 +30,9 @@
                     class="modal-footer d-flex flex-row justify-content-center">
                     <button
                         data-testid="cookie-consent-button"
-                        class="btn btn-primary col-3"
+                        class="btn btn-primary col-4 w-50"
                         type="submit">
-                        Zulassen
+                        Erforderliche zulassen
                     </button>
                 </div>
             </form>
