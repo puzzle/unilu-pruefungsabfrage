@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -155,6 +156,13 @@ class AuthenticationUserTest {
 
         assertFalse(result1);
         assertFalse(result2);
+    }
+
+    @Test
+    void shouldReturnNullForHardcodedValues() {
+        AuthenticationUser authenticationUser = new AuthenticationUser(null, "123", "Surname", "GivenName");
+        assertNull(authenticationUser.getCredentials());
+        assertNull(authenticationUser.getDetails());
     }
 
     @Test
