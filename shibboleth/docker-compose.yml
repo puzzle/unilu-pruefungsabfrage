@@ -1,0 +1,29 @@
+services:
+  shibboleth:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: shibboleth-sp
+      ports:
+        - "443:443"
+      volumes:
+        - type: bind
+          source: ./secrets/tls/httpd.crt.key
+          target: /etc/pki/tls/certs
+          read_only: true
+        - type: bind
+          source: ./secrets/tls/httpd.crt.pem
+          target: /etc/pki/tls/private/
+          read_only: true
+        - type: bind
+          source: ./secrets/shibboleth/sp.crt.pem
+          target: /etc/shibboleth/sp.crt.pem
+          read_only: true
+        - type: bind
+          source: ./secrets/shibboleth/sp.key.pem
+          target: /etc/shibboleth/sp.key.pem
+          read_only: true
+        - type: bind
+          source: ./secrets/shibboleth/SWITCHaaiRootCA.crt.pem
+          target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
+          read_only: true
