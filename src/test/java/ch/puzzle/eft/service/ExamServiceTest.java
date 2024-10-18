@@ -13,14 +13,12 @@ import java.util.zip.ZipInputStream;
 
 import ch.puzzle.eft.model.ExamModel;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -43,11 +41,6 @@ class ExamServiceTest {
     @BeforeEach
     void setUp() {
         when(examFileService.getBasePath()).thenReturn("static");
-    }
-
-    @AfterEach
-    void tearDown() {
-        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -144,7 +137,7 @@ class ExamServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenNoExamToDownloadIsFoundWhenDownloadingFile() {
+    void shouldThrowExceptionWhenNoExamIsFoundWhenDownloadingFile() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
                                                                                                                "22223333",
