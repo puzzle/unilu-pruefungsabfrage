@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+NODE_ENV="$1"
+if [[ -z $NODE_ENV ]]; then
+  NODE_ENV="test"
+  echo "No environment provided, default is $NODE_ENV"
+fi
+
+echo "Creating SP certificate for node environment $NODE_ENV..."
+
+echo "STOP: we currently use generated certificate provided by Uni Luzern!"
+echo "Add or replace resources/$NODE_ENV/sp.crt.pem and resources/$NODE_ENV/sp.key.pem with provided information!"
+echo "see https://cryptopus.puzzle.ch/teams/811/folders/1756 for certificate and key"
+
+# copy certificate templates if not yet existing
+if [[ ! -f resources/$NODE_ENV/sp.crt.pem ]]; then
+  cp resources/sp.crt.tmp resources/$NODE_ENV/sp.crt.pem
+fi
+if [[ ! -f resources/$NODE_ENV/sp.key.pem ]]; then
+  cp resources/sp.key.tmp resources/$NODE_ENV/sp.key.pem
+fi
+
+# exit instead of re-create certificate
+exit 1
+
+# create new certificate
+openssl req -new -x509 -config resources/$NODE_ENV/sp.crt.conf -out resources/$NODE_ENV/sp.crt.pem -days 3700

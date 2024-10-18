@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+NODE_ENV="$1"
+if [[ -z $NODE_ENV ]]; then
+  NODE_ENV="test"
+  echo "No environment provided, default is $NODE_ENV"
+fi
+
+echo "Building shibboleth-sp for node environment $NODE_ENV"
+
+docker image build -t shibboleth-sp-$NODE_ENV --build-arg NODE_ENV=$NODE_ENV .
+
+docker image ls | grep shibboleth-sp

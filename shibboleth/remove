@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+NODE_ENV="$1"
+if [[ -z $NODE_ENV ]]; then
+  NODE_ENV="test"
+  echo "No environment provided, default is $NODE_ENV"
+fi
+
+echo "Remove shibboleth-sp for node environment $NODE_ENV..."
+
+docker image rm shibboleth-sp-$NODE_ENV
