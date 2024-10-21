@@ -49,10 +49,7 @@ public class ExamService {
     }
 
     public List<ExamModel> getMatchingExams(String examNumber) {
-        return getMatchingExams(examNumber, authenticationService.getMatriculationNumber());
-    }
-
-    public List<ExamModel> getMatchingExams(String examNumber, String matriculationNumber) {
+        String matriculationNumber = authenticationService.getMatriculationNumber();
         if (!validationService.validateExamNumber(examNumber)) {
             logger.info("Invalid Exam Number: {}", examNumber);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -89,10 +86,7 @@ public class ExamService {
     }
 
     public File getFileToDownload(String subjectName, String examNumber) {
-        return getFileToDownload(subjectName, authenticationService.getMatriculationNumber(), examNumber);
-    }
-
-    public File getFileToDownload(String subjectName, String matriculationNumber, String examNumber) {
+        String matriculationNumber = authenticationService.getMatriculationNumber();
         String filename = examNumber + "_" + matriculationNumber + ".pdf";
         List<String> pathParts = List.of(getBasePath(), subjectName, filename);
         File examToDownload = new File(String.join(File.separator, pathParts));
@@ -133,11 +127,7 @@ public class ExamService {
     }
 
     public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber) {
-        return convertSelectedFilesToZip(examNumber, authenticationService.getMatriculationNumber());
-    }
-
-    public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber, String matriculationNumber) {
-        List<ExamModel> matchingExams = getMatchingExams(examNumber, matriculationNumber);
+        List<ExamModel> matchingExams = getMatchingExams(examNumber);
         return convertFilesToZip(matchingExams);
     }
 }

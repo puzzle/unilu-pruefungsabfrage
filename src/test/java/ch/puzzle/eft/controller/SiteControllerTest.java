@@ -75,7 +75,7 @@ class SiteControllerTest {
 
     @Test
     void shouldAcceptValidString() throws Exception {
-        when(examFileService.getMatchingExams("11000", "11112222")).thenReturn(List.of(new ExamModel(new File(
+        when(examFileService.getMatchingExams("11000")).thenReturn(List.of(new ExamModel(new File(
                                                                                                               "./Privatrecht/11000_11112222.pdf"))));
         this.mockMvc.perform(post("/").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)

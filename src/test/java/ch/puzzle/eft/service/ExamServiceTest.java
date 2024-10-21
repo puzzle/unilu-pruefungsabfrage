@@ -15,14 +15,17 @@ import ch.puzzle.eft.model.ExamModel;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,17 +33,23 @@ import static org.mockito.Mockito.when;
 @ActiveProfiles("dev")
 class ExamServiceTest {
 
-    @Spy
-    ExamService examFileService;
+    @Mock
+    AuthenticationService authenticationService;
 
-    @Autowired
-    public ExamServiceTest(ExamService examFileService) {
-        this.examFileService = examFileService;
-    }
+    @Mock
+    ValidationService validationService;
+
+    @Mock
+    Environment environment;
+
+    @InjectMocks @Spy
+    ExamService examFileService;
 
     @BeforeEach
     void setUp() {
         when(examFileService.getBasePath()).thenReturn("static");
+        when(authenticationService.getMatriculationNumber()).thenReturn("22223333");
+        when(validationService.validateExamNumber(anyString())).thenReturn(true);
     }
 
     @Test
@@ -93,7 +102,7 @@ class ExamServiceTest {
                                                      .map(ExamModel::getFileName)
                                                      .toList();
 
-        List<ExamModel> result = examFileService.getMatchingExams("11001", "22223333");
+        List<ExamModel> result = examFileService.getMatchingExams("11001");
 
         List<String> resultFileNames = result.stream()
                                              .map(ExamModel::getFileName)
@@ -105,34 +114,33 @@ class ExamServiceTest {
 
     @Test
     void shouldThrowExceptionWhenExamNumberInputIsInvalid() {
+        when(validationService.validateExamNumber(anyString())).thenReturn(false);
+
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
-                                                                       () -> examFileService.getMatchingExams("53",
-                                                                                                              "44445555"));
+                                                                       () -> examFileService.getMatchingExams("53"));
         assertEquals(HttpStatus.BAD_REQUEST, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldThrowExceptionWhenExamNumberInputIsNull() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
-                                                                       () -> examFileService.getMatchingExams(null,
-                                                                                                              "11112222"));
+                                                                       () -> examFileService.getMatchingExams(null));
         assertEquals(HttpStatus.BAD_REQUEST, responseStatusException.getStatusCode());
     }
 
 
     @Test
     void shouldThrowExceptionWhenMatriculationNumberIsNull() {
+        when(authenticationService.getMatriculationNumber()).thenReturn(null);
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
-                                                                       () -> examFileService.getMatchingExams("11000",
-                                                                                                              null));
+                                                                       () -> examFileService.getMatchingExams("11000"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldThrowExceptionWhenNoMatchingExamsAreFound() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
-                                                                       () -> examFileService.getMatchingExams("11004",
-                                                                                                              "22223333"));
+                                                                       () -> examFileService.getMatchingExams("11004"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
@@ -140,17 +148,15 @@ class ExamServiceTest {
     void shouldThrowExceptionWhenNoExamIsFoundWhenDownloadingFile() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
-                                                                                                               "22223333",
                                                                                                                "19000"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldThrowExceptionWhenMatriculationNumberIsNullWhenDownloadingFile() {
+        when(authenticationService.getMatriculationNumber()).thenReturn(null);
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
-                                                                       () -> examFileService.getFileToDownload("Privatrecht",
-                                                                                                               null,
-                                                                                                               "11000"));
+                                                                       () -> examFileService.getFileToDownload("Privatrecht", "11000"));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
@@ -158,14 +164,13 @@ class ExamServiceTest {
     void shouldThrowExceptionWhenExamNumberIsNullWhenDownloadingFile() {
         ResponseStatusException responseStatusException = assertThrows(ResponseStatusException.class,
                                                                        () -> examFileService.getFileToDownload("Privatrecht",
-                                                                                                               "22223333",
                                                                                                                null));
         assertEquals(HttpStatus.NOT_FOUND, responseStatusException.getStatusCode());
     }
 
     @Test
     void shouldReturnFileToDownload() {
-        File result = examFileService.getFileToDownload("Privatrecht", "22223333", "11001");
+        File result = examFileService.getFileToDownload("Privatrecht", "11001");
         assertEquals(new File("static/Privatrecht/11001_22223333.pdf"), result);
     }
 
@@ -218,7 +223,7 @@ class ExamServiceTest {
     @Test
     void shouldReturnCorrectFilesAfterZip() throws IOException {
 
-        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11001", "22223333");
+        ByteArrayOutputStream byteArrayOutputStream = examFileService.convertSelectedFilesToZip("11001");
 
         // Convert the output stream's content to a ZipInputStream to read and verify the ZIP contents
         byte[] zipContent = byteArrayOutputStream.toByteArray();
@@ -241,7 +246,7 @@ class ExamServiceTest {
 
     @Test
     void shouldSortExamList() {
-        List<ExamModel> result = examFileService.getMatchingExams("11001", "22223333");
+        List<ExamModel> result = examFileService.getMatchingExams("11001");
 
         List<String> expectedFileNames = List.of("Handels und Gesellschaftsrecht",
                                                  "Öffentliches Recht",
