@@ -69,6 +69,7 @@ public class SecurityConfig {
     public RequestAttributeAuthenticationFilter authenticationFilter(AuthenticationManager authenticationManager) {
         RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolethRequestAuthenticationFilter(isMockPrincipal);
         authenticationFilter.setAuthenticationManager(authenticationManager);
+        // Stop infinity loop if login not successful
         authenticationFilter.setContinueFilterChainOnUnsuccessfulAuthentication(false);
         authenticationFilter.setCheckForPrincipalChanges(false);
         return authenticationFilter;
