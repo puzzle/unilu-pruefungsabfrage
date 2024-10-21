@@ -3,7 +3,7 @@ server:
   port: 8080
 
 test:
-  mock.principal: true
+  mock.isMockPrincipal: true
 
 logging.level:
   root: info
