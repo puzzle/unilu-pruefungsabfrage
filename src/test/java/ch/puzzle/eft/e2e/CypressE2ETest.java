@@ -15,7 +15,6 @@ import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCh
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-// TODO change profile to test once e2e tests can use login
 @ActiveProfiles("dev")
 class CypressE2ETest {
     private static final Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
