@@ -2,7 +2,6 @@ package ch.puzzle.eft.config;
 
 import java.security.Principal;
 import java.security.Security;
-import java.util.Collection;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
@@ -40,13 +38,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> userDetailsService() {
         return token -> new AuthenticationUserDetails((AuthenticationUser) token.getPrincipal()) {
-            @Override
-            public Collection<? extends GrantedAuthority> getAuthorities() {
-                Collection<GrantedAuthority> authorities = token.getAuthorities();
-                logger.debug("current authorities is (size={}) {}", authorities.size(), authorities);
-                return authorities;
-            }
-
             @Override
             public String getUsername() {
                 String username = "n/a";
