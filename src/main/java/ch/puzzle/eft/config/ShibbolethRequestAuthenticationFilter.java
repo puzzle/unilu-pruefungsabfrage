@@ -14,10 +14,10 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
     private static final String ATTRIBUTE_MATRICULATION_NUMBER = "matriculationNumber";
     private static final String ATTRIBUTE_SURNAME = "surname";
     private static final String ATTRIBUTE_GIVEN_NAME = "givenName";
-    private boolean mockPrincipal;
+    private boolean isMockPrincipal;
 
-    public ShibbolethRequestAuthenticationFilter(Boolean mockPrincipal) {
-        this.mockPrincipal = mockPrincipal;
+    public ShibbolethRequestAuthenticationFilter(Boolean isMockPrincipal) {
+        this.isMockPrincipal = isMockPrincipal;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
         Principal principal = request.getUserPrincipal();
         if (principal == null || principal.getName() == null) {
             logger.debug("Principal or principal name from request is null");
-            if (mockPrincipal) {
+            if (isMockPrincipal) {
                 logger.debug("mockPrincipal is true. Logging in with mock principal");
                 return new AuthenticationUser("11112222", "mock");
             }

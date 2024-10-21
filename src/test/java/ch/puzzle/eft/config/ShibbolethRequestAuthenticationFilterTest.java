@@ -64,7 +64,7 @@ class ShibbolethRequestAuthenticationFilterTest {
     }
 
     @Test
-    void shouldReturnMockUserWhenMockPrincipalIsEnabled() {
+    void shouldReturnMockUserWhenIsMockPrincipalIsTrue() {
         this.filter = new ShibbolethRequestAuthenticationFilter(true);
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getUserPrincipal()).thenReturn(null);
@@ -80,7 +80,7 @@ class ShibbolethRequestAuthenticationFilterTest {
     }
 
     @Test
-    void shouldReturnMockUserWhenMockPrincipalIsEnabledAndUserPrincipalHasNoName() {
+    void shouldReturnMockUserWhenIsMockPrincipalIsTrueAndUserPrincipalHasNoName() {
         this.filter = new ShibbolethRequestAuthenticationFilter(true);
         HttpServletRequest request = mock(HttpServletRequest.class);
         Principal principal = mock(Principal.class);
@@ -116,7 +116,7 @@ class ShibbolethRequestAuthenticationFilterTest {
     }
 
     @Test
-    void shouldReturnPreAuthenticatedPrincipalWhenPrincipalIsNullAndMockPrincipalIsFalse() {
+    void shouldReturnPreAuthenticatedPrincipalWhenPrincipalIsNullAndIsMockPrincipalIsFalse() {
         this.filter = new ShibbolethRequestAuthenticationFilter(false);
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getUserPrincipal()).thenReturn(null);

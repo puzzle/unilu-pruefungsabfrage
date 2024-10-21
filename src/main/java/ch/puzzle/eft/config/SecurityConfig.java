@@ -35,7 +35,7 @@ public class SecurityConfig {
     private static final String PERMISSION_POLICY = "accelerometer=()," + "attribution-reporting=()," + "autoplay=()," + "camera=()," + "compute-pressure=()," + "display-capture=()," + "encrypted-media=()," + "fullscreen=()," + "gamepad=()," + "geolocation=()," + "gyroscope=()," + "hid=()," + "identity-credentials-get=()," + "idle-detection=()," + "local-fonts=()," + "magnetometer=()," + "microphone=()," + "midi=()," + "otp-credentials=()," + "payment=()," + "picture-in-picture=()," + "publickey-credentials-create=()," + "publickey-credentials-get=()," + "screen-wake-lock=()," + "serial=()," + "storage-access=()," + "usb=()," + "window-management=()," + "xr-spatial-tracking=()";
 
     @Value("${test.mock.principal:false}")
-    private boolean mockPrincipal;
+    private boolean isMockPrincipal;
 
     @Bean
     public AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> userDetailsService() {
@@ -67,7 +67,7 @@ public class SecurityConfig {
 
     @Bean
     public RequestAttributeAuthenticationFilter authenticationFilter(AuthenticationManager authenticationManager) {
-        RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolethRequestAuthenticationFilter(mockPrincipal);
+        RequestAttributeAuthenticationFilter authenticationFilter = new ShibbolethRequestAuthenticationFilter(isMockPrincipal);
         authenticationFilter.setAuthenticationManager(authenticationManager);
         authenticationFilter.setContinueFilterChainOnUnsuccessfulAuthentication(false);
         authenticationFilter.setCheckForPrincipalChanges(false);
