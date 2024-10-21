@@ -75,8 +75,7 @@ class SiteControllerTest {
 
     @Test
     void shouldAcceptValidString() throws Exception {
-        when(examFileService.getMatchingExams("11000")).thenReturn(List.of(new ExamModel(new File(
-                                                                                                              "./Privatrecht/11000_11112222.pdf"))));
+        when(examFileService.getMatchingExams("11000")).thenReturn(List.of(new ExamModel(new File("./Privatrecht/11000_11112222.pdf"))));
         this.mockMvc.perform(post("/").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .param("examNumber", "11000"))
@@ -87,10 +86,8 @@ class SiteControllerTest {
 
     @Test
     void shouldRespondWithHttpStatus404WhenEnteringExamNumberWithNoMatchingFiles() throws Exception {
-        when(examFileService.getMatchingExams("11000")).thenThrow(new ResponseStatusException(
-                                                                                                          HttpStatus.NOT_FOUND,
-                                                                                                          String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden",
-                                                                                                                        "11000")));
+        when(examFileService.getMatchingExams("11000")).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND,
+                String.format("Keine Prüfungen für die Prüfungslaufnummer %s gefunden", "11000")));
 
         this.mockMvc.perform(post("/").with(csrf())
                                             .contentType(MediaType.APPLICATION_JSON)
