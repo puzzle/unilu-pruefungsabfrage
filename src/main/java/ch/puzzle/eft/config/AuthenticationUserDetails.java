@@ -20,11 +20,21 @@ public class AuthenticationUserDetails extends AuthenticationUser implements Use
         return List.of();
     }
 
+    /**
+     * THIS MUST ALWAYS RETURN NULL. This override is enforced by the UserDetails interface.
+     * 
+     * @return null
+     */
     @Override
     public String getPassword() {
         return null;
     }
 
+    /**
+     * This must never return null but must always return "n/a"
+     * 
+     * @return "n/a"
+     */
     @Override
     public String getUsername() {
         return "n/a";
