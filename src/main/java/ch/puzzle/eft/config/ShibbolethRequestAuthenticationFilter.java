@@ -29,7 +29,6 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
             logger.debug("no principal, fallback to configured principal environment variable");
             return super.getPreAuthenticatedPrincipal(request);
         }
-        logger.debug("authentication user from request is {}", authenticationUser);
         return authenticationUser;
     }
 
@@ -72,7 +71,6 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
                 String value = (String) request.getAttribute(attributeName);
                 value = new String(value.getBytes("ISO-8859-1"), "UTF-8");
                 request.setAttribute(attributeName, value);
-                logger.debug("converted string attribute '{}' from ISO-8859-1 to UTF-8 is '{}'", attributeName, value);
             } catch (UnsupportedEncodingException | ClassCastException | NullPointerException e) {
                 logger.info("unable to convert string attribute {} to UTF-8: {}", attributeName, e);
             }

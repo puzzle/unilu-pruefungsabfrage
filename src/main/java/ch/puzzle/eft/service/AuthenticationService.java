@@ -25,7 +25,6 @@ public class AuthenticationService {
                                                              .getAuthentication();
 
         if (authentication.getPrincipal() instanceof AuthenticationUser authenticationUser) {
-            logger.debug("authentication user found in security context is {}", authenticationUser);
             return authenticationUser;
         }
         logger.debug("no authentication user found in security context");
