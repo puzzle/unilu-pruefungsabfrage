@@ -37,7 +37,7 @@ public class ShibbolethRequestAuthenticationFilter extends RequestAttributeAuthe
         if (principal == null || principal.getName() == null) {
             logger.debug("Principal or principal name from request is null");
             if (isMockPrincipal) {
-                logger.debug("mockPrincipal is true. Logging in with mock principal");
+                logger.debug("isMockPrincipal is true. Logging in with mock principal");
                 return new AuthenticationUser("11112222", "mock");
             }
             return null;
