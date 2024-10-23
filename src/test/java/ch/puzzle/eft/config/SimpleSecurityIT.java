@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Disabled("for local integration tests only with running SP")
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 @SpringBootTest(classes = ExamFeedbackToolApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SimpleSecurityIT {
 

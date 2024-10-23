@@ -15,7 +15,7 @@ import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCh
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class CypressE2ETest {
     private static final Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
 

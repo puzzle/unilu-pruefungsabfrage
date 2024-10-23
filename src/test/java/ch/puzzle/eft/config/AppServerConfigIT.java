@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 @SpringBootTest(properties = {"server.ajp.protocol=https", "server.ajp.port=8484", "server.ajp.packet.size=676767"})
 class AppServerConfigIT {
 

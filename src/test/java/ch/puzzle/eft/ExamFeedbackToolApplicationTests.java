@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 class ExamFeedbackToolApplicationTests {
 
     @Test
