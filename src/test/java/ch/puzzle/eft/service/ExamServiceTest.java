@@ -57,13 +57,13 @@ class ExamServiceTest {
 
         List<File> result = examFileService.getAllExamFiles();
 
-        List<File> filesToCheck = List.of(Paths.get("static", "Handels und Gesellschaftsrecht", "11000_11112222.pdf")
+        List<File> filesToCheck = List.of(Paths.get("static", "Handels und Gesellschaftsrecht", "11000_01911506.pdf")
                                                .toFile(),
-                                          Paths.get("static", "Privatrecht", "11000_11112222.pdf")
+                                          Paths.get("static", "Privatrecht", "11000_01911506.pdf")
                                                .toFile(),
-                                          Paths.get("static", "Strafrecht", "11000_11112222.pdf")
+                                          Paths.get("static", "Strafrecht", "11000_01911506.pdf")
                                                .toFile(),
-                                          Paths.get("static", "Öffentliches Recht", "11000_11112222.pdf")
+                                          Paths.get("static", "Öffentliches Recht", "11000_01911506.pdf")
                                                .toFile());
 
         assertEquals(22, result.size());
