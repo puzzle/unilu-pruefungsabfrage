@@ -1,0 +1,12 @@
+server:
+  forward-headers-strategy: framework
+  error.path: redirect:/error
+  servlet:
+    session:
+      cookie:
+        same-site: strict
+
+spring:
+  application:
+    name: exam-feedback-tool
+    version: @project.version@

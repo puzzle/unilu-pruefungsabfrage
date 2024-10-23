@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.Collator;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -23,10 +26,12 @@ public class ExamService {
     private static final Logger logger = LoggerFactory.getLogger(ExamService.class);
     private final Environment environment;
     private final ValidationService validationService;
+    private final AuthenticationService authenticationService;
 
-    public ExamService(Environment environment, ValidationService validationService) {
+    public ExamService(Environment environment, ValidationService validationService, AuthenticationService authenticationService) {
         this.environment = environment;
         this.validationService = validationService;
+        this.authenticationService = authenticationService;
     }
 
     public List<File> getAllExamFiles() {
@@ -43,7 +48,8 @@ public class ExamService {
                      .toList();
     }
 
-    public List<ExamModel> getMatchingExams(String examNumber, String matriculationNumber) {
+    public List<ExamModel> getMatchingExams(String examNumber) {
+        String matriculationNumber = authenticationService.getMatriculationNumber();
         if (!validationService.validateExamNumber(examNumber)) {
             logger.info("Invalid Exam Number: {}", examNumber);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
@@ -79,7 +85,9 @@ public class ExamService {
         return baseDir.listFiles(File::isDirectory);
     }
 
-    public File getFileToDownload(String subjectName, String filename) {
+    public File getFileToDownload(String subjectName, String examNumber) {
+        String matriculationNumber = authenticationService.getMatriculationNumber();
+        String filename = examNumber + "_" + matriculationNumber + ".pdf";
         List<String> pathParts = List.of(getBasePath(), subjectName, filename);
         File examToDownload = new File(String.join(File.separator, pathParts));
         if (!examToDownload.exists()) {
@@ -119,8 +127,7 @@ public class ExamService {
     }
 
     public ByteArrayOutputStream convertSelectedFilesToZip(String examNumber) {
-        // TODO: Replace hardcoded marticulationNumber 11112222 with dynamic number after login is implemented
-        List<ExamModel> matchingExams = getMatchingExams(examNumber, "11112222");
+        List<ExamModel> matchingExams = getMatchingExams(examNumber);
         return convertFilesToZip(matchingExams);
     }
 }

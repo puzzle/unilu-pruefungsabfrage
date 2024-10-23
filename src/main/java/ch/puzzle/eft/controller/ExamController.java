@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/exams")
 public class ExamController {
 
-    //Todo mit richtiger Matrikelnummer ersetzen
-    private final String userMatriculationNumber = "11112222";
-
     ExamService examFileService;
 
     public ExamController(ExamService examFileService) {
@@ -38,8 +35,7 @@ public class ExamController {
     @GetMapping(value = "/download/{subject}/{examNumber}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseBody
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable("subject") String subject, @PathVariable("examNumber") String examNumber) {
-        String fileName = examNumber + "_" + userMatriculationNumber + ".pdf";
-        File examFile = examFileService.getFileToDownload(subject, fileName);
+        File examFile = examFileService.getFileToDownload(subject, examNumber);
         HttpHeaders responseHeaders = new HttpHeaders();
 
         responseHeaders.set("Content-Disposition", "attachment; filename=" + subject + ".pdf");

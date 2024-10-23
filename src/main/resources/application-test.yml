@@ -1,0 +1,10 @@
+server:
+  address: localhost
+  port: 8080
+
+test:
+  mock.isMockPrincipal: true
+
+logging.level:
+  org.springframework.security: off
+  org.apache: off

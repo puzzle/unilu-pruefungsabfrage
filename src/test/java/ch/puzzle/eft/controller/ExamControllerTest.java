@@ -46,8 +46,8 @@ class ExamControllerTest {
 
     @Test
     void shouldDownloadFileAccordingToSubjectAndFileName() throws Exception {
-        File file = new File("static/Privatrecht/11000_11112222.pdf");
-        when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenReturn(file);
+        File file = new File("static/Privatrecht/11000_01911506.pdf");
+        when(examFileService.getFileToDownload("Privatrecht", "11000")).thenReturn(file);
         this.mockMvc.perform(get("/exams/download/Privatrecht/11000"))
                     .andExpect(status().isOk())
                     .andExpect(content().bytes(Files.readAllBytes(file.toPath())));
@@ -62,7 +62,7 @@ class ExamControllerTest {
 
     @Test
     void shouldReturnErrorPageIfFileNotFound() throws Exception {
-        when(examFileService.getFileToDownload("Privatrecht", "11000_11112222.pdf")).thenThrow(
+        when(examFileService.getFileToDownload("Privatrecht", "11000")).thenThrow(
                                                                                                new ResponseStatusException(HttpStatus.NOT_FOUND,
                                                                                                                            String.format("Keine Unterordner im Pfad %s gefunden",
                                                                                                                                          "Privatrecht")));

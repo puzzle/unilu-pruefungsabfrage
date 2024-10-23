@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.Testcontainers;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
@@ -13,11 +14,10 @@ import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCh
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@ActiveProfiles("test")
 class CypressE2ETest {
     private static final Logger logger = LoggerFactory.getLogger(CypressE2ETest.class);
-
 
     @LocalServerPort
     private int port;
