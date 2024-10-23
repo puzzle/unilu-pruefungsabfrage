@@ -6,6 +6,7 @@ import java.util.Objects;
 import ch.puzzle.eft.model.ExamNumberForm;
 import ch.puzzle.eft.service.ExamService;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -25,6 +26,9 @@ public class SiteController {
     private final ExamService examFileService;
 
     private static final String SEARCH_TEMPLATE = "search";
+
+    @Value("${test.isSecureCookie:true}")
+    private boolean isSecureCookie;
 
     public SiteController(ExamService examFileService) {
         this.examFileService = examFileService;
@@ -63,7 +67,7 @@ public class SiteController {
                                      .toSeconds());
         cookieBuilder.sameSite("Strict");
         cookieBuilder.httpOnly(true);
-        //        cookieBuilder.secure(true); TODO: do as soon as login is in main
+        cookieBuilder.secure(isSecureCookie);
         return ResponseEntity.status(HttpStatus.FOUND)
                              .header(HttpHeaders.SET_COOKIE,
                                      cookieBuilder.build()
