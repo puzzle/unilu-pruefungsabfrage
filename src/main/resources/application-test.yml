@@ -4,6 +4,7 @@ server:
 
 test:
   mock.isMockPrincipal: true
+  isSecureCookie: false
 
 logging.level:
   org.springframework.security: off
