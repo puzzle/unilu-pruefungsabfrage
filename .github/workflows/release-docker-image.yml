@@ -13,7 +13,8 @@ jobs:
       id-token: write
       contents: write
       attestations: write
-
+    outputs:
+      semantic_version: ${{ steps. }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,13 +65,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        id: push
+      - name: Build and push application Docker image
+        id: push-app
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
+          image_name: ${{ github.organization }}/${{ github.repository }}-application
           tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
+
+      - name: Build and push Shibboleth Docker image
+        id: push-shibboleth
+        uses: docker/build-push-action@v6
+        with:
+            context: ./shibboleth
+            push: true
+            image_name: ${{ github.organization }}/${{ github.repository }}-shibboleth
+            tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
@@ -94,7 +105,7 @@ jobs:
       - name: Generate SBOM for maven dependencies
         run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
 
-      - name: Push SBOM to dependency track
+      - name: Push application SBOM to dependency track
         env:
           PROJECT_NAME: unilu-pruefungsabfrage-public
         run: |
@@ -102,6 +113,36 @@ jobs:
           --header "X-Api-Key: ${{ secrets.OWASP_DT_KEY }}" \
           --header "Content-Type: multipart/form-data" \
           --form "autoCreate=true" \
-          --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}" \
+          --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}-application" \
           --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
           --form "bom=@target/bom.xml"
+
+      - name: Build Shibboleth Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./shibboleth
+          push: false
+          image_name: shibboleth
+          tags: sbom
+
+      - name: Generate SBOM for Shibboleth image
+        uses: anchore/sbom-action@v0
+        with:
+          image: shibboleth:sbom
+          format: cyclonedx
+          artifact-name: "shibboleth-sbom.xml"
+          output-file: "./shibboleth-sbom.xml"
+          upload-artifact: false
+          upload-release-assets: false
+
+      - name: Push shibboleth SBOM to dependency track
+        env:
+          PROJECT_NAME: unilu-pruefungsabfrage-public
+        run: |
+          curl --verbose -s --location --request POST ${{ secrets.DEPENDENCY_TRACK_URL }} \
+          --header "X-Api-Key: ${{ secrets.OWASP_DT_KEY }}" \
+          --header "Content-Type: multipart/form-data" \
+          --form "autoCreate=true" \
+          --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}-shibboleth" \
+          --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
+          --form "bom=@shibboleth-sbom.xml"
