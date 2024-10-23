@@ -9,19 +9,11 @@ fi
 echo "Creating SP certificate for node environment $NODE_ENV..."
 
 echo "STOP: we currently use generated certificate provided by Uni Luzern!"
-echo "Add or replace resources/$NODE_ENV/sp.crt.pem and resources/$NODE_ENV/sp.key.pem with provided information!"
-echo "see https://cryptopus.puzzle.ch/teams/811/folders/1756 for certificate and key"
-
-# copy certificate templates if not yet existing
-if [[ ! -f resources/$NODE_ENV/sp.crt.pem ]]; then
-  cp resources/sp.crt.tmp resources/$NODE_ENV/sp.crt.pem
-fi
-if [[ ! -f resources/$NODE_ENV/sp.key.pem ]]; then
-  cp resources/sp.key.tmp resources/$NODE_ENV/sp.key.pem
-fi
+echo "Add or replace secrets/sp.crt.pem and secrets/sp.key.pem with provided information!"
+echo "see README.md for location of the required files"
 
 # exit instead of re-create certificate
 exit 1
 
 # create new certificate
-openssl req -new -x509 -config resources/$NODE_ENV/sp.crt.conf -out resources/$NODE_ENV/sp.crt.pem -days 3700
+openssl req -new -x509 -config resources/$NODE_ENV/sp.crt.conf -out secrets/sp.crt.pem -days 3700
