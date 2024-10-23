@@ -1,6 +1,6 @@
 FROM rockylinux/rockylinux:9
 
-ARG NODE_ENV=test
+ARG NODE_ENV=prod
 ENV NODE_ENV=$NODE_ENV
 
 COPY shibboleth.repo /etc/yum.repos.d/shibboleth.repo
