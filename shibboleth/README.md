@@ -3,7 +3,7 @@
 ## Create & Run Docker Image Locally
 
 The following steps can be done for `test` and / or `prod` environment. The commands allow the parameter `test` or
-`prod`. The default environment is `test`. See section `Commands` for further information.
+`prod`. The default environment is `test`. See section [Commands](#Commands)s for further information.
 
 1. Create the host certificate for Apache HTTP/S server using the command `httpd-certificate`. The configuration is
    defined in `httpd.crt.conf`. The result is the public certificate `httpd.crt` and its private key file
@@ -14,7 +14,7 @@ The following steps can be done for `test` and / or `prod` environment. The comm
    files.
 3. Now you are ready to create the docker image for test and / or production use. Run the command `build` and result is
    the created docker image `shibboleth-sp-test` or `shibboleth-sp-prod`.
-4. The final step is to run the created docker image using the command `run`.
+4. The final step is to run the created docker image using the Docker Compose file `docker compose up -d --no-deps --build shibboleth`.
 
 When you start a session within the docker image you can find the metadata file from `AAI Test` or `SWITCH AAI` under
 `/var/cache/shibboleth/` which will be refreshed every hour.
@@ -30,25 +30,22 @@ alias to `/etc/hosts` if not already done. The same is true for test environment
 
 ## Commands
 
-| Command           | Parameter      | Description                                        |                                        
-|-------------------|----------------|----------------------------------------------------|
-| build             | [test \| prod] | build the docker image for test or prod node       |
-| httpd-certificate | [test \| prod] | create the Apache HTTP/S server certificate        |
-| remove            | [test \| prod] | remove the docker image for test or prod node      |
-| run               | [test \| prod] | run the docker image for test or prod node         |
-| sp-certificate    | [test \| prod] | create the Shibboleth Service Provider certificate |
-| stop              |                | stop the docker image for test or prod node        |
+| Command                                           | Parameter                                                | Description                                        |                                        
+|---------------------------------------------------|----------------------------------------------------------|----------------------------------------------------|
+| docker compose up -d --no-deps --build shibboleth | [test \| prod] (must be adjusted in `docker-compose.yml` | build and start Docker container                   |
+| httpd-certificate                                 | [test \| prod]                                           | create the Apache HTTP/S server certificate        |
+| sp-certificate                                    | [test \| prod]                                           | create the Shibboleth Service Provider certificate |
 
 ## Mandatory Files
 The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file.
 
-| Name                    | Target Dir           |                                        
-|-------------------------|----------------------|
-| sp.crt.pem              | /etc/shibboleth      |
-| sp.key.pem              | /etc/shibboleth      |
-| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      |
-| httpd.crt.pem           | /etc/pki/tls/certs   |
-| httpd.key.pem           | /etc/pki/tls/private |
+| Name                    | Target Dir           | Where to acquire                                               |                                        
+|-------------------------|----------------------|----------------------------------------------------------------|
+| sp.crt.pem              | /etc/shibboleth      | Generate as describe [here](#create--run-docker-image-locally) |
+| sp.key.pem              | /etc/shibboleth      | Generate as describe [here](#create--run-docker-image-locally) |
+| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      | Download file from share                                       |
+| httpd.crt.pem           | /etc/pki/tls/certs   | Generate as describe [here](#create--run-docker-image-locally) |
+| httpd.key.pem           | /etc/pki/tls/private | Generate as describe [here](#create--run-docker-image-locally) |
 
 ## Useful Links
 
