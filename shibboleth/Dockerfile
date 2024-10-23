@@ -24,6 +24,7 @@ COPY resources/${NODE_ENV}/shibboleth2.xml \
 
 COPY resources/entrypoint \
      /usr/local/sbin/
+RUN ["chmod", "+x", "/usr/local/sbin/entrypoint"]
 
 COPY resources/${NODE_ENV}/index.html \
      /var/www/html/
