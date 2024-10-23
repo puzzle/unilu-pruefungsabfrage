@@ -58,8 +58,8 @@ The pipeline executes the following steps:
 3. Assert that the short commit hash in the tag matches the one from the checked out commit.
 4. Build and test the jar file
 5. If the tests succeed, a release on Github is created
-6. The docker image is built and pushed to the Github Container Registry (GHCR).
-7. If this all succeeds a new job creates the sbom and pushes it to Dependency Track.
+6. The docker images are built and pushed to the Github Container Registry (GHCR).
+7. If this all succeeds a new job creates the SBOMs and pushes them to Dependency Track.
 
 To create a clean release you should follow the following steps:
 1. Create a new branch on which you update the semver version in the pom.xml.
@@ -69,6 +69,8 @@ To create a clean release you should follow the following steps:
 This will create the correct release tag to create a release from your locally checked out commit. After confirming the
 creation of the tag it will be pushed to Github and the release-workflow starts.
 
+### SWITCHaai Login 
+To test the integration with the [SWITCHaai login](https://help.switch.ch/aai/), see [this separate README](./shibboleth/README.md). 
 
 ### Development with rootless docker setup
 > Attention: The steps below are for Ubuntu or an Ubuntu based distribution like Pop!_OS. For more
