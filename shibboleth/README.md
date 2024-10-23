@@ -1,6 +1,6 @@
-# Create Docker Image for Shibboleth SP with Apache httpd
+# Shibboleth SP with Apache httpd
 
-## Create & Run Docker Image
+## Create & Run Docker Image Locally
 
 The following steps can be done for `test` and / or `prod` environment. The commands allow the parameter `test` or
 `prod`. The default environment is `test`. See section `Commands` for further information.
@@ -40,14 +40,15 @@ alias to `/etc/hosts` if not already done. The same is true for test environment
 | stop              |                | stop the docker image for test or prod node        |
 
 ## Mandatory Files
-The following files are mandatory and need to be supplied via the volume mount specified in the `docker-compose.yml` file.
+The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file.
 
-| Name          | Target Dir           |                                        
-|---------------|----------------------|
-| sp.crt.pem    | /etc/shibboleth      |
-| sp.key.pem    | /etc/shibboleth      |
-| httpd.crt.pem | /etc/pki/tls/certs   |
-| httpd.crt.key | /etc/pki/tls/private |
+| Name                    | Target Dir           |                                        
+|-------------------------|----------------------|
+| sp.crt.pem              | /etc/shibboleth      |
+| sp.key.pem              | /etc/shibboleth      |
+| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      |
+| httpd.crt.pem           | /etc/pki/tls/certs   |
+| httpd.key.pem           | /etc/pki/tls/private |
 
 ## Useful Links
 
