@@ -9,7 +9,7 @@
     <ApplicationDefaults id="default"
                          policyId="default"
                          entityID="https://edview.unilu.ch/shibboleth"
-                         homeURL="https://edview.unilu.ch/home"
+                         homeURL="https://edview.unilu.ch/"
                          REMOTE_USER="uniqueID"
                          cipherSuites="DEFAULT:!EXP:!LOW:!aNULL:!eNULL:!DES:!IDEA:!SEED:!RC4:!3DES:!kRSA:!SSLv2:!SSLv3:!TLSv1:!TLSv1.1"
                          signing="false"
