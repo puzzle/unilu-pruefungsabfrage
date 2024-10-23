@@ -1,7 +1,14 @@
 # Shibboleth SP with Apache httpd
 
 ## Create & Run Docker Image Locally
+1. Download the required certificates from [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) and place them in `./secrets`. You may need to create the folder if it does not already exist
+2. Add aliases for `edview.unilu.ch` and `edview-test.unilu.ch` to your [host file](https://linuxhandbook.com/etc-hosts-file/).  
+3. Create and run the docker image using the Docker Compose file `docker compose up -d --no-deps --build shibboleth`.
 
+When you start a session within the docker image you can find the metadata file from `AAI Test` or `SWITCH AAI` under
+`/var/cache/shibboleth/` which will be refreshed every hour.
+
+## Generate New Certificates
 The following steps can be done for `test` and / or `prod` environment. The commands allow the parameter `test` or
 `prod`. The default environment is `test`. See section [Commands](#Commands)s for further information.
 
@@ -12,21 +19,13 @@ The following steps can be done for `test` and / or `prod` environment. The comm
    in `sp.crt.conf`. The result is the public certificate `sp.crt.pem` and its private key file `sp.key.pem`. When the
    certificate is provided by the customer you can copy the content of certificate and private key to the placeholder
    files.
-3. Now you are ready to create the docker image for test and / or production use. Run the command `build` and result is
-   the created docker image `shibboleth-sp-test` or `shibboleth-sp-prod`.
-4. The final step is to run the created docker image using the Docker Compose file `docker compose up -d --no-deps --build shibboleth`.
-
-When you start a session within the docker image you can find the metadata file from `AAI Test` or `SWITCH AAI` under
-`/var/cache/shibboleth/` which will be refreshed every hour.
+3. Now you are ready to start your local docker container, see [here](#create--run-docker-image-locally) how.
 
 To use the self-signed host certificate created in step 1 you should add this certificate to the Java trust store using
 the following commands for test or prod environment:
 
     keytool -importcert -trustcacerts -file resources/prod/httpd.crt.pem -alias unilu-httpd -cacerts
     keytool -importcert -trustcacerts -file resources/test/httpd.crt.pem -alias unilu-httpd-test -cacerts
-
-The alias `edview.unilu.ch` is used for the Shibboleth service provider host (localhost). Therefore, you might add the
-alias to `/etc/hosts` if not already done. The same is true for test environment `edview-test.unilu.ch`.
 
 ## Commands
 
@@ -39,13 +38,13 @@ alias to `/etc/hosts` if not already done. The same is true for test environment
 ## Mandatory Files
 The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file.
 
-| Name                    | Target Dir           | Where to acquire                                               |                                        
-|-------------------------|----------------------|----------------------------------------------------------------|
-| sp.crt.pem              | /etc/shibboleth      | Generate as describe [here](#create--run-docker-image-locally) |
-| sp.key.pem              | /etc/shibboleth      | Generate as describe [here](#create--run-docker-image-locally) |
-| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      | Download file from share                                       |
-| httpd.crt.pem           | /etc/pki/tls/certs   | Generate as describe [here](#create--run-docker-image-locally) |
-| httpd.key.pem           | /etc/pki/tls/private | Generate as describe [here](#create--run-docker-image-locally) |
+| Name                    | Target Dir           | Where to acquire                                                                                                                                                                       |                                        
+|-------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| sp.crt.pem              | /etc/shibboleth      | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
+| sp.key.pem              | /etc/shibboleth      | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
+| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      | Download file from [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates)                                                                    |
+| httpd.crt.pem           | /etc/pki/tls/certs   | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
+| httpd.key.pem           | /etc/pki/tls/private | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
 
 ## Useful Links
 
