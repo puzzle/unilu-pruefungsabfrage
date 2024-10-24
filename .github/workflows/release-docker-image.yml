@@ -13,6 +13,9 @@ jobs:
       id-token: write
       contents: write
       attestations: write
+    outputs:
+      semanticVersion: ${{ env.SEMVER_VERSION }}
+      shortCommitHash: ${{ env.SHORT_COMMIT_HASH }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -69,26 +72,31 @@ jobs:
         with:
           context: .
           push: true
-          image_name: ${{ github.organization }}/${{ github.repository }}-application
           tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
-      - name: Build and push Shibboleth Docker image
-        id: push-shibboleth
+      - name: Build and push proxy Docker image
+        id: push-proxy
         uses: docker/build-push-action@v6
         with:
             context: ./shibboleth
             push: true
-            image_name: ${{ github.organization }}/${{ github.repository }}-shibboleth
-            tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
+            tags: ghcr.io/${{ github.repository }}-proxy:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
-      - name: Generate artifact attestation
+      - name: Generate artifact attestation for application
         uses: actions/attest-build-provenance@v1
         with:
           subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: ${{ steps.push.outputs.digest }}
+          subject-digest: ${{ steps.push-app.outputs.digest }}
           push-to-registry: true
 
-  generate-and-push-sbom:
+      - name: Generate artifact attestation for proxy
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ghcr.io/${{ github.repository }}-proxy
+          subject-digest: ${{ steps.push-proxy.outputs.digest }}
+          push-to-registry: true
+
+  generate-and-push-sboms:
     needs: create-release
     runs-on: ubuntu-latest
     steps:
@@ -97,11 +105,37 @@ jobs:
         with:
           ref: ${{ github.sha }}
 
-      - name: Get semver version from pom and store major and minor version as deptrack version
-        run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
-
       - name: Generate SBOM for maven dependencies
         run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
+
+      - name: Generate SBOM for application Docker image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
+          output-file: application-sbom.xml
+          format: cyclonedx
+          upload-artifact: false
+
+      - name: Generate SBOM for proxy Docker image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/puzzle/unilu-pruefungsabfrage-proxy:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
+          output-file: proxy-sbom.xml
+          format: cyclonedx
+          upload-artifact: false
+
+      - name: Install cyclonedx-cli
+        uses: sigoden/install-binary@v1
+        with:
+          repo: CycloneDX/cyclonedx-cli
+          tag: v0.27.1
+          name: cyclonedx-linux-x64
+
+      - name: Merge SBOMs
+        run: cyclonedx-linux-x64 merge --input-files application-sbom.xml proxy-sbom.xml target/bom.xml --output-file sbom.xml
+
+      - name: Get semver version from pom and store major and minor version as deptrack version
+        run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
 
       - name: Push application SBOM to dependency track
         env:
@@ -114,33 +148,3 @@ jobs:
           --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}-application" \
           --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
           --form "bom=@target/bom.xml"
-
-      - name: Build Shibboleth Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./shibboleth
-          push: false
-          image_name: shibboleth
-          tags: sbom
-
-      - name: Generate SBOM for Shibboleth image
-        uses: anchore/sbom-action@v0
-        with:
-          image: shibboleth:sbom
-          format: cyclonedx
-          artifact-name: "shibboleth-sbom.xml"
-          output-file: "./shibboleth-sbom.xml"
-          upload-artifact: false
-          upload-release-assets: false
-
-      - name: Push shibboleth SBOM to dependency track
-        env:
-          PROJECT_NAME: unilu-pruefungsabfrage-public
-        run: |
-          curl --verbose -s --location --request POST ${{ secrets.DEPENDENCY_TRACK_URL }} \
-          --header "X-Api-Key: ${{ secrets.OWASP_DT_KEY }}" \
-          --header "Content-Type: multipart/form-data" \
-          --form "autoCreate=true" \
-          --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}-shibboleth" \
-          --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
-          --form "bom=@shibboleth-sbom.xml"
