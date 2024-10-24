@@ -147,4 +147,4 @@ jobs:
           --form "autoCreate=true" \
           --form "projectName=${PROJECT_NAME:-$GITHUB_REPOSITORY}-application" \
           --form "projectVersion=${{ env.DEPTRACK_PROJECT_VERSION }}" \
-          --form "bom=@target/bom.xml"
+          --form "bom=@sbom.xml"
