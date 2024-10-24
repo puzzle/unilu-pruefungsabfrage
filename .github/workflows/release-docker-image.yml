@@ -72,6 +72,8 @@ jobs:
         with:
           context: .
           push: true
+          provenance: mode=max
+          sbom: true
           tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
       - name: Build and push proxy Docker image
@@ -80,21 +82,9 @@ jobs:
         with:
             context: ./shibboleth
             push: true
+            provenance: mode=max
+            sbom: true
             tags: ghcr.io/${{ github.repository }}-proxy:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
-
-      - name: Generate artifact attestation for application
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: ${{ steps.push-app.outputs.digest }}
-          push-to-registry: true
-
-      - name: Generate artifact attestation for proxy
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-name: ghcr.io/${{ github.repository }}-proxy
-          subject-digest: ${{ steps.push-proxy.outputs.digest }}
-          push-to-registry: true
 
   generate-and-push-sboms:
     needs: create-release
