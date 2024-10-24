@@ -59,7 +59,7 @@ The pipeline executes the following steps:
 4. Build and test the jar file
 5. If the tests succeed, a release on Github is created
 6. The docker images are built and pushed to the Github Container Registry (GHCR).
-7. If this all succeeds a new job creates the SBOMs and pushes them to Dependency Track.
+7. If this all succeeds a new job creates the SBOMs, merges them into just one SBOM and pushes that to Dependency Track.
 
 To create a clean release you should follow the following steps:
 1. Create a new branch on which you update the semver version in the pom.xml.
