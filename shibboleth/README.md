@@ -36,15 +36,16 @@ the following commands for test or prod environment:
 | sp-certificate                                    | [test \| prod]                                           | create the Shibboleth Service Provider certificate |
 
 ## Mandatory Files
-The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file.
+The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file. 
+You can download all the necessary files from [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate them as described [here](#create--run-docker-image-locally).
 
-| Name                    | Target Dir           | Where to acquire                                                                                                                                                                       |                                        
-|-------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| sp.crt.pem              | /etc/shibboleth      | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
-| sp.key.pem              | /etc/shibboleth      | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
-| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      | Download file from [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates)                                                                    |
-| httpd.crt.pem           | /etc/pki/tls/certs   | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
-| httpd.key.pem           | /etc/pki/tls/private | Download from here [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) or generate as described [here](#create--run-docker-image-locally) |
+| Name                    | Target Dir           | Additional Information                                              |                                        
+|-------------------------|----------------------|---------------------------------------------------------------------|
+| sp.crt.pem              | /etc/shibboleth      | Can be downloaded (preferred) or generated                          |
+| sp.key.pem              | /etc/shibboleth      | Can be downloaded (preferred) or generated                          |
+| SWITCHaaiRootCA.crt.pem | /etc/shibboleth      | **Cannot be generated**, needs to be downloaded from the link above |
+| httpd.crt.pem           | /etc/pki/tls/certs   | Can be downloaded (preferred) or generated                          |
+| httpd.key.pem           | /etc/pki/tls/private | Can be downloaded (preferred) or generated                          |
 
 ## Useful Links
 
