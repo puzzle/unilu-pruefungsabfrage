@@ -74,13 +74,13 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
-      - name: Build and push proxy Docker image
-        id: push-proxy
+      - name: Build and push Shibboleth SP Docker image
+        id: push-shibboleth-sp
         uses: docker/build-push-action@v6
         with:
             context: ./shibboleth
             push: true
-            tags: ghcr.io/${{ github.repository }}-proxy:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
+            tags: ghcr.io/${{ github.repository }}-shibboleth-sp:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
       - name: Generate artifact attestation for application
         uses: actions/attest-build-provenance@v1
@@ -89,11 +89,11 @@ jobs:
           subject-digest: ${{ steps.push-app.outputs.digest }}
           push-to-registry: true
 
-      - name: Generate artifact attestation for proxy
+      - name: Generate artifact attestation for Shibboleth SP
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ghcr.io/${{ github.repository }}-proxy
-          subject-digest: ${{ steps.push-proxy.outputs.digest }}
+          subject-name: ghcr.io/${{ github.repository }}-shibboleth-sp
+          subject-digest: ${{ steps.push-shibboleth-sp.outputs.digest }}
           push-to-registry: true
 
   generate-and-push-sboms:
@@ -116,11 +116,11 @@ jobs:
           format: cyclonedx
           upload-artifact: false
 
-      - name: Generate SBOM for proxy Docker image
+      - name: Generate SBOM for Shibboleth SP Docker image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/puzzle/unilu-pruefungsabfrage-proxy:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
-          output-file: proxy-sbom.xml
+          image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
+          output-file: shibboleth-sp-sbom.xml
           format: cyclonedx
           upload-artifact: false
 
@@ -132,7 +132,7 @@ jobs:
           name: cyclonedx-linux-x64
 
       - name: Merge SBOMs
-        run: cyclonedx-linux-x64 merge --input-files application-sbom.xml proxy-sbom.xml target/bom.xml --output-file sbom.xml
+        run: cyclonedx-linux-x64 merge --input-files application-sbom.xml shibboleth-sp-sbom.xml target/bom.xml --output-file sbom.xml
 
       - name: Get semver version from pom and store major and minor version as deptrack version
         run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
