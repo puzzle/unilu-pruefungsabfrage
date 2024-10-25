@@ -17,3 +17,4 @@ exit 1
 
 # create new certificate
 openssl req -new -x509 -config resources/$NODE_ENV/sp.crt.conf -out secrets/sp.crt.pem -days 3700
+mv resources/$NODE_ENV/sp.key.pem ./secrets
