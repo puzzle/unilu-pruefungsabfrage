@@ -75,7 +75,7 @@ jobs:
         with:
           context: .
           push: true
-          provenance: mode=max
+          provenance: true
           tags: ghcr.io/${{ github.repository }}:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
       - name: Build and push Shibboleth SP Docker image
@@ -84,7 +84,7 @@ jobs:
         with:
             context: ./shibboleth
             push: true
-            provenance: mode=max
+            provenance: true
             tags: ghcr.io/${{ github.repository }}-shibboleth-sp:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
   generate-and-push-sboms:
