@@ -1,8 +1,8 @@
 services:
   eft-application:
     environment:
-      TAG: latest
-      SEC_LOCATION: secrets
+      TAG: ${TAG:-latest}
+      SEC_LOCATION: ${SEC_LOCATION:-secrets}
     image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG}
     container_name: unilu-pruefungsabfrage
     hostname: unilu-pruefungsabfrage
@@ -10,7 +10,7 @@ services:
     volumes:
       - type: bind
         source: ./${SEC_LOCATION}/httpd.keystore.p12
-        target: /secrets/httpd.keystore.p12
+        target: /${SEC_LOCATION}/httpd.keystore.p12
         read_only: true
 
   shibboleth-service-provider:
