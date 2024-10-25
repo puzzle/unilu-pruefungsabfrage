@@ -14,8 +14,7 @@ jobs:
       contents: write
       attestations: write
     outputs:
-      semanticVersion: ${{ env.SEMVER_VERSION }}
-      shortCommitHash: ${{ env.SHORT_COMMIT_HASH }}
+      imageVersion: "${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -111,7 +110,7 @@ jobs:
       - name: Generate SBOM for application Docker image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
+          image: ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.imageVersion }}
           output-file: application-sbom.xml
           format: cyclonedx
           upload-artifact: false
@@ -119,7 +118,7 @@ jobs:
       - name: Generate SBOM for Shibboleth SP Docker image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.semanticVersion }}.${{ needs.create-release.outputs.shortCommitHash }}
+          image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.imageVersion }}
           output-file: shibboleth-sp-sbom.xml
           format: cyclonedx
           upload-artifact: false
