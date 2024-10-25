@@ -2,6 +2,8 @@ services:
   shibboleth:
       container_name: shibboleth-sp
       hostname: shibboleth-sp
+      environment:
+        LOG_LEVEL: ${LOG_LEVEL:-warn}
       build:
         context: .
         dockerfile: Dockerfile

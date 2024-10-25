@@ -10,6 +10,7 @@ read -r -p "Are you sure you want to generate new certificates instead of using 
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
   echo "Creating httpd certificate for node environment $NODE_ENV"
+  mkdir -p secrets
   openssl req -newkey rsa:2048 -nodes -x509 -days 3700 -config resources/$NODE_ENV/httpd.crt.conf -out ./secrets/httpd.crt.pem
   mv resources/$NODE_ENV/httpd.key.pem ./secrets
 else
