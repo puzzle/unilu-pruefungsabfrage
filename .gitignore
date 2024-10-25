@@ -44,5 +44,3 @@ zap/zap-report.html
 ### Security ###
 *.p12
 *.pem
-
-shibboleth/secrets
