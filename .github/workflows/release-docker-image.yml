@@ -124,14 +124,14 @@ jobs:
           upload-artifact: false
 
       - name: Install cyclonedx-cli
-        uses: sigoden/install-binary@v1
+        uses: supplypike/setup-bin@v4
         with:
-          repo: CycloneDX/cyclonedx-cli
-          tag: v0.27.1
-          name: cyclonedx-linux-x64
+          uri: https://github.com/CycloneDX/cyclonedx-cli/releases/download/v0.27.1/cyclonedx-linux-x64
+          name: 'cyclonedx-cli'
+          version: '0.27.1'
 
       - name: Merge SBOMs
-        run: cyclonedx-linux-x64 merge --input-files application-sbom.xml shibboleth-sp-sbom.xml target/bom.xml --output-file sbom.xml
+        run: cyclonedx-cli merge --input-files application-sbom.xml shibboleth-sp-sbom.xml target/bom.xml --output-file sbom.xml
 
       - name: Get semver version from pom and store major and minor version as deptrack version
         run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
