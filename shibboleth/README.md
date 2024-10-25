@@ -1,4 +1,9 @@
 # Shibboleth SP with Apache httpd
+To secure the Exam Feedback Tool (EFT) [SwitchAAI](https://help.switch.ch/aai/) is used, which in turn is built on [Shibboleth](https://help.switch.ch/aai/about/shibboleth/).
+For this a reverse proxy, that acts as a Shibboleth Service Provider (SP), is needed. In our case that will be Apache. The EFT application is behind the Apache server
+running in a Spring Boot environment. And finally, Spring Boot uses a Tomcat Server with specific connectors for HTTPS and AJP (Apache Java Protocol).
+
+![SwitchAAI](./doc/SwitchAAI.drawio.png)
 
 ## Create & Run Docker Image Locally
 1. Download the required certificates from [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates) and place them in `./secrets`. You may need to create the folder if it does not already exist
