@@ -111,16 +111,16 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.imageVersion }}
-          output-file: application-sbom.xml
-          format: cyclonedx
+          output-file: application-sbom.spdx
+          format: spdxjson
           upload-artifact: false
 
       - name: Generate SBOM for Shibboleth SP Docker image
         uses: anchore/sbom-action@v0
         with:
           image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.imageVersion }}
-          output-file: shibboleth-sp-sbom.xml
-          format: cyclonedx
+          output-file: shibboleth-sp-sbom.spdx
+          format: spdxjson
           upload-artifact: false
 
       - name: Install cyclonedx-cli
@@ -130,8 +130,16 @@ jobs:
           name: 'cyclonedx-cli'
           version: '0.27.1'
 
+      - name: Convert SBOMs to cyclonedx@1.4
+        run: |
+          cyclonedx-cli convert --input-format spdxjson --input-file application-sbom.spdx --output-file application-sbom.xml --output-format xml
+          cyclonedx-cli convert --input-format spdxjson --input-file shibboleth-sp-sbom.spdx --output-file shibboleth-sp-sbom.xml --output-format xml
+
       - name: Merge SBOMs
         run: cyclonedx-cli merge --input-files application-sbom.xml shibboleth-sp-sbom.xml target/bom.xml --output-file sbom.xml
+
+      - name: Debug
+        run: cyclonedx-cli analyze sbom.xml
 
       - name: Get semver version from pom and store major and minor version as deptrack version
         run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
