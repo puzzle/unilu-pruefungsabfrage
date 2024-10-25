@@ -1,34 +1,41 @@
 services:
-  shibboleth:
-      container_name: shibboleth-sp
-      hostname: shibboleth-sp
-      environment:
-        LOG_LEVEL: ${LOG_LEVEL:-warn}
-      build:
-        context: .
-        dockerfile: Dockerfile
-        args:
-          - NODE_ENV=test
-      image: shibboleth-sp
-      network_mode: host
-      volumes:
-        - type: bind
-          source: ./secrets/httpd.crt.pem
-          target: /etc/pki/tls/certs/httpd.crt.pem
-          read_only: true
-        - type: bind
-          source: ./secrets/httpd.key.pem
-          target: /etc/pki/tls/private/httpd.key.pem
-          read_only: true
-        - type: bind
-          source: ./secrets/sp.crt.pem
-          target: /etc/shibboleth/sp.crt.pem
-          read_only: true
-        - type: bind
-          source: ./secrets/sp.key.pem
-          target: /etc/shibboleth/sp.key.pem
-          read_only: true
-        - type: bind
-          source: ./secrets/SWITCHaaiRootCA.crt.pem
-          target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
-          read_only: true
+  eft-application:
+    environment:
+      TAG: ${TAG:-latest}
+      SEC_LOCATION: ${SEC_LOCATION:-secrets}
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG}
+    container_name: unilu-pruefungsabfrage
+    hostname: unilu-pruefungsabfrage
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./${SEC_LOCATION}/httpd.keystore.p12
+        target: /${SEC_LOCATION}/httpd.keystore.p12
+        read_only: true
+
+  shibboleth-service-provider:
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG}
+    container_name: unilu-pruefungsabfrage-shibboleth-sp
+    hostname: shibboleth-sp
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./${SEC_LOCATION}/httpd.crt.pem
+        target: /etc/pki/tls/certs/httpd.crt.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION}/httpd.key.pem
+        target: /etc/pki/tls/private/httpd.key.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION}/sp.crt.pem
+        target: /etc/shibboleth/sp.crt.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION}/sp.key.pem
+        target: /etc/shibboleth/sp.key.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION}/SWITCHaaiRootCA.crt.pem
+        target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
+        read_only: true
