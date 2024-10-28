@@ -3,7 +3,7 @@ server:
   port: 8443
   ssl:
     key-store-type: ${KS_TYPE:PKCS12}
-    key-store: shibboleth/${SEC_LOCATION:secrets/prod}/httpd.keystore.p12
+    key-store: ${SEC_LOCATION:secrets/prod}/httpd.keystore.p12
     key-store-password: ${KS_PW}
     key-alias: ${KEY_ALIAS:unilu-eft}
     client-auth: want
