@@ -14,7 +14,7 @@ server:
 
 # for test client only
 client.ssl:
-  trust-store: /shibboleth/secrets/test/httpd.test.keystore.p12
+  trust-store: shibboleth/secrets/test/httpd.test.keystore.p12
   trust-store-password: uni-lu-eft-test-2024
 
 logging.level:
