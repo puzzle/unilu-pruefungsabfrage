@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+NODE_ENV="$1"
+if [[ -z $NODE_ENV ]]; then
+  NODE_ENV="test"
+  echo "No environment provided, default is $NODE_ENV"
+fi
+
+echo "Creating SP certificate for node environment $NODE_ENV..."
+
+echo "STOP: we currently use generated certificate provided by Uni Luzern!"
+echo "Add or replace secrets/sp.crt.pem and secrets/sp.key.pem with provided information!"
+echo "see README.md for location of the required files"
+
+# exit instead of re-create certificate
+exit 1
+
+# create new certificate
+mkdir -p secrets
+openssl req -new -x509 -config resources/$NODE_ENV/sp.crt.conf -out secrets/sp.crt.pem -days 3700
+mv resources/$NODE_ENV/sp.key.pem ./secrets

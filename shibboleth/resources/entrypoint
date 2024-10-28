@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+/usr/sbin/shibd
+/usr/sbin/httpd -D FOREGROUND

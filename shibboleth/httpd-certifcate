@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+NODE_ENV="$1"
+if [[ -z $NODE_ENV ]]; then
+  NODE_ENV="test"
+  echo "No environment provided, default is $NODE_ENV"
+fi
+
+read -r -p "Are you sure you want to generate new certificates instead of using the ones linked in the README.md? [y/N] " response
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+  echo "Creating httpd certificate for node environment $NODE_ENV"
+  mkdir -p secrets
+  openssl req -newkey rsa:2048 -nodes -x509 -days 3700 -config resources/$NODE_ENV/httpd.crt.conf -out ./secrets/httpd.crt.pem
+  mv resources/$NODE_ENV/httpd.key.pem ./secrets
+else
+    echo "Got it, exiting without doing anything"
+fi
