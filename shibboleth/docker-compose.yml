@@ -1,6 +1,3 @@
-include:
-  - sp-docker-compose.yml
-
 services:
   eft-application:
     image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG:-latest}
@@ -11,4 +8,31 @@ services:
       - type: bind
         source: ./${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
         target: /${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
+        read_only: true
+
+  shibboleth-service-provider:
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG:-latest}
+    container_name: unilu-pruefungsabfrage-shibboleth-sp
+    hostname: shibboleth-sp
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./${SEC_LOCATION:-secrets/prod}/httpd.crt.pem
+        target: /etc/pki/tls/certs/httpd.crt.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION:-secrets/prod}/httpd.key.pem
+        target: /etc/pki/tls/private/httpd.key.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION:-secrets/prod}/sp.crt.pem
+        target: /etc/shibboleth/sp.crt.pem
+        read_only: true
+      - type: bind
+        source: ./${SEC_LOCATION:-secrets/prod}/sp.key.pem
+        target: /etc/shibboleth/sp.key.pem
+        read_only: true
+      - type: bind
+        source: ./secrets/SWITCHaaiRootCA.crt.pem
+        target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
         read_only: true
