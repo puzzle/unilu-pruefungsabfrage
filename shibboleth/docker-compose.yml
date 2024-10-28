@@ -15,6 +15,8 @@ services:
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: shibboleth-sp
     network_mode: host
+    environment:
+      LOG_LEVEL: warn
     volumes:
       - type: bind
         source: ./${SEC_LOCATION:-secrets/prod}/httpd.crt.pem
