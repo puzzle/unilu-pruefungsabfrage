@@ -1,3 +1,6 @@
+include:
+  - ./shibboleth/sp-docker-compose.yml
+
 services:
   spring:
     container_name: spring
