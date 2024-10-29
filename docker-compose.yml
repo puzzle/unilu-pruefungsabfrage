@@ -27,7 +27,6 @@ services:
       dockerfile: Dockerfile
       args:
         - NODE_ENV=test
-    image: shibboleth-sp
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: shibboleth-sp
     network_mode: host

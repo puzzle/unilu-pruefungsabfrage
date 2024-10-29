@@ -2,10 +2,10 @@ server:
   address: edview.unilu.ch
   port: 8443
   ssl:
-    key-store-type: ${KS_TYPE:PKCS12}
-    key-store: ${SEC_LOCATION:secrets/prod}/httpd.keystore.p12
+    key-store-type: ${KS_TYPE}
+    key-store: /${SEC_LOCATION}/httpd.keystore.p12
     key-store-password: ${KS_PW}
-    key-alias: ${KEY_ALIAS:unilu-eft}
+    key-alias: ${KEY_ALIAS}
     client-auth: want
   ajp:
     protocol: https
