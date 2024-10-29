@@ -1,4 +1,0 @@
-place to add certificate files
-- certificate: httpd.crt.pem
-- key file: httpd.key.pem
-- trust store: httpd.test.keystore.p12
