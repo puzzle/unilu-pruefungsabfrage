@@ -28,7 +28,7 @@ services:
       args:
         - NODE_ENV=test
     container_name: unilu-pruefungsabfrage-shibboleth-sp
-    hostname: shibboleth-sp
+    hostname: unilu-pruefungsabfrage-shibboleth-sp
     network_mode: host
     environment:
       LOG_LEVEL: warn

@@ -22,7 +22,7 @@ services:
   shibboleth-service-provider:
     image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG:-latest}
     container_name: unilu-pruefungsabfrage-shibboleth-sp
-    hostname: shibboleth-sp
+    hostname: unilu-pruefungsabfrage-shibboleth-sp
     network_mode: host
     environment:
       LOG_LEVEL: warn
