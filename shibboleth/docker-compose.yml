@@ -14,6 +14,10 @@ services:
         source: ./${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
         target: /${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
         read_only: true
+      - type: bind
+        source: ${RESOURCE_LOCATION}
+        target: /resources
+        read_only: true
 
   shibboleth-service-provider:
     image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG:-latest}
