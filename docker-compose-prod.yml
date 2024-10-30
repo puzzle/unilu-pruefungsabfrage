@@ -8,10 +8,9 @@ services:
       KS_PW: ${KS_PW}
       KS_TYPE: ${KS_TYPE:-PKCS12}
       KEY_ALIAS: ${KEY_ALIAS:-unilu-eft}
-      SEC_LOCATION: ${SEC_LOCATION:-secrets/prod}
     volumes:
       - type: bind
-        source: ./${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/httpd.keystore.p12
         target: /secrets/httpd.keystore.p12
         read_only: true
       - type: bind
@@ -28,22 +27,22 @@ services:
       LOG_LEVEL: warn
     volumes:
       - type: bind
-        source: ./${SEC_LOCATION:-secrets/prod}/httpd.crt.pem
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/httpd.crt.pem
         target: /etc/pki/tls/certs/httpd.crt.pem
         read_only: true
       - type: bind
-        source: ./${SEC_LOCATION:-secrets/prod}/httpd.key.pem
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/httpd.key.pem
         target: /etc/pki/tls/private/httpd.key.pem
         read_only: true
       - type: bind
-        source: ./${SEC_LOCATION:-secrets/prod}/sp.crt.pem
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/sp.crt.pem
         target: /etc/shibboleth/sp.crt.pem
         read_only: true
       - type: bind
-        source: ./${SEC_LOCATION:-secrets/prod}/sp.key.pem
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/sp.key.pem
         target: /etc/shibboleth/sp.key.pem
         read_only: true
       - type: bind
-        source: ./secrets/SWITCHaaiRootCA.crt.pem
+        source: ./shibboleth/secrets/SWITCHaaiRootCA.crt.pem
         target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
         read_only: true

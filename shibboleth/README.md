@@ -24,14 +24,14 @@ be generated.
    password in the application-test.yml.
 5. Add aliases for `edview.unilu.ch` and `edview-test.unilu.ch` to your [host file](https://linuxhandbook.com/etc-hosts-file/).
 
-There are two docker compose files to run the application. The one in the root dir is the dev config which uses the secrets in `/shibboleth/secrets/test`.
-This config rebuilds the service provider image every time and the application is started with a maven command within the container.
+There are two docker compose files to run the application. The `docker-compose.yml` file is the dev config which uses the secrets
+in `/shibboleth/secrets/test`. This config rebuilds the service provider image every time and the application is started with a maven command within the container.
 
 To run this config, run the following command in the root directory of the project:
 
 `docker compose up --build --force-recreate`
 
-The second compose file is used for the prod environment. It fetches the docker images for the application and the service provider
+The `docker-compose-prod.yml` file is used for the prod environment. It fetches the docker images for the application and the service provider
 with the provided tag from the GitHub image registry and runs them with the secrets in `/shibboleth/secrets/prod`
 
 The following env variables are available for the prod config:
@@ -45,9 +45,9 @@ The following env variables are available for the prod config:
 | KEY_ALIAS         | Sets the alias that identifies the key in the keystore                                                    | unilu-eft     | No        |
 | SEC_LOCATION      | The location where certificates, keys and keystore are stored. Value relative to prod docker compose file | secrets/prod  | No        |
 
-To run this config, go into the `/shibboleth` directory and run:
+To run this config execute the following command:
 
-`RESOURCE_LOCATION=<resource-path> KS_PW=<keystore-password> TAG=<image-tag> docker compose up --build --force-recreate`
+`RESOURCE_LOCATION=<resource-path> KS_PW=<keystore-password> TAG=<image-tag> docker compose -f docker-compose-prod.yml up --build --force-recreate`
 
 When you start a session within the docker image you can find the metadata file from `AAI Test` or `SWITCH AAI` under
 `/var/cache/shibboleth/` which will be refreshed every hour.
@@ -78,13 +78,14 @@ the following commands for test or prod environment:
 
 ## Commands
 
-| Command                                                                                                         | Parameter                                                                             | Description                                            |                                        
-|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------|
-| docker compose up --build --force-recreate                                                                      | See [this](#create--run-docker-image-locally) section for configuration with env-vars | Start the docker containers                            |
-| httpd-certificate                                                                                               | [test \| prod] (default: test)                                                        | Create the Apache HTTP/S server certificate            |
-| sp-certificate                                                                                                  | [test \| prod] (default: test)                                                        | Create the Shibboleth Service Provider certificate     |
-| openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12           | -                                                                                     | Generate the prod keystore with the httpd cert and key |
-| openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft-test -out httpd.test.keystore.p12 | -                                                                                     | Generate the test keystore with the httpd cert and key |
+| Command                                                                                                                                           | Parameter                                                                                     | Description                                            |                                        
+|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| docker compose up --build --force-recreate                                                                                                        | -                                                                                             | Start the dev environment                              |
+| RESOURCE_LOCATION=<resource-path> KS_PW=<keystore-password> TAG=<image-tag> docker compose -f docker-compose-prod.yml up --build --force-recreate | See [this](#create--run-docker-image-locally) section for further configuration with env-vars | Start the prod environment                             |
+| httpd-certificate                                                                                                                                 | [test \| prod] (default: test)                                                                | Create the Apache HTTP/S server certificate            |
+| sp-certificate                                                                                                                                    | [test \| prod] (default: test)                                                                | Create the Shibboleth Service Provider certificate     |
+| openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12                                             | -                                                                                             | Generate the prod keystore with the httpd cert and key |
+| openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft-test -out httpd.test.keystore.p12                                   | -                                                                                             | Generate the test keystore with the httpd cert and key |
 
 ## Mandatory Files
 The following files are mandatory and need to be supplied via the volume mounts specified in the `docker-compose.yml` file.
