@@ -12,7 +12,7 @@ services:
     volumes:
       - type: bind
         source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/${KS_NAME:-httpd.keystore.p12}
-        target: /secrets/httpd.keystore.p12
+        target: /secrets/${KS_NAME:-httpd.keystore.p12}
         read_only: true
       - type: bind
         source: ${RESOURCE_LOCATION}
