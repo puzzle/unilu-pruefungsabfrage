@@ -3,7 +3,7 @@ services:
     container_name: spring
     tty: true
     image: maven:3.9.9-amazoncorretto-21
-    command: mvn -Dspring.profiles.active=dev spring-boot:run
+    command: mvn -Dspring-boot.run.profiles=${SB_PROFILE:-dev} spring-boot:run
     working_dir: /app-root/
     network_mode: host
     environment:
@@ -13,7 +13,7 @@ services:
       SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:src/main/resources/static/
       SPRING_WEB_RESOURCES_CACHE_PERIOD: 0
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      test: [ "CMD", "sh", "-c", "echo > /dev/tcp/localhost/8448" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -67,7 +67,8 @@ services:
     container_name: zap
     tty: true
     image: ghcr.io/zaproxy/zaproxy:stable
-    command: zap-baseline.py -t http://spring:8080 -c "rule-config.tsv" -r zap-report.html -z "-configfile /zap/wrk/options.conf"
+    network_mode: host
+    command: zap-baseline.py -t http://localhost:8080 -c "rule-config.tsv" -r zap-report.html -z "-configfile /zap/wrk/options.conf"
     working_dir: /zap
     profiles:
       - zap

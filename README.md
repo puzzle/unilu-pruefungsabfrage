@@ -26,7 +26,7 @@ resources directory.
 
 ## Security headers
 To test the security headers of the application, you can use the following command:
-`docker compose --profile zap up -d `
+`SB_PROFILE=test docker compose --profile zap up -d --build --force-recreate`
 
 This will create the report (`zap-report.html`) in `/zap` which you can open in your browser to see the
 scan results. The scan results contain all found alerts and a more detailed insight on every single one with a description

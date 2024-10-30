@@ -27,6 +27,12 @@ be generated.
 There are two docker compose files to run the application. The `docker-compose.yml` file is the dev config which uses the secrets
 in `/shibboleth/secrets/test`. This config rebuilds the service provider image every time and the application is started with a maven command within the container.
 
+The following env variables are available for the dev config:
+
+| Variable          | Description                               | Default value | Mandatory |
+|-------------------|-------------------------------------------|---------------|-----------|
+| SB_PROFILE        | The Spring Boot profile that will be used | dev           | No        |
+
 To run this config, run the following command in the root directory of the project:
 
 `docker compose up --build --force-recreate`
