@@ -1,6 +1,6 @@
 services:
   eft-application:
-    image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG:-latest}
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG}
     container_name: unilu-pruefungsabfrage
     hostname: unilu-pruefungsabfrage
     network_mode: host
@@ -12,7 +12,7 @@ services:
     volumes:
       - type: bind
         source: ./${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
-        target: /${SEC_LOCATION:-secrets/prod}/httpd.keystore.p12
+        target: /secrets/httpd.keystore.p12
         read_only: true
       - type: bind
         source: ${RESOURCE_LOCATION}
@@ -20,7 +20,7 @@ services:
         read_only: true
 
   shibboleth-service-provider:
-    image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG:-latest}
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG}
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: unilu-pruefungsabfrage-shibboleth-sp
     network_mode: host

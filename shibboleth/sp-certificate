@@ -9,8 +9,8 @@ fi
 echo "Creating SP certificate for node environment $NODE_ENV..."
 
 echo "STOP: we currently use generated certificate provided by Uni Luzern!"
-echo "Add or replace secrets/sp.crt.pem and secrets/sp.key.pem with provided information!"
-echo "see README.md for location of the required files"
+echo "Place provided files in the secrets location"
+echo "See README.md for location of the required files"
 
 # exit instead of re-create certificate
 exit 1

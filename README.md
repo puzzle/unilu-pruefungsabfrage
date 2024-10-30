@@ -1,10 +1,10 @@
 # Uni Luzern Prüfungsabfrage / Exam Feedback Tool (EFT)
 ## Docker
-### Build Image
-`docker build . -t unilu-pruefungsabfrage`
+To run the dev configuration of the application you also need to run the shibboleth service provider.
+It is possible to build the docker image with the following command but for development you should use the docker-compose setup,
+otherwise you will not be able to access the application. For detailed instructions on how to do this see [this separate README](./shibboleth/README.md).
 
-### Run Image
-`docker run --rm  -v ./static:/resources -p 8080:8080 unilu-pruefungsabfrage:latest`
+`docker build . -t unilu-pruefungsabfrage`
 
 ## Development
 ### Hot reload
@@ -68,9 +68,6 @@ To create a clean release you should follow the following steps:
 4. When you are ready to release execute the `create-release.sh` script in the root directory of the project.
 This will create the correct release tag to create a release from your locally checked out commit. After confirming the
 creation of the tag it will be pushed to Github and the release-workflow starts.
-
-### SWITCHaai Login 
-To test the integration with the [SWITCHaai login](https://help.switch.ch/aai/), see [this separate README](./shibboleth/README.md). 
 
 ### Development with rootless docker setup
 > Attention: The steps below are for Ubuntu or an Ubuntu based distribution like Pop!_OS. For more
