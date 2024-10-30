@@ -107,21 +107,18 @@ jobs:
       - name: Generate SBOM for maven dependencies
         run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
 
-      - name: Generate SBOM for application Docker image
-        uses: anchore/sbom-action@v0
+      - name: Setup Node for cdxgen
+        uses: actions/setup-node@v4
         with:
-          image: ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.imageVersion }}
-          output-file: application-sbom.xml
-          format: cyclonedx
-          upload-artifact: false
+          node-version: 22
 
-      - name: Generate SBOM for Shibboleth SP Docker image
-        uses: anchore/sbom-action@v0
-        with:
-          image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.imageVersion }}
-          output-file: shibboleth-sp-sbom.xml
-          format: cyclonedx
-          upload-artifact: false
+      - name: Install cdxgen
+        run: npm install -g @appthreat/cdxgen
+
+      - name: Generate SBOMs for Docker images
+        run: |
+          cdxgen ghcr.io/puzzle/unilu-pruefungsabfrage:${{ needs.create-release.outputs.imageVersion }} -o application-sbom.json --spec-version 1.4
+          cdxgen ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${{ needs.create-release.outputs.imageVersion }} -o shibboleth-sp-sbom.json --spec-version 1.4
 
       - name: Install cyclonedx-cli
         uses: supplypike/setup-bin@v4
@@ -130,8 +127,13 @@ jobs:
           name: 'cyclonedx-cli'
           version: '0.27.1'
 
+      - name: Convert image SBOMs to v1.4
+        run: |
+          cyclonedx-cli convert --input-file shibboleth-sp-sbom.json --output-file shibboleth-sp-sbom_v1_4.xml --output-version v1_4
+          cyclonedx-cli convert --input-file application-sbom.json --output-file application-sbom_v1_4.xml --output-version v1_4
+
       - name: Merge SBOMs
-        run: cyclonedx-cli merge --input-files application-sbom.xml shibboleth-sp-sbom.xml target/bom.xml --output-file sbom.xml
+        run: cyclonedx-cli merge --input-files application-sbom_v1_4.xml shibboleth-sp-sbom_v1_4.xml target/bom.xml --output-file sbom.xml
 
       - name: Get semver version from pom and store major and minor version as deptrack version
         run: echo "DEPTRACK_PROJECT_VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=project.version -q -DforceStdout | cut -d '-' -f 1 | cut -d '.' -f 1-2).x" >> $GITHUB_ENV
