@@ -22,6 +22,8 @@ be generated.
    and remember it, as you will need it to run the application.
    - Test: `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft-test -out httpd.test.keystore.p12`. Here you need to use the
    password in the application-test.yml.
+   Attention: If you are running rootless docker you have to adjust the file permission of the keystore so others can read it. Else the file
+   mount won't work. For example: `chmod 604 httpd.keystore.p12`.
 5. Add aliases for `edview.unilu.ch` and `edview-test.unilu.ch` to your [host file](https://linuxhandbook.com/etc-hosts-file/).
 
 There are two docker compose files to run the application. The `docker-compose.yml` file is the dev config which uses the secrets
