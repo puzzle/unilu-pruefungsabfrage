@@ -36,14 +36,15 @@ with the provided tag from the GitHub image registry and runs them with the secr
 
 The following env variables are available for the prod config:
 
-| Variable          | Description                                                                                               | Default value | Mandatory |
-|-------------------|-----------------------------------------------------------------------------------------------------------|---------------|-----------|
-| TAG               | The tag of the application and service provider image that should be used                                 | -             | Yes       |
-| RESOURCE_LOCATION | Path to the directory containing the subject directories with the exams in them                           | -             | Yes       |
-| KS_PW             | The password which was while generating the keystore                                                      | -             | Yes       |
-| KS_TYPE           | Tells the application what type of keystore is used                                                       | PKCS12        | No        |
-| KEY_ALIAS         | Sets the alias that identifies the key in the keystore                                                    | unilu-eft     | No        |
-| SEC_LOCATION      | The location where certificates, keys and keystore are stored. Value relative to prod docker compose file | secrets/prod  | No        |
+| Variable          | Description                                                                                               | Default value      | Mandatory |
+|-------------------|-----------------------------------------------------------------------------------------------------------|--------------------|-----------|
+| TAG               | The tag of the application and service provider image that should be used                                 | -                  | Yes       |
+| RESOURCE_LOCATION | Path to the directory containing the subject directories with the exams in them                           | -                  | Yes       |
+| KS_PW             | The password which was while generating the keystore                                                      | -                  | Yes       |
+| KS_TYPE           | Tells the application what type of keystore is used                                                       | PKCS12             | No        |
+| KS_NAME           | The full name including file extension of the keystore                                                    | httpd.keystore.p12 | No        |
+| KEY_ALIAS         | Sets the alias that identifies the key in the keystore                                                    | unilu-eft          | No        |
+| SEC_LOCATION      | The location where certificates, keys and keystore are stored. Value relative to prod docker compose file | secrets/prod       | No        |
 
 To run this config execute the following command:
 

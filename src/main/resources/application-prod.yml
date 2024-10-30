@@ -3,7 +3,7 @@ server:
   port: 8443
   ssl:
     key-store-type: ${KS_TYPE}
-    key-store: /secrets/httpd.keystore.p12
+    key-store: /secrets/${KS_NAME}
     key-store-password: ${KS_PW}
     key-alias: ${KEY_ALIAS}
     client-auth: want

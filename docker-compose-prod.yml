@@ -8,9 +8,10 @@ services:
       KS_PW: ${KS_PW}
       KS_TYPE: ${KS_TYPE:-PKCS12}
       KEY_ALIAS: ${KEY_ALIAS:-unilu-eft}
+      KS_NAME: ${KS_NAME:-httpd.keystore.p12}
     volumes:
       - type: bind
-        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/httpd.keystore.p12
+        source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/${KS_NAME:-httpd.keystore.p12}
         target: /secrets/httpd.keystore.p12
         read_only: true
       - type: bind
