@@ -8,21 +8,21 @@ running in a Spring Boot environment. And finally, Spring Boot uses a Tomcat Ser
 ## Create & Run Docker Image Locally
 Preparation:
 
-Provided certificates can be downloaded [here](https://files.puzzle.ch/apps/files/files/7229088?dir=/Styles%20Uni%20Luzern/Certificates). For instructions where to place files or how to generate them read
+Provided certificates can be downloaded [here](https://cryptopus.puzzle.ch/teams/811). For instructions where to place files or how to generate them read
 the [Generate New Certificates](#generate-new-certificates) section.
 
-1. Copy the provided httpd certificate and key to the test or prod dir or generate them. For local development it's easiest to
+1. Copy the provided httpd certificate and key to the  `/shibboleth/secrets/test`  or `/shibboleth/secrets/prod` directory or generate them. For local development it's easiest to
 use self signed certificates.
-2. Copy the provided sp certificate and key to the test or prod dir. It is also possible to generate them but we currently
+2. Copy the provided sp certificate and key to the  `/shibboleth/secrets/test`  or `/shibboleth/secrets/prod` directory. It is also possible to generate them but we currently
 need to use the provided ones.
-3. Download the `SWITCHaaiRootCA.crt.pem` and place it in the `/secrets` dir (not in the prod or test dir!). This file cannot
+3. Download the `SWITCHaaiRootCA.crt.pem` and place it into the `/secrets` dir (not in the `prod`  or `test` dir!). This file cannot
 be generated.
-4. Generate the keystore for the httpd certificate and key by going into the test or prod dir and then using the correct command:
+4. Generate the keystore for the httpd certificate and key by going into the `/shibboleth/secrets/test`  or `/shibboleth/secrets/prod` directory and then using the correct command:
    - Prod: `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft -out httpd.keystore.p12`. Choose a good password
    and remember it, as you will need it to run the application.
    - Test: `openssl pkcs12 -export -in httpd.crt.pem -inkey httpd.key.pem -name unilu-eft-test -out httpd.test.keystore.p12`. Here you need to use the
    password in the application-test.yml.
-   Attention: If you are running rootless docker you have to adjust the file permission of the keystore so others can read it. Else the file
+   **Attention**: If you are running rootless docker you have to adjust the file permission of the keystore so others can read it. Else the file
    mount won't work. For example: `chmod 604 httpd.keystore.p12`.
 5. Add aliases for `edview.unilu.ch` and `edview-test.unilu.ch` to your [host file](https://linuxhandbook.com/etc-hosts-file/).
 
@@ -52,7 +52,7 @@ The following env variables are available for the prod config:
 | KS_TYPE           | Tells the application what type of keystore is used                                                       | PKCS12                  | No        |
 | KS_NAME           | The full name including file extension of the keystore                                                    | httpd.keystore.p12      | No        |
 | KEY_ALIAS         | Sets the alias that identifies the key in the keystore                                                    | unilu-eft               | No        |
-| SEC_LOCATION      | The location where certificates, keys and keystore are stored. Value relative to prod docker compose file | shibboleth/secrets/prod | No        |
+| SEC_LOCATION      | The location where certificates, keys and keystore are stored. Is relative to the docker compose file | shibboleth/secrets/prod | No        |
 
 To run this config execute the following command:
 
@@ -72,10 +72,10 @@ The following steps can be done for `test` and / or `prod` environment. The comm
 `prod`, which will generate the certificates in `/shibboleth/secrets/test` or `/shibboleth/secrets/prod` accordingly.
 The default environment is `test`.
 
-1. Create the host certificate for Apache HTTP/S server using the command `httpd-certificate`. The configuration is
+1. Create the host certificate for Apache HTTP/S server using the command `./httpd-certificate`. The configuration is
    defined in `httpd.crt.conf`. The result is the public certificate `httpd.crt` and its private key file
    `httpd.key.pem`.
-2. Create the Shibboleth Service Provider certificate using the command `sp-certificate`. The configuration is defined
+2. Create the Shibboleth Service Provider certificate using the command `./sp-certificate`. The configuration is defined
    in `sp.crt.conf`. The result is the public certificate `sp.crt.pem` and its private key file `sp.key.pem`. Attention:
 we currently use the provided certificates for the sp.
 
