@@ -27,7 +27,7 @@ be generated.
 5. Add aliases for `edview.unilu.ch` and `edview-test.unilu.ch` to your [host file](https://linuxhandbook.com/etc-hosts-file/).
 
 There are two docker compose files to run the application. The `docker-compose.yml` file is the dev config which uses the secrets
-in `/shibboleth/secrets/test`. This config rebuilds the service provider image every time and the application is started with a maven command within the container.
+in `/shibboleth/secrets/test`. This config rebuilds the service provider image every time and the application is started with a Maven command within the container.
 
 The following env variables are available for the dev config:
 
