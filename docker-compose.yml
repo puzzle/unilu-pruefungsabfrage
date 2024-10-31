@@ -3,11 +3,9 @@ services:
     container_name: spring
     tty: true
     image: maven:3.9.9-amazoncorretto-21
-    command: mvn spring-boot:run
+    command: mvn -Dspring-boot.run.profiles=${SB_PROFILE:-dev} spring-boot:run
     working_dir: /app-root/
-    ports:
-      - "8080:8080"
-      - "5005:5005"
+    network_mode: host
     environment:
       RESOURCE_DIR: ./static
       SPRING_THYMELEAF_PREFIX: file:src/main/resources/templates/
@@ -15,13 +13,46 @@ services:
       SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:src/main/resources/static/
       SPRING_WEB_RESOURCES_CACHE_PERIOD: 0
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
+      test: [ "CMD", "sh", "-c", "echo > /dev/tcp/localhost/8448" ]
       interval: 5s
       timeout: 5s
       retries: 5
     volumes:
       - ./:/app-root/
       - ~/.m2/repository:/root/.m2/repository
+
+  shibboleth-service-provider:
+    build:
+      context: ./shibboleth
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=test
+    container_name: unilu-pruefungsabfrage-shibboleth-sp
+    hostname: unilu-pruefungsabfrage-shibboleth-sp
+    network_mode: host
+    environment:
+      LOG_LEVEL: warn
+    volumes:
+      - type: bind
+        source: ./shibboleth/secrets/test/httpd.crt.pem
+        target: /etc/pki/tls/certs/httpd.crt.pem
+        read_only: true
+      - type: bind
+        source: ./shibboleth/secrets/test/httpd.key.pem
+        target: /etc/pki/tls/private/httpd.key.pem
+        read_only: true
+      - type: bind
+        source: ./shibboleth/secrets/test/sp.crt.pem
+        target: /etc/shibboleth/sp.crt.pem
+        read_only: true
+      - type: bind
+        source: ./shibboleth/secrets/test/sp.key.pem
+        target: /etc/shibboleth/sp.key.pem
+        read_only: true
+      - type: bind
+        source: ./shibboleth/secrets/SWITCHaaiRootCA.crt.pem
+        target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
+        read_only: true
 
   maven:
     container_name: maven
@@ -36,7 +67,8 @@ services:
     container_name: zap
     tty: true
     image: ghcr.io/zaproxy/zaproxy:stable
-    command: zap-baseline.py -t http://spring:8080 -c "rule-config.tsv" -r zap-report.html -z "-configfile /zap/wrk/options.conf"
+    network_mode: host
+    command: zap-baseline.py -t http://localhost:8080 -c "rule-config.tsv" -r zap-report.html -z "-configfile /zap/wrk/options.conf"
     working_dir: /zap
     profiles:
       - zap

@@ -3,7 +3,7 @@ server:
   port: 8443
   ssl:
     key-store-type: PKCS12
-    key-store: classpath:certs/test/httpd.test.keystore.p12
+    key-store: shibboleth/secrets/test/httpd.test.keystore.p12
     key-store-password: uni-lu-eft-test-2024
     key-alias: unilu-eft-test
     client-auth: want
@@ -14,7 +14,7 @@ server:
 
 # for test client only
 client.ssl:
-  trust-store: classpath:certs/test/httpd.test.keystore.p12
+  trust-store: shibboleth/secrets/test/httpd.test.keystore.p12
   trust-store-password: uni-lu-eft-test-2024
 
 logging.level:
