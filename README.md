@@ -135,7 +135,7 @@ If possible give your rootless Docker the permission to bind privileged ports.
 sudo setcap cap_net_bind_service=ep /usr/bin/rootlesskit
 ```
 
-Alternatively, if you cannot use `setcap` you can set a firewall rule.
+Alternatively, if you cannot use `setcap`, you can set a firewall rule.
 Add the following rule to your iptables:
 ```shell
 sudo iptables -t nat -A OUTPUT -o lo -p tcp --dport 443 -j REDIRECT --to-port=4443
