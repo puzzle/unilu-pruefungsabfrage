@@ -1,5 +1,7 @@
 package ch.puzzle.eft.config;
 
+import java.net.InetSocketAddress;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.ajp.AbstractAjpProtocol;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +43,7 @@ public class AppServerConfig {
         protocol.setTomcatAuthentication(false);
         protocol.setAllowedRequestAttributesPattern(".{1,}"); // should be "AJP_"
         protocol.setPacketSize(ajpPacketSize);
+        protocol.setAddress(new InetSocketAddress(0).getAddress());
 
         return connector;
     }

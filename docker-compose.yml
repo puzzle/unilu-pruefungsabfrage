@@ -5,7 +5,13 @@ services:
     image: maven:3.9.9-amazoncorretto-21
     command: mvn -Dspring-boot.run.profiles=${SB_PROFILE:-dev} spring-boot:run
     working_dir: /app-root/
-    network_mode: host
+    ports:
+      - "8448:8448"
+      - "8443:8443"
+    networks:
+      eft_network:
+        aliases:
+          - edview-test.unilu.ch
     environment:
       RESOURCE_DIR: ./static
       SPRING_THYMELEAF_PREFIX: file:src/main/resources/templates/
@@ -29,7 +35,10 @@ services:
         - NODE_ENV=test
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: unilu-pruefungsabfrage-shibboleth-sp
-    network_mode: host
+    ports:
+      - "443:443"
+    networks:
+      - eft_network
     environment:
       LOG_LEVEL: warn
     volumes:
@@ -62,6 +71,8 @@ services:
     volumes:
       - ./:/app-root/
       - ~/.m2/repository:/root/.m2/repository
+    networks:
+      eft_network:
 
   zap:
     container_name: zap
@@ -77,3 +88,7 @@ services:
         condition: service_healthy
     volumes:
       - ./zap:/zap/wrk/:rw
+
+networks:
+  eft_network:
+    driver: bridge
