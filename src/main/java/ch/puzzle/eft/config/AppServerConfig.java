@@ -43,7 +43,7 @@ public class AppServerConfig {
         protocol.setTomcatAuthentication(false);
         protocol.setAllowedRequestAttributesPattern(".{1,}"); // should be "AJP_"
         protocol.setPacketSize(ajpPacketSize);
-        protocol.setAddress(new InetSocketAddress(0).getAddress());
+        protocol.setAddress(new InetSocketAddress(0).getAddress()); // necessary because without it AJP won't work over Docker bridge networks
 
         return connector;
     }
