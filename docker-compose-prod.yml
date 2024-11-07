@@ -9,7 +9,7 @@ services:
       - "8448:8448"
       - "8443:8443"
     networks:
-      app_network:
+      eft_network:
         aliases:
           - edview.unilu.ch
 
@@ -39,7 +39,7 @@ services:
     ports:
       - "443:443"
     networks:
-      - app_network
+      - eft_network
 
     environment:
       LOG_LEVEL: warn
@@ -65,5 +65,5 @@ services:
         target: /etc/shibboleth/SWITCHaaiRootCA.crt.pem
         read_only: true
 networks:
-  app_network:
+  eft_network:
     driver: bridge
