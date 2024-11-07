@@ -1,8 +1,6 @@
 services:
   eft-application:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage:${TAG}
     container_name: unilu-pruefungsabfrage
     hostname: unilu-pruefungsabfrage
     ports:
@@ -29,11 +27,7 @@ services:
         read_only: true
 
   shibboleth-service-provider:
-    build:
-      context: ./shibboleth
-      dockerfile: Dockerfile
-      args:
-        - NODE_ENV=prod
+    image: ghcr.io/puzzle/unilu-pruefungsabfrage-shibboleth-sp:${TAG}
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: unilu-pruefungsabfrage-shibboleth-sp
     ports:
