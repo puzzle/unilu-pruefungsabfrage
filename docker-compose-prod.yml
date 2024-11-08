@@ -16,6 +16,7 @@ services:
       KS_TYPE: ${KS_TYPE:-PKCS12}
       KEY_ALIAS: ${KEY_ALIAS:-unilu-eft}
       KS_NAME: ${KS_NAME:-httpd.keystore.p12}
+      SB_PROFILE: prod
     volumes:
       - type: bind
         source: ./${SEC_LOCATION:-shibboleth/secrets/prod}/${KS_NAME:-httpd.keystore.p12}
