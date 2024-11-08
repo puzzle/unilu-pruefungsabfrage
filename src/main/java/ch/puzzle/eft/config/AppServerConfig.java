@@ -55,10 +55,10 @@ public class AppServerConfig {
     // https://stackoverflow.com/questions/61524263/ajp-in-containerised-spring-boot-app-doesnt-work
     private InetAddress getLocalhost() {
         try {
-            InetAddress localhost = (System.getenv("SB_PROFILE")
-                                           .equals("prod"))
-                                                   ? InetAddress.getLocalHost()
-                                                   : InetAddress.getLoopbackAddress();
+            InetAddress localhost = ((System.getenv()
+                                            .getOrDefault("SB_PROFILE", "test")).equals("prod"))
+                                                    ? InetAddress.getLocalHost()
+                                                    : InetAddress.getLoopbackAddress();
             logger.debug("Setting address for AJP protocol to '{}'", localhost);
             return localhost;
         } catch (UnknownHostException e) {
