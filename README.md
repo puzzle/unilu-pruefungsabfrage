@@ -127,6 +127,27 @@ To use the installation script, simply run the following command as a non-root u
 
 `curl -fsSL https://get.docker.com/rootless | sh`
 
+#### Prepare Environment
+Rootless Docker cannot access privileged ports, usually those below 1024. This is a problem because we need our Shibboleth SP to listen on port `443`.
+  
+If possible give your rootless Docker the permission to bind privileged ports.
+```shell
+sudo setcap cap_net_bind_service=ep /usr/bin/rootlesskit
+systemctl --user restart docker
+```
+
+Alternatively, if you cannot use `setcap`, you can set a firewall rule.
+Add the following rule to your iptables:
+```shell
+sudo iptables -t nat -A OUTPUT -o lo -p tcp --dport 443 -j REDIRECT --to-port=4443
+```
+This will redirect requests from port `443` to `4443`. This is also the port you will need to adjust in the `docker-compose` file.
+```yaml
+shibboleth-service-provider:
+  ports:
+    - "4443:443"
+```
+**This rule will not persist after a reboot!** To persist/delete this rule, see [this article](https://www.baeldung.com/linux/iptables-delete-rules).
 #### Usage
 > Attention: Rootless docker can't run systemwide
 

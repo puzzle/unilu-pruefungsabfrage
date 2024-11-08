@@ -12,6 +12,7 @@ services:
       SPRING_THYMELEAF_CACHE: false
       SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:src/main/resources/static/
       SPRING_WEB_RESOURCES_CACHE_PERIOD: 0
+      SB_PROFILE: ${SB_PROFILE:-dev}
     healthcheck:
       test: [ "CMD", "sh", "-c", "echo > /dev/tcp/localhost/8448" ]
       interval: 5s

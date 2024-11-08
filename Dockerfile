@@ -1,4 +1,4 @@
-FROM openjdk:21
+FROM eclipse-temurin:21
 RUN adduser --no-create-home eft-user
 USER eft-user
 COPY target .
