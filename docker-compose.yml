@@ -5,19 +5,14 @@ services:
     image: maven:3.9.9-amazoncorretto-21
     command: mvn -Dspring-boot.run.profiles=${SB_PROFILE:-dev} spring-boot:run
     working_dir: /app-root/
-    ports:
-      - "8448:8448"
-      - "8443:8443"
-    networks:
-      eft_network:
-        aliases:
-          - edview-test.unilu.ch
+    network_mode: host
     environment:
       RESOURCE_DIR: ./static
       SPRING_THYMELEAF_PREFIX: file:src/main/resources/templates/
       SPRING_THYMELEAF_CACHE: false
       SPRING_WEB_RESOURCES_STATIC_LOCATIONS: file:src/main/resources/static/
       SPRING_WEB_RESOURCES_CACHE_PERIOD: 0
+      SB_PROFILE: ${SB_PROFILE:-dev}
     healthcheck:
       test: [ "CMD", "sh", "-c", "echo > /dev/tcp/localhost/8448" ]
       interval: 5s
@@ -35,10 +30,7 @@ services:
         - NODE_ENV=test
     container_name: unilu-pruefungsabfrage-shibboleth-sp
     hostname: unilu-pruefungsabfrage-shibboleth-sp
-    ports:
-      - "443:443"
-    networks:
-      - eft_network
+    network_mode: host
     environment:
       LOG_LEVEL: warn
     volumes:
@@ -71,8 +63,6 @@ services:
     volumes:
       - ./:/app-root/
       - ~/.m2/repository:/root/.m2/repository
-    networks:
-      eft_network:
 
   zap:
     container_name: zap
@@ -88,7 +78,3 @@ services:
         condition: service_healthy
     volumes:
       - ./zap:/zap/wrk/:rw
-
-networks:
-  eft_network:
-    driver: bridge
