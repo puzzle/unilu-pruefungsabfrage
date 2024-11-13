@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ch.puzzle</groupId>
 	<artifactId>exam-feedback-tool</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>exam-feedback-tool</name>
 	<description>Exam Feedback Tool</description>
 	<url/>
