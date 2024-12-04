@@ -82,14 +82,14 @@ jobs:
             tags: ghcr.io/${{ github.repository }}-shibboleth-sp:${{ env.SEMVER_VERSION }}.${{ env.SHORT_COMMIT_HASH }}
 
       - name: Generate artifact attestation for application
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.push-app.outputs.digest }}
           push-to-registry: true
 
       - name: Generate artifact attestation for Shibboleth SP
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2
         with:
           subject-name: ghcr.io/${{ github.repository }}-shibboleth-sp
           subject-digest: ${{ steps.push-shibboleth-sp.outputs.digest }}
