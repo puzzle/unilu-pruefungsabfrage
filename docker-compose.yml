@@ -2,7 +2,7 @@ services:
   spring:
     container_name: spring
     tty: true
-    image: maven:3.9.9-amazoncorretto-21
+    image: maven:3.9.16-amazoncorretto-21
     command: mvn -Dspring-boot.run.profiles=${SB_PROFILE:-dev} spring-boot:run
     working_dir: /app-root/
     network_mode: host
@@ -57,7 +57,7 @@ services:
 
   maven:
     container_name: maven
-    image: maven:3.9.9-amazoncorretto-21
+    image: maven:3.9.16-amazoncorretto-21
     command: mvn fizzed-watcher:run
     working_dir: /app-root/
     volumes:
